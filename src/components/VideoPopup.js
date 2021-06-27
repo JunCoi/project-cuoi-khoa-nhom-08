@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
 import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { closePopup } from '../actions/popupAction';
+import { closePopup } from '../store/actions/popupAction';
 
 function VideoPopup() {
   let videoRef = useRef();

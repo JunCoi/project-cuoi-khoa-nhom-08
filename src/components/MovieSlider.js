@@ -8,7 +8,7 @@ import data from '../sliderData.json';
 import VideoPopup from './VideoPopup';
 import './MovieSlider.css';
 import { useDispatch } from 'react-redux';
-import { openPopup } from '../actions/popupAction';
+import { openPopup } from '../store/actions/popupAction';
 
 const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
