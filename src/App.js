@@ -1,15 +1,17 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import HomePage from './pages/HomePage';
 
 function App() {
   return (
-    <Router>
+    <>
+    <BrowserRouter>
       <Switch>
         <Route exact path="/">
           <HomePage />
         </Route>
       </Switch>
-    </Router>
+    </BrowserRouter>
+    </>
   );
 }
 
