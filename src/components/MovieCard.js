@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import PlayArrowRoundedIcon from '@material-ui/icons/PlayArrowRounded';
-import VideoPopup from './VideoPopup';
-import { PowerInputSharp } from '@material-ui/icons';
-import { openPopup } from '../actions/popupAction';
+
+import { openPopup } from '../store/actions/popupAction';
 import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
