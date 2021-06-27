@@ -12,13 +12,34 @@ const useStyles = makeStyles({
 export default function UpComingMovies() {
   const classes = useStyles();
 
-  var settings = {
+  const settings = {
     infinite: true,
-    speed: 500,
+    speed: 1500,
+    autoplaySpeed: 5000,
     slidesToShow: 4,
     slidesToScroll: 4,
-    autoplay: false,
+    autoplay: true,
     rows: 2,
+    responsive: [
+      {
+        breakpoint: 769,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          autoplay: true,
+          rows: 2,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          autoplay: true,
+          rows: 2,
+        },
+      },
+    ],
   };
 
   return (

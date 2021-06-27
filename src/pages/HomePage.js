@@ -11,7 +11,6 @@ export default function HomePage() {
       <MovieSlider />
       <BookingTool />
       <MoviesList />
-      <div style={{ height: '100px' }}></div>
     </>
   );
 }
