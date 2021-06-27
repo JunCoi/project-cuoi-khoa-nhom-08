@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 const useStyles = makeStyles((theme) => ({
   movieCard: {
     height: 318,
-    backgroundImage: 'url(./images/trang-ti-215x318.jpg)',
+    // backgroundImage: 'url(./images/trang-ti-215x318.jpg)',
     backgroundPosition: 'center',
     backGroundSize: 'contain',
     borderRadius: 4,
@@ -80,7 +80,6 @@ export default function MovieCard(props) {
   // const [popupVideoLink, setPopupVideoLink] = useState('');
   const videoLink = 'https://www.youtube.com/embed/sx1ROHCmY-4';
   const dispatch = useDispatch();
-
   const handleOpen = (link) => {
     const newProps = {
       isOpen: true,
@@ -90,19 +89,19 @@ export default function MovieCard(props) {
     const action = openPopup(newProps);
     dispatch(action);
   };
-
+  console.log(props.movie);
   return (
     <>
-      <div className={classes.movieCard}>
+      <div className={classes.movieCard} style={{backgroundImage: `url(${props.movie.hinhAnh})`}}>
         <div className={classes.buttonWrap}>
           <PlayArrowRoundedIcon
             className={classes.playButton}
-            onClick={() => handleOpen(videoLink)}
+            onClick={() => handleOpen(props.movie.trailer)}
           />
         </div>
-        {props.showRating ? <div className={classes.rating}>8/10</div> : ''}
+        {props.showRating ? <div className={classes.rating}>{props.movie.danhGia}</div> : ''}
       </div>
-      <p className={classes.movieTittle}>Trạng tí</p>
+      <p className={classes.movieTittle}>{props.movie.tenPhim}</p>
       <p className={classes.time}>100 phút</p>
     </>
   );
