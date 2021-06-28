@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,38 +9,25 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Button } from "@material-ui/core";
-=======
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { useDispatch, useSelector } from 'react-redux';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import { Button } from '@material-ui/core';
->>>>>>> ed5a48da31254ff68547aab20db7486540e8458c
+
 import {
   getCinemaClusterAction,
   getCinemaMovieAction,
   getLichChieuAction,
   getMovieAction,
-<<<<<<< HEAD
 } from "../store/actions/cinemaAction";
 import Grid from "@material-ui/core/Grid";
 import format from "date-format";
-=======
-} from '../store/actions/cinemaAction';
-import Grid from '@material-ui/core/Grid';
->>>>>>> ed5a48da31254ff68547aab20db7486540e8458c
+
 
 const useStyles = makeStyles((theme) => ({
   cinemaList: {
     maxWidth: 940,
     margin: 'auto',
     paddingTop: '100px',
+    [theme.breakpoints.down('xs')]: {
+      display: 'none',
+    },
   },
   table: {
     minWidth: 650,
@@ -60,6 +46,10 @@ const useStyles = makeStyles((theme) => ({
     width: '30%',
     padding: 5,
     borderRight: '1px solid rgba(224, 224, 224, 1)',
+  },
+  cumRap: {
+    cursor: 'pointer',
+    fontWeight: 700,
   },
 }));
 
@@ -102,13 +92,11 @@ function Cinema() {
     return cinemaCluster?.map((cluster, index) => {
       return (
         <TableRow key={index}>
-          <TableCell>
-            <Button
-              onClick={() => handleChoiceMovie(cluster.maCumRap)}
-              style={{ padding: 0, textAlign: 'left' }}
-            >
-              <p>{cluster.maCumRap}</p>
-            </Button>
+          <TableCell
+            onClick={() => handleChoiceMovie(cluster.maCumRap)}
+            className={classes.cumRap}
+          >
+            <p>{cluster.maCumRap}</p>
             <p style={{ fontSize: 12, color: 'rgba(0,0,0, .4)' }}>
               {cluster.diaChi}
             </p>
@@ -124,6 +112,7 @@ function Cinema() {
     return state.cinema.movie;
   });
   // console.log(cinemaMovie);
+
   const renderCol3 = () => {
     return cinemaMovie?.danhSachPhim?.map((movie, index) => {
       return (
@@ -149,7 +138,6 @@ function Cinema() {
                 />
               </Grid>
               <Grid item xs={9}>
-                {/* <p>{cinemaMovie.maCumRap}</p> */}
                 <h4>{movie.tenPhim}</h4>
                 <p>{movie.maPhim}</p>
                 <hr />
@@ -212,8 +200,6 @@ function Cinema() {
               <TableCell className={classes.col2}>
                 <div className={classes.fixoverflow}> {renderCol2()}</div>
               </TableCell>
-
-<<<<<<< HEAD
               <TableCell>
                 <TableCell>
                   <div className={classes.fixoverflow}> {renderCol3()}</div>
@@ -221,10 +207,6 @@ function Cinema() {
                 <TableCell>
                   <div className={classes.fixoverflow}> {renderCol4()}</div>
                 </TableCell>
-=======
-              <TableCell className={classes.col3}>
-                <div className={classes.fixoverflow}> {renderCol3()}</div>
->>>>>>> ed5a48da31254ff68547aab20db7486540e8458c
               </TableCell>
             </TableRow>
           </TableBody>

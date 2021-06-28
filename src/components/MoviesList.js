@@ -9,6 +9,9 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 940,
     margin: 'auto',
   },
+  label: {
+    fontWeight: 700,
+  },
 }));
 
 export default function MoviesList() {
@@ -22,8 +25,8 @@ export default function MoviesList() {
   return (
     <div className={classes.moviesList}>
       <Tabs value={selectedTab} onChange={handleChange} centered>
-        <Tab label="Đang chiếu" />
-        <Tab label="Sắp chiếu" />
+        <Tab className={classes.label} label="Đang chiếu" />
+        <Tab className={classes.label} label="Sắp chiếu" />
       </Tabs>
       {selectedTab === 0 && <NowShowingMovies />}
       {selectedTab === 1 && <UpComingMovies />}

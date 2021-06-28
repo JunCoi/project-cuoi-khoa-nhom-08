@@ -54,7 +54,6 @@ export const getCinemaMovieAction = (maRap) => {
         url: `https://movie0706.cybersoft.edu.vn/api/QuanLyRap/LayThongTinLichChieuHeThongRap?maHeThongRap=${maRap}&maNhom=GP01`,
         method: 'GET',
       });
-      console.log(res);
       dispatch({
         type: GET_CINEMA_MOVIE,
         payload: res.data,

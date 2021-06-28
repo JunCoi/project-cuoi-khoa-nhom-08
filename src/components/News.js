@@ -1,68 +1,80 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 
-import "./News.css";
+import './News.css';
 
-import latMat from "../components/news/dien-anh-24h/img/an-dinh-chac-nich-ngay-khoi-chieu-16-04-ly-hai-tung-clip-lat-mat-48h-dam-chat-fast-furious-mien-song-nuoc-16170881088272.png";
-import bocTem from "../components/news/dien-anh-24h/img/boc-tem-to-hop-giai-tri-moi-toanh-cua-gioi-ha-thanh-16056939435004.png";
-import woman from "../components/news/dien-anh-24h/img/promising-young-woman-bong-hong-nuoc-anh-carey-mulligan-va-man-tra-thu-dan-ong-de-doi-16166710855522.png";
-import khaiTruong from "../components/news/dien-anh-24h/img/khai-truong-rap-xin-gia-ngon-chuan-xi-tai-sai-gon-16115477671555.jpg";
-import mortal from "../components/news/dien-anh-24h/img/mortal-kombat-cuoc-chien-sinh-tu-goi-ten-nhung-phim-dien-anh-noi-tieng-duoc-chuyen-the-tu-cac-tua-game-dinh-dam-16170160290762.png";
-import ngoThanhVan from "../components/news/dien-anh-24h/img/promising-young-woman-bong-hong-nuoc-anh-carey-mulligan-va-man-tra-thu-dan-ong-de-doi-16166710855522.png";
-import tiecTrangMau from "../components/news/dien-anh-24h/img/tiec-trang-mau-chinh-thuc-can-moc-100-ty-chi-sau-2-tuan-cong-chieu-16043751284117.png";
-import parkSeoJoon from "../components/news/dien-anh-24h/img/vua-dep-lai-vua-tai-nang-dan-sao-nam-cua-phim-ban-tay-diet-quy-dam-bao-don-tim-hoi-chi-em-16165783843676.png";
+import latMat from '../components/news/dien-anh-24h/img/an-dinh-chac-nich-ngay-khoi-chieu-16-04-ly-hai-tung-clip-lat-mat-48h-dam-chat-fast-furious-mien-song-nuoc-16170881088272.png';
+import bocTem from '../components/news/dien-anh-24h/img/boc-tem-to-hop-giai-tri-moi-toanh-cua-gioi-ha-thanh-16056939435004.png';
+import woman from '../components/news/dien-anh-24h/img/promising-young-woman-bong-hong-nuoc-anh-carey-mulligan-va-man-tra-thu-dan-ong-de-doi-16166710855522.png';
+import khaiTruong from '../components/news/dien-anh-24h/img/khai-truong-rap-xin-gia-ngon-chuan-xi-tai-sai-gon-16115477671555.jpg';
+import mortal from '../components/news/dien-anh-24h/img/mortal-kombat-cuoc-chien-sinh-tu-goi-ten-nhung-phim-dien-anh-noi-tieng-duoc-chuyen-the-tu-cac-tua-game-dinh-dam-16170160290762.png';
+import ngoThanhVan from '../components/news/dien-anh-24h/img/promising-young-woman-bong-hong-nuoc-anh-carey-mulligan-va-man-tra-thu-dan-ong-de-doi-16166710855522.png';
+import tiecTrangMau from '../components/news/dien-anh-24h/img/tiec-trang-mau-chinh-thuc-can-moc-100-ty-chi-sau-2-tuan-cong-chieu-16043751284117.png';
+import parkSeoJoon from '../components/news/dien-anh-24h/img/vua-dep-lai-vua-tai-nang-dan-sao-nam-cua-phim-ban-tay-diet-quy-dam-bao-don-tim-hoi-chi-em-16165783843676.png';
 
-import american from "../components/news/review/img/american-sniper-chinh-nghia-hay-phi-nghia-15905660338111.png";
-import black from "../components/news/review/img/blackkklansman-coc-nuoc-lanh-de-nguoi-my-thuc-tinh-15910862294165.png";
-import covid from "../components/news/review/img/covid-19-la-ban-chinh-thuc-cua-mev-1-phim-contagion-2011-15843496198482.jpg";
-import blood from "../components/news/review/img/review-bloodshot-mo-man-an-tuong-cho-vu-tru-sieu-anh-hung-valiant-15840731141389.jpg";
-import dinhThu from "../components/news/review/img/review-dinh-thu-oan-khuat-ghost-of-war-15965120886610.png";
-import veSi from "../components/news/review/img/review-sieu-ve-si-so-vo-giai-cuu-tong-thong-chua-bao-gio-lay-loi-va-hai-huoc-den-the-15840925506832.jpg";
-import spiderman from "../components/news/review/img/review-spider-man-into-the-spider-vesre-15886520889426.png";
-import tanTich from "../components/news/review/img/review-tan-tich-quy-am-relic-ba-the-he-va-moi-lien-ket-15965255784224.png";
+import american from '../components/news/review/img/american-sniper-chinh-nghia-hay-phi-nghia-15905660338111.png';
+import black from '../components/news/review/img/blackkklansman-coc-nuoc-lanh-de-nguoi-my-thuc-tinh-15910862294165.png';
+import covid from '../components/news/review/img/covid-19-la-ban-chinh-thuc-cua-mev-1-phim-contagion-2011-15843496198482.jpg';
+import blood from '../components/news/review/img/review-bloodshot-mo-man-an-tuong-cho-vu-tru-sieu-anh-hung-valiant-15840731141389.jpg';
+import dinhThu from '../components/news/review/img/review-dinh-thu-oan-khuat-ghost-of-war-15965120886610.png';
+import veSi from '../components/news/review/img/review-sieu-ve-si-so-vo-giai-cuu-tong-thong-chua-bao-gio-lay-loi-va-hai-huoc-den-the-15840925506832.jpg';
+import spiderman from '../components/news/review/img/review-spider-man-into-the-spider-vesre-15886520889426.png';
+import tanTich from '../components/news/review/img/review-tan-tich-quy-am-relic-ba-the-he-va-moi-lien-ket-15965255784224.png';
 
-import psm30k from "../components/news/khuyen-mai/img/123phim-nhap-ma-psm30k-giam-ngay-30k-khi-dat-ve-phap-su-mu-ai-chet-gio-tay-15729439018211.jpg";
-import thu6 from "../components/news/khuyen-mai/img/123phim-thu-6-khong-den-toi-uu-dai-huy-diet-11k-ve-anh-trai-yeu-quai-15746757294099.jpg";
-import beta from "../components/news/khuyen-mai/img/beta-cineplex-tro-lai-voi-hang-loat-uu-dai-lon-15889408112010.png";
-import trangTi from "../components/news/khuyen-mai/img/bhd-59k-ve-ca-tuan-16190002421777.jpg";
-import bhd59k from "../components/news/khuyen-mai/img/bhd-star-ve-chi-59-000d-ca-tuan-15937622264546.jpg";
-import dongGia from "../components/news/khuyen-mai/img/dong-gia-1k-ve-khi-mua-ve-qua-tix-16010092946804.png";
-import mega from "../components/news/khuyen-mai/img/mega-gs-mot-doa-hoa-thay-ngan-loi-yeu-15713106082164.jpg";
-import tix1k from "../components/news/khuyen-mai/img/tix-1k-ve-ngai-chi-gia-ve-16045662877511.jpg";
+import psm30k from '../components/news/khuyen-mai/img/123phim-nhap-ma-psm30k-giam-ngay-30k-khi-dat-ve-phap-su-mu-ai-chet-gio-tay-15729439018211.jpg';
+import thu6 from '../components/news/khuyen-mai/img/123phim-thu-6-khong-den-toi-uu-dai-huy-diet-11k-ve-anh-trai-yeu-quai-15746757294099.jpg';
+import beta from '../components/news/khuyen-mai/img/beta-cineplex-tro-lai-voi-hang-loat-uu-dai-lon-15889408112010.png';
+import trangTi from '../components/news/khuyen-mai/img/bhd-59k-ve-ca-tuan-16190002421777.jpg';
+import bhd59k from '../components/news/khuyen-mai/img/bhd-star-ve-chi-59-000d-ca-tuan-15937622264546.jpg';
+import dongGia from '../components/news/khuyen-mai/img/dong-gia-1k-ve-khi-mua-ve-qua-tix-16010092946804.png';
+import mega from '../components/news/khuyen-mai/img/mega-gs-mot-doa-hoa-thay-ngan-loi-yeu-15713106082164.jpg';
+import tix1k from '../components/news/khuyen-mai/img/tix-1k-ve-ngai-chi-gia-ve-16045662877511.jpg';
+import { Tab, Tabs } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   News: {
     maxWidth: 940,
-    margin: "auto",
+    margin: 'auto',
+    marginTop: 150,
   },
   modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
+    border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
   flex: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    color: "#000",
-    textDecoration: "none",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: '#000',
+    textDecoration: 'none',
+  },
+  LabelsList: {
+    marginBottom: 20,
+  },
+  label: {
+    fontWeight: 700,
   },
 }));
 
 export default function News() {
   const classes = useStyles();
-  const [render, setRender] = useState(1, 2, 3);
+  const [render, setRender] = useState(1);
 
   const [visibleDienAnh, setVisibleDienAnh] = useState(1);
   const [visibleKhuyenMai, setVisibleKhuyenMai] = useState(1);
   const [visibleReview, setVisibleReview] = useState(1);
+
+  const handleChange = (event, newValue) => {
+    setRender(newValue);
+  };
 
   const dataDienAnh = [
     {
@@ -98,7 +110,7 @@ export default function News() {
     },
   ];
 
-// ------------------------------- ONCLICK SHOWMORE --------------------------------------
+  // ------------------------------- ONCLICK SHOWMORE --------------------------------------
   const showMoreItemDienAnh = () => {
     setVisibleDienAnh((prevValue) => prevValue + 1);
   };
@@ -109,8 +121,7 @@ export default function News() {
     setVisibleKhuyenMai((prevValue) => prevValue + 1);
   };
 
-
-// ------------------------------- RENDER BUTTON SHOWMORE --------------------------------------
+  // ------------------------------- RENDER BUTTON SHOWMORE --------------------------------------
   const renderButtonDienAnh = () => {
     return (
       <div className="btnShowMore">
@@ -133,8 +144,7 @@ export default function News() {
     );
   };
 
-  
-// ------------------------------- RENDER --------------------------------------
+  // ------------------------------- RENDER --------------------------------------
   const renderDienAnh = () => {
     return dataDienAnh.slice(0, visibleDienAnh).map((item, index) => {
       return (
@@ -156,9 +166,6 @@ export default function News() {
                   đuổi gay cấn thót tim fans hâm mộ
                 </p>
               </div>
-              <div className="like">
-              <i class="far fa-thumbs-up"></i>
-              </div>
             </Grid>
             <Grid item md={6}>
               <div className="newsItem">
@@ -178,9 +185,6 @@ export default function News() {
                   tử.
                 </p>
               </div>
-              <div className="like">
-              <i class="far fa-thumbs-up"></i>
-              </div>
             </Grid>
             <Grid item md={4}>
               <div className="newsItem">
@@ -197,11 +201,8 @@ export default function News() {
                   Đề cử giải Oscar danh giá vừa gọi tên Carey Mulligan ở hạng
                   mục nữ chính xuất sắc nhất cho vai diễn "đẫm máu" nhất sự
                   nghiệp của cô trong phim Promising Young Woman (tựa Việt: Cô
-                  Gái Trẻ Hứa Hẹn).{" "}
+                  Gái Trẻ Hứa Hẹn).{' '}
                 </p>
-              </div>
-              <div className="like">
-              <i class="far fa-thumbs-up"></i>
               </div>
             </Grid>
             <Grid item md={4}>
@@ -221,9 +222,6 @@ export default function News() {
                   Sik, tác phẩm kinh dị – hành động “Bàn Tay Diệt Quỷ” hứa hẹn
                   sẽ làm cho hội chị em phải mê mẩn vào tháng tới.
                 </p>
-              </div>
-              <div className="like">
-              <i class="far fa-thumbs-up"></i>
               </div>
             </Grid>
             <Grid item md={4}>
@@ -309,7 +307,7 @@ export default function News() {
       return (
         <div className="news-dien-anh" key={index}>
           <Grid container spacing={3}>
-            <Grid item md={6}>
+            <Grid item md={6} sm={12}>
               <div className="newsItem">
                 <a href="">
                   <img className="newsImg" src={trangTi} alt="" />
@@ -322,9 +320,8 @@ export default function News() {
                   59k/vé khi mua vé trên TIX hoặc Mục Vé Phim trên ZaloPay.
                 </p>
               </div>
-              <div className="like"><i class="far fa-thumbs-up"></i></div>
             </Grid>
-            <Grid item md={6}>
+            <Grid item md={6} sm={12}>
               <div className="newsItem">
                 <a href="">
                   <img className="newsImg" src={tix1k} alt="" />
@@ -337,9 +334,8 @@ export default function News() {
                   voucher thanh toán ZaloPay thả ga
                 </p>
               </div>
-              <div className="like"><i class="far fa-thumbs-up"></i></div>
             </Grid>
-            <Grid item md={4}>
+            <Grid item md={4} sm={12}>
               <div className="newsItem">
                 <a href="">
                   <img className="newsImg" src={dongGia} alt="" />
@@ -352,9 +348,8 @@ export default function News() {
                   chỉ với 1k cả tuần + nhận thêm 02 voucher khi đặt vé qua TIX.
                 </p>
               </div>
-              <div className="like"><i class="far fa-thumbs-up"></i></div>
             </Grid>
-            <Grid item md={4}>
+            <Grid item md={4} sm={12}>
               <div className="newsItem">
                 <a href="">
                   <img className="newsImg" src={bhd59k} alt="" />
@@ -368,7 +363,6 @@ export default function News() {
                   Vé Phim trên ZaloPay.
                 </p>
               </div>
-              <div className="like"><i class="far fa-thumbs-up"></i></div>
             </Grid>
             <Grid item md={4}>
               <Grid item md={12}>
@@ -426,7 +420,7 @@ export default function News() {
               <br />
               <Grid item md={12}>
                 <Grid container>
-                  <Grid className="md2" item md={2}>
+                  <Grid className="md2" item md={2} xs={12}>
                     <a href="">
                       <img className="newsImgSmall" src={mega} alt="" />
                     </a>
@@ -465,7 +459,6 @@ export default function News() {
                   Điểm nhấn của phim kinh dị năm 2020 chính là Tàn Tích Quỷ Ám
                 </p>
               </div>
-              <div className="like"><i class="far fa-thumbs-up"></i></div>
             </Grid>
             <Grid item md={6}>
               <div className="newsItem">
@@ -480,7 +473,6 @@ export default function News() {
                   Khuất vẫn chưa đủ để đem khán giả trở lại phòng vé!
                 </p>
               </div>
-              <div className="like"><i class="far fa-thumbs-up"></i></div>
             </Grid>
             <Grid item md={4}>
               <div className="newsItem">
@@ -496,7 +488,6 @@ export default function News() {
                   tộc - nỗi đau gây nhức nhối nước Mỹ cho tới tận hôm nay.
                 </p>
               </div>
-              <div className="like"><i class="far fa-thumbs-up"></i></div>
             </Grid>
             <Grid item md={4}>
               <div className="newsItem">
@@ -514,7 +505,6 @@ export default function News() {
                   chiến. Từng khoảnh khắc bắt đầu nhẹ nhàng...
                 </p>
               </div>
-              <div className="like"><i class="far fa-thumbs-up"></i></div>
             </Grid>
             <Grid item md={4}>
               <Grid item md={12}>
@@ -594,49 +584,26 @@ export default function News() {
     });
   };
 
-
-
-
-
-
   return (
     <div className="news" className={classes.News}>
-      <div className="news-button">
-        <button
-          className="btn"
-          onClick={() => {
-            setRender(1);
-          }}
-          className="button"
-        >
-          Điện Ảnh 24h
-        </button>
-        <button
-          className="btn"
-          onClick={() => {
-            setRender(2);
-          }}
-          className="button"
-        >
-          Review
-        </button>
-        <button
-          className="btn"
-          onClick={() => {
-            setRender(3);
-          }}
-          className="button"
-        >
-          Khuyến Mãi
-        </button>
-      </div>
-      {render === 1 ? renderDienAnh() : ""}
-      {render === 2 ? renderReview() : ""}
-      {render === 3 ? renderKhuyenMai() : ""}
+      <Tabs
+        value={render}
+        onChange={handleChange}
+        centered
+        className={classes.LabelsList}
+      >
+        <Tab className={classes.label} label="Điện ảnh" />
+        <Tab className={classes.label} label="Review" />
+        <Tab className={classes.label} label="Khuyến mãi" />
+      </Tabs>
 
-      {render === 1 ? renderButtonDienAnh() : ""}
-      {render === 2 ? renderButtonReview() : ""}
-      {render === 3 ? renderButtonKhuyenMai() : ""}
+      {render === 0 ? renderDienAnh() : ''}
+      {render === 1 ? renderReview() : ''}
+      {render === 2 ? renderKhuyenMai() : ''}
+
+      {render === 0 ? renderButtonDienAnh() : ''}
+      {render === 1 ? renderButtonReview() : ''}
+      {render === 2 ? renderButtonKhuyenMai() : ''}
     </div>
   );
 }
