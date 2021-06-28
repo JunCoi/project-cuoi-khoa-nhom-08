@@ -48,7 +48,7 @@ const CustomPrevArrow = (props) => {
 
 export default function NowShowingMovies() {
   const movieList = useSelector((state) => {
-    return state.movieList.movieList;
+    return state.movieList.movieListNowShowing;
   });
   // console.log("movieList", movieList);
   const classes = useStyles();
@@ -64,7 +64,7 @@ export default function NowShowingMovies() {
     prevArrow: <CustomPrevArrow />,
   };
   
-  const renderMovieList = () => {
+  const renderMovieListNowShowing = () => {
     return movieList?.map((movie, index) => {
       return <div key={index} className={classes.cardContainer}>
         <MovieCard showRating={true} movie={movie}/>
@@ -74,7 +74,7 @@ export default function NowShowingMovies() {
 
   return (
     <Slider {...settings}>
-      {renderMovieList()}
+      {renderMovieListNowShowing()}
     </Slider>
   );
 }

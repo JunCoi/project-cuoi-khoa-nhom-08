@@ -1,0 +1,4 @@
+export const GET_CINEMA_LIST = "GET_CINEMA_LIST";
+export const GET_CINEMA_CLUSTER = "GET_CINEMA_CLUSTER";
+export const GET_CINEMA_MOVIE = "GET_CINEMA_MOVIE";
+export const GET_MOVIE = "GET_MOVIE";

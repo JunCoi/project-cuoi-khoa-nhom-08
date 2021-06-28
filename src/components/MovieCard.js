@@ -89,10 +89,10 @@ export default function MovieCard(props) {
     const action = openPopup(newProps);
     dispatch(action);
   };
-  console.log(props.movie);
+  // console.log(props.movie);
   return (
     <>
-      <div className={classes.movieCard} style={{backgroundImage: `url(${props.movie.hinhAnh})`}}>
+      <div className={classes.movieCard} style={{backgroundImage: `url('${props.movie.hinhAnh}')`}}>
         <div className={classes.buttonWrap}>
           <PlayArrowRoundedIcon
             className={classes.playButton}
