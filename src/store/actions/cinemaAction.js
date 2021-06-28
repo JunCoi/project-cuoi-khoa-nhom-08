@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_CINEMA_CLUSTER, GET_CINEMA_LIST, GET_CINEMA_MOVIE, GET_MOVIE } from "../const/cinemaConst";
+import { GET_CINEMA_CLUSTER, GET_CINEMA_LIST, GET_CINEMA_MOVIE, GET_LICH_CHIEU, GET_MOVIE } from "../const/cinemaConst";
 
 export const getCinemaListAction = () => {
   return async (dispatch) => {
@@ -62,4 +62,11 @@ export const getMovieAction = (rap) => {
         type: GET_MOVIE,
         payload: rap,
     }
+}
+
+export const getLichChieuAction = (maPhim, maCumRap) => {
+  return {
+    type: GET_LICH_CHIEU,
+    payload: [maPhim, maCumRap]
+  }
 }

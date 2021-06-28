@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import Table from "@material-ui/core/Table";
@@ -12,9 +12,11 @@ import { Button } from "@material-ui/core";
 import {
   getCinemaClusterAction,
   getCinemaMovieAction,
+  getLichChieuAction,
   getMovieAction,
 } from "../store/actions/cinemaAction";
 import Grid from "@material-ui/core/Grid";
+import format from "date-format";
 
 const useStyles = makeStyles((theme) => ({
   cinemaList: {
@@ -86,6 +88,7 @@ function Cinema() {
   const cinemaMovie = useSelector((state) => {
     return state.cinema.movie;
   });
+  // console.log(cinemaMovie);
   const renderCol3 = () => {
     return cinemaMovie?.danhSachPhim?.map((movie, index) => {
       return (
@@ -101,16 +104,61 @@ function Cinema() {
                   justifyContent: "center",
                 }}
               >
-                <img width="50px" src={movie.hinhAnh} alt="" />
+                <img
+                  onClick={() => {
+                    showLichChieu(movie.maPhim, cinemaMovie.maCumRap);
+                  }}
+                  width="50px"
+                  src={movie.hinhAnh}
+                  alt=""
+                />
               </Grid>
               <Grid item xs={6}>
                 <p>{cinemaMovie.maCumRap}</p>
                 <p>{movie.tenPhim}</p>
                 <p>{movie.maPhim}</p>
+                <hr />
+                {/* <p>{movie.lstLichChieuTheoPhim?.map((lichChieu) => {
+                    return (
+                      <div>
+                        <p>{lichChieu.tenRap}</p>
+                        <p>
+                          Ngày chiếu - Giờ chiếu:{" "}
+                          {format("MM/dd/yy - hh:mm", new Date(lichChieu.ngayChieuGioChieu))}
+                        </p>
+                      </div>
+                    );
+                  })}</p> */}
               </Grid>
             </Grid>
           </TableCell>
         </TableRow>
+      );
+    });
+  };
+
+  // ------------------------------------ COL-4 -----------------------------------------
+
+  const showLichChieu = (maPhim, maCumRap) => {
+    dispatch(getLichChieuAction(maPhim, maCumRap));
+  };
+  const lichChieu = useSelector((state) => {
+    return state.cinema.lichChieu;
+  });
+  // console.log(lichChieu);
+
+  const renderCol4 = () => {
+    return lichChieu?.map((lichChieu, index) => {
+      return (
+        <div>
+          <p>{lichChieu.tenRap}</p>
+          <p>
+            Ngày chiếu - Giờ chiếu:{" "}
+            {format("MM/dd/yy - hh:mm", new Date(lichChieu.ngayChieuGioChieu))}
+          </p>
+          <p>Thời lượng: 120 phút</p>
+          <hr />
+        </div>
       );
     });
   };
@@ -131,7 +179,12 @@ function Cinema() {
               </TableCell>
 
               <TableCell>
-                <div className={classes.fixoverflow}> {renderCol3()}</div>
+                <TableCell>
+                  <div className={classes.fixoverflow}> {renderCol3()}</div>
+                </TableCell>
+                <TableCell>
+                  <div className={classes.fixoverflow}> {renderCol4()}</div>
+                </TableCell>
               </TableCell>
             </TableRow>
           </TableBody>
