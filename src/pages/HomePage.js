@@ -13,8 +13,8 @@ import News from "../components/News";
 import Footer from "../components/Footer";
 
 export default function HomePage() {
-  const [dangChieu, setDangChieu] = useState("GP01");
-  const [sapChieu, setSapChieu] = useState("GP02");
+  const [dangChieu, setDangChieu] = useState('GP01');
+  const [sapChieu, setSapChieu] = useState('GP02');
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getMovieListAction(dangChieu));
@@ -36,6 +36,5 @@ export default function HomePage() {
       <BlockApp />
       <Footer />
       {/* <div style={{ height: "100px" }}></div> */}
-    </>
   );
 }

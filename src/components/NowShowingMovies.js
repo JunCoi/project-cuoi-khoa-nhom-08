@@ -8,43 +8,7 @@ const useStyles = makeStyles({
   cardContainer: {
     padding: '10px 10px',
   },
-  arrow: {
-    backgroundColor: 'black',
-  },
 });
-
-const CustomNextArrow = (props) => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        right: '-50px',
-        zIndex: 2,
-        '&:before': {
-          color: 'black',
-        },
-      }}
-      onClick={onClick}
-    />
-  );
-};
-
-const CustomPrevArrow = (props) => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        left: '-50px',
-        zIndex: 2,
-      }}
-      onClick={onClick}
-    />
-  );
-};
 
 export default function NowShowingMovies() {
   const movieList = useSelector((state) => {
@@ -53,15 +17,34 @@ export default function NowShowingMovies() {
   // console.log("movieList", movieList);
   const classes = useStyles();
 
-  var settings = {
+  const settings = {
     infinite: true,
-    speed: 500,
+    speed: 1500,
+    autoplaySpeed: 5000,
     slidesToShow: 4,
     slidesToScroll: 4,
-    autoplay: false,
+    autoplay: true,
     rows: 2,
-    nextArrow: <CustomNextArrow />,
-    prevArrow: <CustomPrevArrow />,
+    responsive: [
+      {
+        breakpoint: 769,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          autoplay: true,
+          rows: 2,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          autoplay: true,
+          rows: 2,
+        },
+      },
+    ],
   };
   
   const renderMovieListNowShowing = () => {

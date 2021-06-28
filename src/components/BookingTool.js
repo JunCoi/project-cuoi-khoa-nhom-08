@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme) => ({
     height: 80,
     position: 'relative',
     zIndex: 4,
+    '@media (max-width: 960px)': {
+      display: 'none',
+    },
   },
   formBlock: {
     display: 'block',

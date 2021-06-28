@@ -94,12 +94,22 @@ export default function MovieSlider() {
     dots: true,
     infinite: true,
     speed: 1000,
+    autoplaySpeed: 3000,
     slideToShow: 1,
     slideToScroll: 1,
     autoplay: true,
     variablesWidth: true,
     nextArrow: <CustomNextArrow />,
     prevArrow: <CustomPrevArrow />,
+    responsive: [
+      {
+        breakpoint: 960,
+        settings: {
+          dots: false,
+          arrows: false,
+        },
+      },
+    ],
   };
 
   // const [isOpen, setIsOpen] = useState(false);
