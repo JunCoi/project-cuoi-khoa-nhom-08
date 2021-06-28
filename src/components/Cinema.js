@@ -1,33 +1,44 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { useDispatch, useSelector } from "react-redux";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import { Button } from "@material-ui/core";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { useDispatch, useSelector } from 'react-redux';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import { Button } from '@material-ui/core';
 import {
   getCinemaClusterAction,
   getCinemaMovieAction,
   getMovieAction,
-} from "../store/actions/cinemaAction";
-import Grid from "@material-ui/core/Grid";
+} from '../store/actions/cinemaAction';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
   cinemaList: {
     maxWidth: 940,
-    margin: "auto",
-    paddingTop: "100px",
+    margin: 'auto',
+    paddingTop: '100px',
   },
   table: {
     minWidth: 650,
+    height: 700,
   },
   fixoverflow: {
-    overflow: "auto",
-    height: "60vh",
+    overflow: 'auto',
+    height: '100%',
+  },
+  col1: {
+    width: 96.5,
+    padding: 5,
+    borderRight: '1px solid rgba(224, 224, 224, 1)',
+  },
+  col2: {
+    width: '30%',
+    padding: 5,
+    borderRight: '1px solid rgba(224, 224, 224, 1)',
   },
 }));
 
@@ -43,7 +54,7 @@ function Cinema() {
     return cinemaList?.map((cinema, index) => {
       return (
         <TableRow key={index}>
-          <TableCell>
+          <TableCell style={{ padding: 10 }}>
             <Button onClick={() => handleChoiceCinema(cinema.maHeThongRap)}>
               <img width="50px" src={cinema.logo} alt="" />
             </Button>
@@ -71,10 +82,15 @@ function Cinema() {
       return (
         <TableRow key={index}>
           <TableCell>
-            <p>{cluster.diaChi}</p>
-            <Button onClick={() => handleChoiceMovie(cluster.maCumRap)}>
+            <Button
+              onClick={() => handleChoiceMovie(cluster.maCumRap)}
+              style={{ padding: 0, textAlign: 'left' }}
+            >
               <p>{cluster.maCumRap}</p>
             </Button>
+            <p style={{ fontSize: 12, color: 'rgba(0,0,0, .4)' }}>
+              {cluster.diaChi}
+            </p>
           </TableCell>
         </TableRow>
       );
@@ -90,22 +106,22 @@ function Cinema() {
     return cinemaMovie?.danhSachPhim?.map((movie, index) => {
       return (
         <TableRow key={index}>
-          <TableCell>
+          <TableCell style={{ height: 110, minHeight: 110, padding: 5 }}>
             <Grid container spacing={3}>
               <Grid
                 item
-                xs={6}
+                xs={3}
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
               >
                 <img width="50px" src={movie.hinhAnh} alt="" />
               </Grid>
-              <Grid item xs={6}>
-                <p>{cinemaMovie.maCumRap}</p>
-                <p>{movie.tenPhim}</p>
+              <Grid item xs={9}>
+                {/* <p>{cinemaMovie.maCumRap}</p> */}
+                <h4>{movie.tenPhim}</h4>
                 <p>{movie.maPhim}</p>
               </Grid>
             </Grid>
@@ -122,15 +138,15 @@ function Cinema() {
           <TableHead></TableHead>
           <TableBody>
             <TableRow>
-              <TableCell>
+              <TableCell className={classes.col1}>
                 <div className={classes.fixoverflow}>{renderCol1()}</div>
               </TableCell>
 
-              <TableCell>
+              <TableCell className={classes.col2}>
                 <div className={classes.fixoverflow}> {renderCol2()}</div>
               </TableCell>
 
-              <TableCell>
+              <TableCell className={classes.col3}>
                 <div className={classes.fixoverflow}> {renderCol3()}</div>
               </TableCell>
             </TableRow>
