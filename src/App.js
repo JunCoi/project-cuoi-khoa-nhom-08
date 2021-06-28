@@ -6,7 +6,19 @@ function App() {
     <>
     <BrowserRouter>
       <Switch>
-        <Route exact path="/">
+        <Route path="/" exact={true}>
+          <HomePage />
+        </Route>
+        <Route path="/movie-detail/:movieCode" exact={true}>
+          <HomePage />
+        </Route>
+        <Route path="/sign-in" exact={true}>
+          <HomePage />
+        </Route>
+        <Route path="/sign-up" exact={true}>
+          <HomePage />
+        </Route>
+        <Route path="/booking/:showTimeCode" exact={true}>
           <HomePage />
         </Route>
       </Switch>

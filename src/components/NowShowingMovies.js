@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Slider from 'react-slick';
 import MovieCard from './MovieCard';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles({
   cardContainer: {
@@ -10,6 +11,10 @@ const useStyles = makeStyles({
 });
 
 export default function NowShowingMovies() {
+  const movieList = useSelector((state) => {
+    return state.movieList.movieListNowShowing;
+  });
+  // console.log("movieList", movieList);
   const classes = useStyles();
 
   const settings = {
@@ -41,62 +46,18 @@ export default function NowShowingMovies() {
       },
     ],
   };
+  
+  const renderMovieListNowShowing = () => {
+    return movieList?.map((movie, index) => {
+      return <div key={index} className={classes.cardContainer}>
+        <MovieCard showRating={true} movie={movie}/>
+      </div>
+    })
+  }
+
   return (
     <Slider {...settings}>
-      <div className={classes.cardContainer}>
-        <MovieCard showRating={true} />
-      </div>
-      <div className={classes.cardContainer}>
-        <MovieCard showRating={true} />
-      </div>
-      <div className={classes.cardContainer}>
-        <MovieCard showRating={true} />
-      </div>
-      <div className={classes.cardContainer}>
-        <MovieCard showRating={true} />
-      </div>
-      <div className={classes.cardContainer}>
-        <MovieCard showRating={true} />
-      </div>
-      <div className={classes.cardContainer}>
-        <MovieCard showRating={true} />
-      </div>
-      <div className={classes.cardContainer}>
-        <MovieCard showRating={true} />
-      </div>
-      <div className={classes.cardContainer}>
-        <MovieCard showRating={true} />
-      </div>
-      <div className={classes.cardContainer}>
-        <MovieCard showRating={true} />
-      </div>
-      <div className={classes.cardContainer}>
-        <MovieCard showRating={true} />
-      </div>
-      <div className={classes.cardContainer}>
-        <MovieCard showRating={true} />
-      </div>
-      <div className={classes.cardContainer}>
-        <MovieCard showRating={true} />
-      </div>
-      <div className={classes.cardContainer}>
-        <MovieCard showRating={true} />
-      </div>
-      <div className={classes.cardContainer}>
-        <MovieCard showRating={true} />
-      </div>
-      <div className={classes.cardContainer}>
-        <MovieCard showRating={true} />
-      </div>
-      <div className={classes.cardContainer}>
-        <MovieCard showRating={true} />
-      </div>
-      <div className={classes.cardContainer}>
-        <MovieCard showRating={true} />
-      </div>
-      <div className={classes.cardContainer}>
-        <MovieCard showRating={true} />
-      </div>
+      {renderMovieListNowShowing()}
     </Slider>
   );
 }
