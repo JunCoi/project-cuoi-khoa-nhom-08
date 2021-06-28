@@ -166,9 +166,6 @@ export default function News() {
                   đuổi gay cấn thót tim fans hâm mộ
                 </p>
               </div>
-              <div className="like">
-                <i class="far fa-thumbs-up"></i>
-              </div>
             </Grid>
             <Grid item md={6}>
               <div className="newsItem">
@@ -187,9 +184,6 @@ export default function News() {
                   tiểu thuyết, phim hoạt hình, hay thậm chí là cả trò chơi điện
                   tử.
                 </p>
-              </div>
-              <div className="like">
-                <i class="far fa-thumbs-up"></i>
               </div>
             </Grid>
             <Grid item md={4}>
@@ -210,9 +204,6 @@ export default function News() {
                   Gái Trẻ Hứa Hẹn).{' '}
                 </p>
               </div>
-              <div className="like">
-                <i class="far fa-thumbs-up"></i>
-              </div>
             </Grid>
             <Grid item md={4}>
               <div className="newsItem">
@@ -231,9 +222,6 @@ export default function News() {
                   Sik, tác phẩm kinh dị – hành động “Bàn Tay Diệt Quỷ” hứa hẹn
                   sẽ làm cho hội chị em phải mê mẩn vào tháng tới.
                 </p>
-              </div>
-              <div className="like">
-                <i class="far fa-thumbs-up"></i>
               </div>
             </Grid>
             <Grid item md={4}>
@@ -319,7 +307,7 @@ export default function News() {
       return (
         <div className="news-dien-anh" key={index}>
           <Grid container spacing={3}>
-            <Grid item md={6}>
+            <Grid item md={6} sm={12}>
               <div className="newsItem">
                 <a href="">
                   <img className="newsImg" src={trangTi} alt="" />
@@ -332,11 +320,8 @@ export default function News() {
                   59k/vé khi mua vé trên TIX hoặc Mục Vé Phim trên ZaloPay.
                 </p>
               </div>
-              <div className="like">
-                <i class="far fa-thumbs-up"></i>
-              </div>
             </Grid>
-            <Grid item md={6}>
+            <Grid item md={6} sm={12}>
               <div className="newsItem">
                 <a href="">
                   <img className="newsImg" src={tix1k} alt="" />
@@ -349,11 +334,8 @@ export default function News() {
                   voucher thanh toán ZaloPay thả ga
                 </p>
               </div>
-              <div className="like">
-                <i class="far fa-thumbs-up"></i>
-              </div>
             </Grid>
-            <Grid item md={4}>
+            <Grid item md={4} sm={12}>
               <div className="newsItem">
                 <a href="">
                   <img className="newsImg" src={dongGia} alt="" />
@@ -366,11 +348,8 @@ export default function News() {
                   chỉ với 1k cả tuần + nhận thêm 02 voucher khi đặt vé qua TIX.
                 </p>
               </div>
-              <div className="like">
-                <i class="far fa-thumbs-up"></i>
-              </div>
             </Grid>
-            <Grid item md={4}>
+            <Grid item md={4} sm={12}>
               <div className="newsItem">
                 <a href="">
                   <img className="newsImg" src={bhd59k} alt="" />
@@ -383,9 +362,6 @@ export default function News() {
                   59k/vé khi mua vé trên TIX và thanh toán bằng ZaloPay hoặc Mục
                   Vé Phim trên ZaloPay.
                 </p>
-              </div>
-              <div className="like">
-                <i class="far fa-thumbs-up"></i>
               </div>
             </Grid>
             <Grid item md={4}>
@@ -444,7 +420,7 @@ export default function News() {
               <br />
               <Grid item md={12}>
                 <Grid container>
-                  <Grid className="md2" item md={2}>
+                  <Grid className="md2" item md={2} xs={12}>
                     <a href="">
                       <img className="newsImgSmall" src={mega} alt="" />
                     </a>
@@ -483,9 +459,6 @@ export default function News() {
                   Điểm nhấn của phim kinh dị năm 2020 chính là Tàn Tích Quỷ Ám
                 </p>
               </div>
-              <div className="like">
-                <i class="far fa-thumbs-up"></i>
-              </div>
             </Grid>
             <Grid item md={6}>
               <div className="newsItem">
@@ -499,9 +472,6 @@ export default function News() {
                   Tuy là một bộ phim có chất lượng tốt, nhưng có vẻ Dinh Thự Oan
                   Khuất vẫn chưa đủ để đem khán giả trở lại phòng vé!
                 </p>
-              </div>
-              <div className="like">
-                <i class="far fa-thumbs-up"></i>
               </div>
             </Grid>
             <Grid item md={4}>
@@ -517,9 +487,6 @@ export default function News() {
                   đạo diễn Spike Lee là một lát cắt nữa về nạn phân biệt chủng
                   tộc - nỗi đau gây nhức nhối nước Mỹ cho tới tận hôm nay.
                 </p>
-              </div>
-              <div className="like">
-                <i class="far fa-thumbs-up"></i>
               </div>
             </Grid>
             <Grid item md={4}>
@@ -537,9 +504,6 @@ export default function News() {
                   Kyle, từ thửa nhỏ, thiếu niên, rồi gia nhập quân đội, rồi tham
                   chiến. Từng khoảnh khắc bắt đầu nhẹ nhàng...
                 </p>
-              </div>
-              <div className="like">
-                <i class="far fa-thumbs-up"></i>
               </div>
             </Grid>
             <Grid item md={4}>

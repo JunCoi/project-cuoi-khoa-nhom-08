@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 940,
     margin: 'auto',
     paddingTop: '100px',
+    [theme.breakpoints.down('xs')]: {
+      display: 'none',
+    },
   },
   table: {
     minWidth: 650,
@@ -39,6 +42,10 @@ const useStyles = makeStyles((theme) => ({
     width: '30%',
     padding: 5,
     borderRight: '1px solid rgba(224, 224, 224, 1)',
+  },
+  cumRap: {
+    cursor: 'pointer',
+    fontWeight: 700,
   },
 }));
 
@@ -81,13 +88,11 @@ function Cinema() {
     return cinemaCluster?.map((cluster, index) => {
       return (
         <TableRow key={index}>
-          <TableCell>
-            <Button
-              onClick={() => handleChoiceMovie(cluster.maCumRap)}
-              style={{ padding: 0, textAlign: 'left' }}
-            >
-              <p>{cluster.maCumRap}</p>
-            </Button>
+          <TableCell
+            onClick={() => handleChoiceMovie(cluster.maCumRap)}
+            className={classes.cumRap}
+          >
+            <p>{cluster.maCumRap}</p>
             <p style={{ fontSize: 12, color: 'rgba(0,0,0, .4)' }}>
               {cluster.diaChi}
             </p>
@@ -102,6 +107,8 @@ function Cinema() {
   const cinemaMovie = useSelector((state) => {
     return state.cinema.movie;
   });
+
+  console.log(cinemaMovie);
   const renderCol3 = () => {
     return cinemaMovie?.danhSachPhim?.map((movie, index) => {
       return (
@@ -120,9 +127,10 @@ function Cinema() {
                 <img width="50px" src={movie.hinhAnh} alt="" />
               </Grid>
               <Grid item xs={9}>
-                {/* <p>{cinemaMovie.maCumRap}</p> */}
                 <h4>{movie.tenPhim}</h4>
-                <p>{movie.maPhim}</p>
+                {movie.lstLichChieuTheoPhim.map((lichChieu) => {
+                  return <Button>{lichChieu.ngayChieuGioChieu}</Button>;
+                })}
               </Grid>
             </Grid>
           </TableCell>

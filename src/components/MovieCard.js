@@ -92,14 +92,21 @@ export default function MovieCard(props) {
   // console.log(props.movie);
   return (
     <>
-      <div className={classes.movieCard} style={{backgroundImage: `url('${props.movie.hinhAnh}')`}}>
+      <div
+        className={classes.movieCard}
+        style={{ backgroundImage: `url('${props.movie.hinhAnh}')` }}
+      >
         <div className={classes.buttonWrap}>
           <PlayArrowRoundedIcon
             className={classes.playButton}
             onClick={() => handleOpen(props.movie.trailer)}
           />
         </div>
-        {props.showRating ? <div className={classes.rating}>{props.movie.danhGia}</div> : ''}
+        {props.showRating ? (
+          <div className={classes.rating}>{props.movie.danhGia}/10</div>
+        ) : (
+          ''
+        )}
       </div>
       <p className={classes.movieTittle}>{props.movie.tenPhim}</p>
       <p className={classes.time}>100 phút</p>
