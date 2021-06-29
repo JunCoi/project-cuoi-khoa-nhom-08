@@ -3,6 +3,7 @@ import HomePage from './pages/HomePage';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import ForgotPassword from './pages/ForgotPassword';
+import MovieDetailPage from './pages/MovieDetailPage';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
             <HomePage />
           </Route>
           <Route path="/movie-detail/:movieCode" exact={true}>
-            <HomePage />
+            <MovieDetailPage />
           </Route>
           <Route path="/sign-in" exact={true}>
             <SignIn />

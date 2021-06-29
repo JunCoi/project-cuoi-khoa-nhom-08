@@ -2,6 +2,9 @@ import { GET_CINEMA_CLUSTER, GET_CINEMA_LIST, GET_CINEMA_MOVIE, GET_MOVIE } from
 
 const initialState = {
   cinemaList: [],
+  cinemaCluster: [],
+  cinemaMovie: [],
+  movie: [],
 };
 
 export const cinemaReducer = (state = initialState, {type, payload}) => {
@@ -12,6 +15,7 @@ export const cinemaReducer = (state = initialState, {type, payload}) => {
         }
         case GET_CINEMA_CLUSTER: {
             state.cinemaCluster = payload;
+            state.movie = [];
             return {...state};
         }
         case GET_CINEMA_MOVIE: {
