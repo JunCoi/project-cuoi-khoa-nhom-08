@@ -1,7 +1,7 @@
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import HomePage from './pages/HomePage';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
+import SignInPage from './pages/SignInPage';
+import SignUpPage from './pages/SignUpPage';
 import ForgotPassword from './pages/ForgotPassword';
 import MovieDetailPage from './pages/MovieDetailPage';
 
@@ -17,10 +17,10 @@ function App() {
             <MovieDetailPage />
           </Route>
           <Route path="/sign-in" exact={true}>
-            <SignIn />
+            <SignInPage />
           </Route>
           <Route path="/sign-up" exact={true}>
-            <SignUp />
+            <SignUpPage />
           </Route>
           <Route path="/forgot-password" exact={true}>
             <ForgotPassword />
