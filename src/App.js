@@ -1,5 +1,6 @@
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import HomePage from './pages/HomePage';
+import MovieDetailPage from './pages/MovieDetailPage';
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
           <HomePage />
         </Route>
         <Route path="/movie-detail/:movieCode" exact={true}>
-          <HomePage />
+          <MovieDetailPage />
         </Route>
         <Route path="/sign-in" exact={true}>
           <HomePage />
