@@ -77,10 +77,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MovieCard(props) {
   const classes = useStyles();
+  const history = useHistory();
   // const [isOpen, setIsOpen] = useState(false);
   // const [popupVideoLink, setPopupVideoLink] = useState('');
   const videoLink = 'https://www.youtube.com/embed/sx1ROHCmY-4';
   const dispatch = useDispatch();
+
+  const handleClick = (event) => {
+    event.stopPropagation();
+    handleOpen(props.movie.trailer);
+  };
+
   const handleOpen = (link) => {
     const newProps = {
       isOpen: true,
@@ -99,11 +106,14 @@ export default function MovieCard(props) {
       <div
         className={classes.movieCard}
         style={{ backgroundImage: `url('${props.movie.hinhAnh}')` }}
+        onClick={() => {
+          history.push(`/detail/${props.movie.maPhim}`);
+        }}
       >
         <div className={classes.buttonWrap}>
           <PlayArrowRoundedIcon
             className={classes.playButton}
-            onClick={() => handleOpen(props.movie.trailer)}
+            onClick={handleClick}
           />
         </div>
         {props.showRating ? (
