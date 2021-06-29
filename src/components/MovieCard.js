@@ -98,7 +98,6 @@ export default function MovieCard(props) {
     dispatch(action);
   };
   // console.log(props.movie);
-  const history = useHistory();
 
 
   return (
