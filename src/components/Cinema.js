@@ -108,7 +108,6 @@ function Cinema() {
     return state.cinema.movie;
   });
 
-  console.log(cinemaMovie);
   const renderCol3 = () => {
     return cinemaMovie?.danhSachPhim?.map((movie, index) => {
       return (
@@ -128,8 +127,10 @@ function Cinema() {
               </Grid>
               <Grid item xs={9}>
                 <h4>{movie.tenPhim}</h4>
-                {movie.lstLichChieuTheoPhim.map((lichChieu) => {
-                  return <Button>{lichChieu.ngayChieuGioChieu}</Button>;
+                {movie.lstLichChieuTheoPhim.map((lichChieu, index) => {
+                  return (
+                    <Button key={index}>{lichChieu.ngayChieuGioChieu}</Button>
+                  );
                 })}
               </Grid>
             </Grid>

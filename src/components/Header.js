@@ -112,7 +112,7 @@ export default function Header() {
                   component="button"
                   underline="none"
                   className={classes.menuItem}
-                  onClick={() => history.push('/signin')}
+                  onClick={() => history.push('/sign-in')}
                 >
                   Đăng nhập
                   <ArrowForwardIosIcon className={classes.arrowIcon} />
@@ -145,7 +145,7 @@ export default function Header() {
                   </Link>
                 ))}
               </div>
-              <Button color="inherit" onClick={() => history.push('/signin')}>
+              <Button color="inherit" onClick={() => history.push('/sign-in')}>
                 Đăng nhập
               </Button>
             </>
