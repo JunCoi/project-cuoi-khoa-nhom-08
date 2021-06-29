@@ -4,7 +4,7 @@ import PlayArrowRoundedIcon from '@material-ui/icons/PlayArrowRounded';
 
 import { openPopup } from '../store/actions/popupAction';
 import { useDispatch } from 'react-redux';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   movieCard: {
@@ -93,12 +93,11 @@ export default function MovieCard(props) {
       isOpen: true,
       link: link,
     };
-    
+
     const action = openPopup(newProps);
     dispatch(action);
   };
   // console.log(props.movie);
-
 
   return (
     <>
@@ -123,9 +122,13 @@ export default function MovieCard(props) {
       </div>
       <p className={classes.movieTittle}>{props.movie.tenPhim}</p>
       <p className={classes.time}>100 phút</p>
-      <button onClick={() => {
-        history.push(`/movie-detail/${props.movie.maPhim}`)
-      }}>XEM THÊM</button>
+      <button
+        onClick={() => {
+          history.push(`/movie-detail/${props.movie.maPhim}`);
+        }}
+      >
+        XEM THÊM
+      </button>
     </>
   );
 }
