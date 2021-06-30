@@ -1,9 +1,10 @@
 import {
   GET_MOVIE_DETAIL,
   GET_MOVIE_DETAIL_CLUSTER,
-  GET_MOVIE_LIST,
+  GET_MOVIE_LIST_NOW_SHOWING,
+  GET_MOVIE_LIST_UP_COMING,
   REMOVE_CURRENT_MOVIE_DETAIL,
-} from "../const/movieConst";
+} from '../const/movieConst';
 
 const initialState = {
   movieListNowShowing: [],
@@ -14,8 +15,10 @@ const initialState = {
 
 export const movieReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case GET_MOVIE_LIST:
+    case GET_MOVIE_LIST_NOW_SHOWING:
       state.movieListNowShowing = payload;
+      return { ...state };
+    case GET_MOVIE_LIST_UP_COMING:
       state.movieListUpComing = payload;
       return { ...state };
     case GET_MOVIE_DETAIL: {
@@ -41,7 +44,7 @@ export const movieReducer = (state = initialState, { type, payload }) => {
     }
     case REMOVE_CURRENT_MOVIE_DETAIL: {
       state.movieDetailCluster = [];
-      return {...state};
+      return { ...state };
     }
     default:
       return { ...state };

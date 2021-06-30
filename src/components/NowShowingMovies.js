@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles({
   cardContainer: {
-    padding: '10px 10px',
+    padding: '20px 10px',
   },
 });
 
@@ -46,18 +46,16 @@ export default function NowShowingMovies() {
       },
     ],
   };
-  
+
   const renderMovieListNowShowing = () => {
     return movieList?.map((movie, index) => {
-      return <div key={index} className={classes.cardContainer}>
-        <MovieCard showRating={true} movie={movie}/>
-      </div>
-    })
-  }
+      return (
+        <div key={index} className={classes.cardContainer}>
+          <MovieCard showRating={true} movie={movie} />
+        </div>
+      );
+    });
+  };
 
-  return (
-    <Slider {...settings}>
-      {renderMovieListNowShowing()}
-    </Slider>
-  );
+  return <Slider {...settings}>{renderMovieListNowShowing()}</Slider>;
 }
