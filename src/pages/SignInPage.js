@@ -6,11 +6,14 @@ import {
   Typography,
   Link,
 } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { FormLabel } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { signInAction } from '../store/actions/authAction';
 
 const useStyles = makeStyles({
   signIn: {
@@ -72,20 +75,41 @@ export default function Signin() {
   const classes = useStyles();
   const inputStyle = { margin: '10px 0', '&>input': { color: 'white' } };
 
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const [authSignIn, setAuthSignIn] = useState({
+    taiKhoan: "",
+    matKhau: "",
+  })
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setAuthSignIn({
+      ...authSignIn,
+      [name]: value,
+    })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(signInAction(authSignIn, history));
+  }
+
   return (
     <Grid className={classes.signIn}>
       <Paper elevation={10} className={classes.paper}>
-        <form>
+        <form onSubmit={handleSubmit}>
           <Grid align="center" className={classes.tittle}>
             <h2>Sign In</h2>
           </Grid>
           <div style={inputStyle}>
             <FormLabel style={{ color: 'white' }}>Tài khoản:</FormLabel>
-            <CssTextField fullWidth required></CssTextField>
+            <CssTextField fullWidth required name="taiKhoan" onChange={handleChange}></CssTextField>
           </div>
           <div style={inputStyle}>
             <FormLabel style={{ color: 'white' }}>Mật khẩu:</FormLabel>
-            <CssTextField type="password" fullWidth required></CssTextField>
+            <CssTextField type="password" fullWidth required name="matKhau" onChange={handleChange}></CssTextField>
           </div>
 
           <FormControlLabel

@@ -121,7 +121,7 @@ function LichChieu(props) {
   const movieDetailCluster = useSelector((state) => {
     return state.movieList.movieDetailCluster;
   });
-  console.log(movieDetailCluster);
+  // console.log(movieDetailCluster);
 
   const renderCol3 = () => {
     if (movieDetailCluster.length < 1) {
