@@ -6,22 +6,23 @@ import MoviesList from '../components/MoviesList';
 import BlockApp from '../components/BlockApp';
 
 import { useDispatch } from 'react-redux';
-import { getMovieListAction } from '../store/actions/movieAction';
+import {
+  getMovieListNowShowingAction,
+  getMovieListUpComingAction,
+} from '../store/actions/movieAction';
 import Cinema from '../components/Cinema';
 import { getCinemaListAction } from '../store/actions/cinemaAction';
 import News from '../components/News';
 import Footer from '../components/Footer';
 
 export default function HomePage() {
-  const dangChieu = 'GP01';
-  const sapChieu = 'GP02';
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getMovieListAction(dangChieu));
-  }, [dangChieu, dispatch]);
+    dispatch(getMovieListNowShowingAction());
+  }, []);
   useEffect(() => {
-    dispatch(getMovieListAction(sapChieu));
-  }, [sapChieu, dispatch]);
+    dispatch(getMovieListUpComingAction());
+  }, []);
   useEffect(() => {
     dispatch(getCinemaListAction());
   }, [dispatch]);
