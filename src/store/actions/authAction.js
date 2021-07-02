@@ -57,7 +57,7 @@ export const signOutActions = (history) => {
     localStorage.clear();
     history.push('/');
     dispatch({
-      type: SIGN_UP,
+      type: SIGN_OUT,
     });
   };
 };
