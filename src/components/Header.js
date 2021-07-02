@@ -76,7 +76,6 @@ export default function Header() {
   const dispatch = useDispatch();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
   const userName = JSON.parse(localStorage.getItem('taiKhoan'));
-  const userAvatar = userName.charAt(0);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -136,7 +135,9 @@ export default function Header() {
                       id="panel1a-header"
                     >
                       <Button onClick={handleClick}>
-                        <Avatar style={{ marginRight: 5 }}>{userAvatar}</Avatar>
+                        <Avatar style={{ marginRight: 5 }}>
+                          {userName.charAt(0)}
+                        </Avatar>
                         <span style={{ color: '#b4b4b4' }}>{userName}</span>
                       </Button>
                     </AccordionSummary>
@@ -187,7 +188,9 @@ export default function Header() {
               {userName ? (
                 <>
                   <Button onClick={handleClick}>
-                    <Avatar style={{ marginRight: 5 }}>{userAvatar}</Avatar>
+                    <Avatar style={{ marginRight: 5 }}>
+                      {userName.charAt(0)}
+                    </Avatar>
                     <span>{userName}</span>
                   </Button>
                   <Menu
