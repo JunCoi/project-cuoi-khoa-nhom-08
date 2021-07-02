@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SIGN_IN, SIGN_UP } from '../const/authConst';
+import { SIGN_IN, SIGN_UP, SIGN_OUT } from '../const/authConst';
 
 export const signInAction = (auth, history) => {
   return async (dispatch) => {
@@ -49,5 +49,15 @@ export const signUpAction = (auth, history) => {
       alert('đăng kí không thành công');
       console.log(error);
     }
+  };
+};
+
+export const signOutActions = (history) => {
+  return (dispatch) => {
+    localStorage.clear();
+    history.push('/');
+    dispatch({
+      type: SIGN_UP,
+    });
   };
 };

@@ -12,6 +12,13 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import Avatar from '@material-ui/core/Avatar';
+import { useDispatch } from 'react-redux';
+import { signOutActions } from '../store/actions/authAction';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,7 +73,10 @@ export default function Header() {
   const classes = useStyles();
   const history = useHistory();
   const theme = useTheme();
+  const dispatch = useDispatch();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
+  const userName = JSON.parse(localStorage.getItem('taiKhoan'));
+  const userAvatar = userName.charAt(0);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -76,6 +86,16 @@ export default function Header() {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleSignOut = () => {
+    setAnchorEl(null);
+    dispatch(signOutActions(history));
+  };
+
+  const handleProfile = () => {
+    setAnchorEl(null);
+    history.push('/profile');
   };
 
   return (
@@ -108,15 +128,34 @@ export default function Header() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem
-                  component="button"
-                  underline="none"
-                  className={classes.menuItem}
-                  onClick={() => history.push('/sign-in')}
-                >
-                  Đăng nhập
-                  <ArrowForwardIosIcon className={classes.arrowIcon} />
-                </MenuItem>
+                {userName ? (
+                  <Accordion style={{ color: '#b4b4b4' }}>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel1a-content"
+                      id="panel1a-header"
+                    >
+                      <Button onClick={handleClick}>
+                        <Avatar style={{ marginRight: 5 }}>{userAvatar}</Avatar>
+                        <span style={{ color: '#b4b4b4' }}>{userName}</span>
+                      </Button>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <MenuItem onClick={handleProfile}>Profile</MenuItem>
+                      <MenuItem onClick={handleSignOut}>Đăng xuất</MenuItem>
+                    </AccordionDetails>
+                  </Accordion>
+                ) : (
+                  <MenuItem
+                    component="button"
+                    underline="none"
+                    className={classes.menuItem}
+                    onClick={() => history.push('/sign-in')}
+                  >
+                    Đăng nhập
+                    <ArrowForwardIosIcon className={classes.arrowIcon} />
+                  </MenuItem>
+                )}
                 {menuItems.map((item, index) => (
                   <MenuItem
                     key={index}
@@ -145,9 +184,31 @@ export default function Header() {
                   </Link>
                 ))}
               </div>
-              <Button color="inherit" onClick={() => history.push('/sign-in')}>
-                Đăng nhập
-              </Button>
+              {userName ? (
+                <>
+                  <Button onClick={handleClick}>
+                    <Avatar style={{ marginRight: 5 }}>{userAvatar}</Avatar>
+                    <span>{userName}</span>
+                  </Button>
+                  <Menu
+                    id="simple-menu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                  >
+                    <MenuItem onClick={handleProfile}>Profile</MenuItem>
+                    <MenuItem onClick={handleSignOut}>Đăng xuất</MenuItem>
+                  </Menu>
+                </>
+              ) : (
+                <Button
+                  color="inherit"
+                  onClick={() => history.push('/sign-in')}
+                >
+                  Đăng nhập
+                </Button>
+              )}
             </>
           )}
         </Toolbar>
