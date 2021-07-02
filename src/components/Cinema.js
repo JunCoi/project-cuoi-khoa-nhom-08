@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import Table from '@material-ui/core/Table';
@@ -92,7 +92,7 @@ function Cinema() {
             onClick={() => handleChoiceMovie(cluster.maCumRap)}
             className={classes.cumRap}
           >
-            <p>{cluster.maCumRap}</p>
+            <p>{cluster.tenCumRap}</p>
             <p style={{ fontSize: 12, color: 'rgba(0,0,0, .4)' }}>
               {cluster.diaChi}
             </p>
@@ -139,6 +139,10 @@ function Cinema() {
       );
     });
   };
+
+  useEffect(() => {
+    handleChoiceCinema('BHDStar');
+  }, []);
 
   return (
     <div className={classes.cinemaList}>
