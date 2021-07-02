@@ -39,6 +39,10 @@ const useStyles = makeStyles({
   tittle: {
     padding: '30px 0 60px',
   },
+  error: {
+    color: 'red',
+    height: 21,
+  },
 });
 
 const WhiteCheckbox = withStyles({
@@ -78,23 +82,35 @@ export default function Signin() {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const [errorText, setErrorText] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const [authSignIn, setAuthSignIn] = useState({
-    taiKhoan: "",
-    matKhau: "",
-  })
+    taiKhoan: '',
+    matKhau: '',
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setAuthSignIn({
       ...authSignIn,
       [name]: value,
-    })
-  }
+    });
+    setErrorText('');
+  };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(signInAction(authSignIn, history));
-  }
+    setIsLoading(true);
+    try {
+      const data = await dispatch(signInAction(authSignIn, history));
+      if (data === true) {
+        setErrorText('* Sai tài khoản hoặc mật khẩu!');
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    setIsLoading(false);
+  };
 
   return (
     <Grid className={classes.signIn}>
@@ -103,13 +119,25 @@ export default function Signin() {
           <Grid align="center" className={classes.tittle}>
             <h2>Sign In</h2>
           </Grid>
+          <div className={classes.error}>{errorText}</div>
           <div style={inputStyle}>
             <FormLabel style={{ color: 'white' }}>Tài khoản:</FormLabel>
-            <CssTextField fullWidth required name="taiKhoan" onChange={handleChange}></CssTextField>
+            <CssTextField
+              fullWidth
+              required
+              name="taiKhoan"
+              onChange={handleChange}
+            ></CssTextField>
           </div>
           <div style={inputStyle}>
             <FormLabel style={{ color: 'white' }}>Mật khẩu:</FormLabel>
-            <CssTextField type="password" fullWidth required name="matKhau" onChange={handleChange}></CssTextField>
+            <CssTextField
+              type="password"
+              fullWidth
+              required
+              name="matKhau"
+              onChange={handleChange}
+            ></CssTextField>
           </div>
 
           <FormControlLabel
@@ -122,9 +150,10 @@ export default function Signin() {
             type="submit"
             color="primary"
             variant="contained"
+            disabled={isLoading}
             fullWidth
           >
-            Đăng nhập
+            {isLoading ? 'Đang đăng nhập...' : 'Đăng nhập'}
           </Button>
           <Typography>
             <Link href="/forgot-password" color="inherit" underline="always">
