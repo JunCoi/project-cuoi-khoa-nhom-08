@@ -8,8 +8,12 @@ import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   movieCard: {
+    '&:hover  $btnWrap': {
+      display: 'block',
+    },
+  },
+  movieImg: {
     height: 318,
-    // backgroundImage: 'url(./images/trang-ti-215x318.jpg)',
     backgroundPosition: 'center',
     backGroundSize: 'contain',
     borderRadius: 4,
@@ -73,13 +77,35 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 14,
     padding: '0 10px',
   },
+  cardText: {
+    position: 'relative',
+  },
+  btnWrap: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    paddingTop: 10,
+    background: 'white',
+    display: 'none',
+  },
+  btn: {
+    width: '100%',
+    padding: '10px 0',
+    background: '#fb4226',
+    fontSize: 16,
+    letterSpacing: 2,
+    color: 'white',
+    border: 'none',
+    borderRadius: 4,
+    cursor: 'pointer',
+  },
 }));
 
 export default function MovieCard(props) {
   const classes = useStyles();
   const history = useHistory();
-  // const [isOpen, setIsOpen] = useState(false);
-  // const [popupVideoLink, setPopupVideoLink] = useState('');
   const videoLink = 'https://www.youtube.com/embed/sx1ROHCmY-4';
   const dispatch = useDispatch();
 
@@ -97,12 +123,11 @@ export default function MovieCard(props) {
     const action = openPopup(newProps);
     dispatch(action);
   };
-  // console.log(props.movie);
 
   return (
-    <>
+    <div className={classes.movieCard}>
       <div
-        className={classes.movieCard}
+        className={classes.movieImg}
         style={{ backgroundImage: `url('${props.movie.hinhAnh}')` }}
         onClick={() => {
           history.push(`/detail/${props.movie.maPhim}`);
@@ -120,15 +145,20 @@ export default function MovieCard(props) {
           ''
         )}
       </div>
-      <p className={classes.movieTittle}>{props.movie.tenPhim}</p>
-      <p className={classes.time}>100 phút</p>
-      <button
-        onClick={() => {
-          history.push(`/movie-detail/${props.movie.maPhim}`);
-        }}
-      >
-        XEM THÊM
-      </button>
-    </>
+      <div className={classes.cardText}>
+        <p className={classes.movieTittle}>{props.movie.tenPhim}</p>
+        <p className={classes.time}>100 phút</p>
+        <div className={classes.btnWrap}>
+          <button
+            className={classes.btn}
+            onClick={() => {
+              history.push(`/movie-detail/${props.movie.maPhim}`);
+            }}
+          >
+            XEM THÊM
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
