@@ -21,6 +21,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Button } from "@material-ui/core";
 import format from "date-format";
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   LichChieu: {
@@ -133,10 +134,10 @@ function LichChieu(props) {
             <TableCell>
               <p>Tên phim: {movie.tenPhim}</p>
               <p>Giá vé: {movie.giaVe}</p>
-              <p>
+              <Link to={`/booking/${movie.maLichChieu}`}>
                 Ngày chiếu - Giờ chiếu:
                 {format("MM/dd/yy - hh:mm", new Date(movie.ngayChieuGioChieu))}
-              </p>
+              </Link>
               <p>Thời Lượng: {movie.thoiLuong}</p>
               <p>{movie.thongTinRap.tenRap}</p>
               <p>Tên cụm rạp: {movie.thongTinRap.tenCumRap}</p>

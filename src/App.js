@@ -5,6 +5,7 @@ import SignUpPage from './pages/SignUpPage';
 import ForgotPassword from './pages/ForgotPassword';
 import MovieDetailPage from './pages/MovieDetailPage';
 import ProfilePage from './pages/ProfilePage';
+import BookingPage from './pages/BookingPage';
 
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
             <ForgotPassword />
           </Route>
           <Route path="/booking/:showTimeCode" exact={true}>
-            <HomePage />
+            <BookingPage />
           </Route>
           <Route path="/profile" exact={true}>
             <ProfilePage />
