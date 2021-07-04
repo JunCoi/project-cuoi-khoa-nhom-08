@@ -88,7 +88,7 @@ function BookingPage() {
               borderRadius: "5px",
               border: "none",
               color: "white",
-              backgroundColor: `${chair.daDat ? "black" : "rgb(116,112,112)"}`,
+              backgroundColor: `${chair.daDat ? "black !important" : "rgb(116,112,112)"}`,
             }}
             className={
               chair.dangChon

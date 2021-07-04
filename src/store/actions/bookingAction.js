@@ -1,4 +1,5 @@
 import axios from "axios";
+import Swal from "sweetalert2";
 import { CHOICE_CHAIR, GET_CHAIR_LIST } from "../const/bookingConst";
 
 export const getTicketListAction = (maLichChieu) => {
@@ -44,7 +45,7 @@ export const bookingTicketAction = (maLichChieu, danhSachVe) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      alert("đặt vé thành công");
+      Swal.fire("Thông Báo", "Bạn đã đặt vé thành công", "success");
       dispatch(getTicketListAction(maLichChieu));
       console.log(res);
     } catch (error) {
