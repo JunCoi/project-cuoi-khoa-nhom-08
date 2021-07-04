@@ -1,6 +1,7 @@
 import { CHOICE_CHAIR, GET_CHAIR_LIST } from "../const/bookingConst";
 
 const initialState = {
+  thongTinPhim: [],
   listChair: [],
 };
 
@@ -8,7 +9,8 @@ export const bookingReducer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case GET_CHAIR_LIST:
-      state.listChair = payload;
+      state.thongTinPhim = payload;
+      state.listChair = payload.danhSachGhe;
       return { ...state };
     case CHOICE_CHAIR:
       let listChair = [...state.listChair];

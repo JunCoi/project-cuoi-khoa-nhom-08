@@ -10,7 +10,7 @@ export const getTicketListAction = (maLichChieu) => {
       });
       dispatch({
         type: GET_CHAIR_LIST,
-        payload: res.data.danhSachGhe,
+        payload: res.data,
       });
     } catch (error) {
       console.log(error);
@@ -25,7 +25,7 @@ export const choiceChairAction = (chair) => {
   };
 };
 
-export const bookingTicketAction = (maLichChieu, danhSachVe, history) => {
+export const bookingTicketAction = (maLichChieu, danhSachVe) => {
   return async (dispatch) => {
     try {
       // get localStorage
@@ -45,7 +45,7 @@ export const bookingTicketAction = (maLichChieu, danhSachVe, history) => {
         },
       });
       alert("đặt vé thành công");
-      history.push("/");
+      dispatch(getTicketListAction(maLichChieu));
       console.log(res);
     } catch (error) {
       console.log(error);

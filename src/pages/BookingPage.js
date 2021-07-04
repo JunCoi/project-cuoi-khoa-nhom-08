@@ -15,22 +15,24 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { Button } from "@material-ui/core";
+import { Button, Container, Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   BookingPage: {
-    maxWidth: 940,
-    margin: "auto",
     paddingTop: "100px",
   },
   choiceChair: {
-    backgroundColor: "#6645fd",
+    backgroundColor: "#6645fd !important",
+    color: "white",
     "&:hover": {
       backgroundColor: "#6645fd",
     },
   },
-  table: {
-    minWidth: 650,
+  gheVip: {
+    backgroundColor: "rgb(216,100,6) !important",
+  },
+  daDat: {
+    cursor: "no-drop !important",
   },
 }));
 
@@ -43,6 +45,10 @@ function BookingPage() {
   useEffect(() => {
     dispatch(getTicketListAction(showTimeCode));
   }, [dispatch, showTimeCode]);
+
+  const thongTinPhim = useSelector((state) => {
+    return state.booking.thongTinPhim.thongTinPhim;
+  });
 
   const listChair = useSelector((state) => {
     return state.booking.listChair;
@@ -71,16 +77,35 @@ function BookingPage() {
   const renderListChair = () => {
     return listChair?.map((chair, index) => {
       return (
-        <Button
-          className={chair.dangChon ? classes.choiceChair : ""}
-          onClick={() => handleChoice(chair)}
-          disabled={chair.daDat}
-          variant="contained"
-          color={chair.daDat ? "primary" : "secondary"}
-          key={index}
-        >
-          {chair.tenGhe}
-        </Button>
+        <>
+          <button
+            key={index}
+            style={{
+              cursor: `${chair.daDat ? "no-drop" : "pointer"}`,
+              width: "35px",
+              height: "35px",
+              margin: "5px",
+              borderRadius: "5px",
+              border: "none",
+              color: "white",
+              backgroundColor: `${chair.daDat ? "black" : "rgb(116,112,112)"}`,
+            }}
+            className={
+              chair.dangChon
+                ? classes.choiceChair
+                : "" || chair.loaiGhe === "Vip"
+                ? classes.gheVip
+                : ""
+            }
+            onClick={() => handleChoice(chair)}
+            disabled={chair.daDat}
+            variant="contained"
+            key={index}
+          >
+            {chair.tenGhe}
+          </button>
+          {(index + 1) % 16 === 0 ? <br /> : ""}
+        </>
       );
     });
   };
@@ -90,9 +115,7 @@ function BookingPage() {
       if (chair.dangChon) {
         return (
           <TableRow key={index}>
-            <TableCell>{chair.maGhe}</TableCell>
             <TableCell>{chair.tenGhe}</TableCell>
-            <TableCell>{chair.maRap}</TableCell>
             <TableCell>{chair.loaiGhe}</TableCell>
             <TableCell>{chair.giaVe}</TableCell>
           </TableRow>
@@ -105,48 +128,75 @@ function BookingPage() {
     <div>
       <Header />
       <div className={classes.BookingPage}>
-        <div>{renderListChair()}</div>
-        <div>
-          <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Mã ghế</TableCell>
-                  <TableCell>Tên ghế</TableCell>
-                  <TableCell>Mã rạp</TableCell>
-                  <TableCell>Loại ghế</TableCell>
-                  <TableCell>Giá vé</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {renderTable()}
-                <TableRow>
-                  <TableCell>Tổng cộng</TableCell>
-                  <TableCell colSpan="3"></TableCell>
-                  <TableCell>
-                    {listChair
-                      .filter((chair) => chair.dangChon)
-                      .reduce(
-                        (tongTien, chair) => (tongTien += chair.giaVe),
-                        0
-                      )}
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </div>
-      </div>
-      <div style={{ textAlign: "center", margin: "30px" }}>
-        <Button
-          disabled={isValid}
-          onClick={handleBooking}
-          variant="contained"
-          color="primary"
-          size="large"
-        >
-          Booking
-        </Button>
+        <Container>
+          <Grid container spacing={3}>
+            <Grid item md={8}>
+              <div>
+                <img src="https://tix.vn/app/assets/img/icons/screen.png" />
+              </div>
+              <div style={{ textAlign: "center" }}>{renderListChair()}</div>
+            </Grid>
+            <Grid item md={4}>
+              <img
+                src={thongTinPhim?.hinhAnh}
+                alt=""
+                width="100%"
+                height="auto"
+              />
+              <p>Tên phim: {thongTinPhim?.tenPhim}</p>
+              <p>
+                Rạp: {thongTinPhim?.tenCumRap} - Địa chỉ: {thongTinPhim?.diaChi}{" "}
+                - {thongTinPhim?.tenRap}
+              </p>
+              <p>
+                Ngày chiếu: {thongTinPhim?.ngayChieu} - Giờ chiếu:{" "}
+                {thongTinPhim?.gioChieu}
+              </p>
+              <br />
+              <hr />
+              <br />
+              <div>
+                <TableContainer component={Paper}>
+                  <Table className={classes.table} aria-label="simple table">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Ghế</TableCell>
+                        <TableCell>Loại ghế</TableCell>
+                        <TableCell>Giá vé</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {renderTable()}
+                      <TableRow>
+                        <TableCell>Tổng tiền:</TableCell>
+                        <TableCell colSpan="1"></TableCell>
+                        <TableCell>
+                          {listChair
+                            .filter((chair) => chair.dangChon)
+                            .reduce(
+                              (tongTien, chair) => (tongTien += chair.giaVe),
+                              0
+                            )}
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </div>
+              <div style={{ textAlign: "center", margin: "30px" }}>
+                <Button
+                  disabled={isValid}
+                  onClick={handleBooking}
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                >
+                  Booking
+                </Button>
+              </div>
+            </Grid>
+          </Grid>
+        </Container>
       </div>
     </div>
   );

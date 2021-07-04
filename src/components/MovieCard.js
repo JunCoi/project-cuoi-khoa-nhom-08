@@ -130,7 +130,7 @@ export default function MovieCard(props) {
         className={classes.movieImg}
         style={{ backgroundImage: `url('${props.movie.hinhAnh}')` }}
         onClick={() => {
-          history.push(`/detail/${props.movie.maPhim}`);
+          history.push(`/movie-detail/${props.movie.maPhim}`);
         }}
       >
         <div className={classes.buttonWrap}>

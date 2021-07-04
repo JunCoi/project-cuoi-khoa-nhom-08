@@ -125,7 +125,7 @@ function LichChieu(props) {
   // console.log(movieDetailCluster);
 
   const renderCol3 = () => {
-    if (movieDetailCluster.length < 1) {
+    if (movieDetailCluster?.length < 1) {
       return <p>rạp không có lịch chiếu phim</p>;
     } else {
       return movieDetailCluster?.map((movie, index) => {
