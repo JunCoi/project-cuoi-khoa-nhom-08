@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   LichChieu: {
     maxWidth: 940,
     margin: "auto",
-    paddingTop: "400px",
+    padding: "100px 0",
   },
   table: {
     minWidth: 650,

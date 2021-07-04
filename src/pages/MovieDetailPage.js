@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Tabs, Tab } from "@material-ui/core";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
 import LichChieu from "../components/LichChieu";
@@ -10,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   movieDetailPage: {
     maxWidth: 940,
     margin: "auto",
-    paddingTop: "400px",
+    paddingTop: "100px",
   },
 }));
 
@@ -42,6 +43,7 @@ function MovieDetailPage() {
         {selectedTab === 0 && <LichChieu />}
         {selectedTab === 1 && <ThongTin />}
       </div>
+      <Footer />
     </div>
   );
 }
