@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { authReducer } from './authReducer';
+import { bookingReducer } from './bookingRedecer';
 import { cinemaReducer } from './cinemaReducer';
 import { movieReducer } from './movieReducer';
 import { popupReducer } from './popupReducer';
@@ -11,6 +12,7 @@ export const rootReducer = combineReducers({
   cinema: cinemaReducer,
   auth: authReducer,
   profile: profileReducer,
+  booking: bookingReducer,
 });
 
 

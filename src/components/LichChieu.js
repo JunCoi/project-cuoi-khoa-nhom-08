@@ -21,12 +21,13 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Button } from "@material-ui/core";
 import format from "date-format";
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   LichChieu: {
     maxWidth: 940,
     margin: "auto",
-    paddingTop: "400px",
+    padding: "100px 0",
   },
   table: {
     minWidth: 650,
@@ -124,7 +125,7 @@ function LichChieu(props) {
   // console.log(movieDetailCluster);
 
   const renderCol3 = () => {
-    if (movieDetailCluster.length < 1) {
+    if (movieDetailCluster?.length < 1) {
       return <p>rạp không có lịch chiếu phim</p>;
     } else {
       return movieDetailCluster?.map((movie, index) => {
@@ -133,10 +134,10 @@ function LichChieu(props) {
             <TableCell>
               <p>Tên phim: {movie.tenPhim}</p>
               <p>Giá vé: {movie.giaVe}</p>
-              <p>
+              <Link to={`/booking/${movie.maLichChieu}`}>
                 Ngày chiếu - Giờ chiếu:
                 {format("MM/dd/yy - hh:mm", new Date(movie.ngayChieuGioChieu))}
-              </p>
+              </Link>
               <p>Thời Lượng: {movie.thoiLuong}</p>
               <p>{movie.thongTinRap.tenRap}</p>
               <p>Tên cụm rạp: {movie.thongTinRap.tenCumRap}</p>

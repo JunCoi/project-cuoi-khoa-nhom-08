@@ -31,7 +31,7 @@ export const movieReducer = (state = initialState, { type, payload }) => {
       state.movieDetailCluster = [];
       // console.log(payload);
       // const index = newMovieDetail.lichChieu.findIndex((rap) => rap.thongTinRap.maCumRap === payload);
-      for (let i = 0; i < newMovieDetail.lichChieu.length; i++) {
+      for (let i = 0; i < newMovieDetail.lichChieu?.length; i++) {
         if (newMovieDetail.lichChieu[i].thongTinRap.maCumRap === payload) {
           state.movieDetailCluster.push(newMovieDetail.lichChieu[i]);
         }
