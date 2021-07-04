@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   gheVip: {
-    backgroundColor: "rgb(216,100,6) !important",
+    backgroundColor: "rgb(216,100,6)",
   },
   daDat: {
     cursor: "no-drop !important",
@@ -88,19 +88,12 @@ function BookingPage() {
               borderRadius: "5px",
               border: "none",
               color: "white",
-              backgroundColor: `${chair.daDat ? "black !important" : "rgb(116,112,112)"}`,
+              backgroundColor: `${chair.daDat ? "black" : "rgb(116,112,112)"}`,
             }}
-            className={
-              chair.dangChon
-                ? classes.choiceChair
-                : "" || chair.loaiGhe === "Vip"
-                ? classes.gheVip
-                : ""
-            }
+            className={chair.dangChon ? classes.choiceChair : ""}
             onClick={() => handleChoice(chair)}
             disabled={chair.daDat}
             variant="contained"
-            key={index}
           >
             {chair.tenGhe}
           </button>

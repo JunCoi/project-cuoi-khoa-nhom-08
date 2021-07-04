@@ -1,6 +1,10 @@
 import axios from "axios";
 import Swal from "sweetalert2";
-import { CHOICE_CHAIR, GET_CHAIR_LIST } from "../const/bookingConst";
+import {
+  CHOICE_CHAIR,
+  DAT_VE_THANH_CONG,
+  GET_CHAIR_LIST,
+} from "../const/bookingConst";
 
 export const getTicketListAction = (maLichChieu) => {
   return async (dispatch) => {
@@ -46,7 +50,10 @@ export const bookingTicketAction = (maLichChieu, danhSachVe) => {
         },
       });
       Swal.fire("Thông Báo", "Bạn đã đặt vé thành công", "success");
-      dispatch(getTicketListAction(maLichChieu));
+      dispatch(await getTicketListAction(maLichChieu));
+      dispatch({
+        type: DAT_VE_THANH_CONG,
+      });
       console.log(res);
     } catch (error) {
       console.log(error);

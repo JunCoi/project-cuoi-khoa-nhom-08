@@ -1,4 +1,8 @@
-import { CHOICE_CHAIR, GET_CHAIR_LIST } from "../const/bookingConst";
+import {
+  CHOICE_CHAIR,
+  DAT_VE_THANH_CONG,
+  GET_CHAIR_LIST,
+} from "../const/bookingConst";
 
 const initialState = {
   thongTinPhim: [],
@@ -27,6 +31,10 @@ export const bookingReducer = (state = initialState, action) => {
         state.listChair = listChair;
       }
       return { ...state };
+    case DAT_VE_THANH_CONG: {
+      state.listChair = [];
+      return { ...state };
+    }
     default:
       return { ...state };
   }
