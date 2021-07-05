@@ -1,5 +1,9 @@
 import { SIGN_OUT } from "../const/authConst";
-import { GET_BOOK_TICKET_CHAIR, GET_PROFILE, UPDATE_PROFILE } from "../const/profileConst";
+import {
+  GET_BOOK_TICKET_CHAIR,
+  GET_PROFILE,
+  UPDATE_PROFILE,
+} from "../const/profileConst";
 
 const initialState = {
   profileUser: [],
@@ -22,14 +26,14 @@ export const profileReducer = (state = initialState, { type, payload }) => {
       //   console.log(newProfileUser);
       //   console.log(payload);
       const index = newProfileUser.findIndex((ve) => ve.maVe === payload);
-    //   console.log(index);
+      //   console.log(index);
       state.chairBookTicket = newProfileUser[index].danhSachGhe;
-    //   console.log(state.chairBookTicket);
+      //   console.log(state.chairBookTicket);
       return { ...state };
     }
     case UPDATE_PROFILE: {
-        state.profileUser = payload;
-        return {...state};
+      state.profileUser = payload;
+      return { ...state };
     }
     default:
       return { ...state };

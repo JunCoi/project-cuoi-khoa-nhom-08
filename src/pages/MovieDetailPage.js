@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import LichChieu from "../components/LichChieu";
 import ThongTin from "../components/ThongTin";
 
+
 const useStyles = makeStyles((theme) => ({
   movieDetailPage: {
     maxWidth: 940,
@@ -19,7 +20,7 @@ function MovieDetailPage() {
   const classes = useStyles();
   const movieDetail = useSelector((state) => {
     return state.movieList.movieDetail;
-  })
+  });
   // console.log(movieDetail);
 
   const [selectedTab, setSelectedTab] = useState(0);
@@ -34,7 +35,7 @@ function MovieDetailPage() {
       <div className={classes.movieDetailPage}>
         <div>
           <h1>{movieDetail.tenPhim}</h1>
-          <img src={movieDetail.hinhAnh} alt=""/>
+          <img src={movieDetail.hinhAnh} alt="" />
         </div>
         <Tabs value={selectedTab} onChange={handleChange} centered>
           <Tab className={classes.label} label="Lịch Chiếu" />

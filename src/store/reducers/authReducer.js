@@ -1,4 +1,4 @@
-import { SIGN_IN, SIGN_UP, SIGN_OUT } from '../const/authConst';
+import { SIGN_IN, SIGN_UP, SIGN_OUT } from "../const/authConst";
 
 const initialState = {
   authSignIn: {},
@@ -16,6 +16,7 @@ export const authReducer = (state = initialState, { type, payload }) => {
       return { ...state };
     }
     case SIGN_OUT: {
+      state.authSignIn = {};
       state.authSignUp = {};
       return { ...state };
     }
