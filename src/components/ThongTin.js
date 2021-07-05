@@ -1,11 +1,12 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { makeStyles } from "@material-ui/core/styles";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   movieDetailPage: {
     maxWidth: 940,
-    margin: "auto",
+    margin: 'auto',
+    padding: '20px 10px',
   },
 }));
 
