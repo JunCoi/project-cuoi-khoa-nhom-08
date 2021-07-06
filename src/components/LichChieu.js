@@ -1,13 +1,14 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   getCinemaClusterAction,
   getCinemaListAction,
-} from "../store/actions/cinemaAction";
+} from '../store/actions/cinemaAction';
 import {
   getMovieDetailAction,
   getMovieDetailClusterAction,
   removeCurrentMovieDetailAction,
+
 } from "../store/actions/movieAction";
 import { makeStyles } from "@material-ui/core/styles";
 import { withRouter } from "react-router";
@@ -26,29 +27,29 @@ import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   LichChieu: {
     maxWidth: 940,
-    margin: "auto",
-    padding: "100px 0",
+    margin: 'auto',
+    padding: '20px 0',
   },
   table: {
     minWidth: 650,
     height: 700,
   },
   fixoverflow: {
-    overflow: "auto",
-    height: "100%",
+    overflow: 'auto',
+    height: '100%',
   },
   col1: {
     width: 96.5,
     padding: 5,
-    borderRight: "1px solid rgba(224, 224, 224, 1)",
+    borderRight: '1px solid rgba(224, 224, 224, 1)',
   },
   col2: {
-    width: "30%",
+    width: '30%',
     padding: 5,
-    borderRight: "1px solid rgba(224, 224, 224, 1)",
+    borderRight: '1px solid rgba(224, 224, 224, 1)',
   },
   cumRap: {
-    cursor: "pointer",
+    cursor: 'pointer',
     fontWeight: 700,
   },
   label: {
@@ -108,7 +109,7 @@ function LichChieu(props) {
             className={classes.cumRap}
           >
             <p>{cluster.maCumRap}</p>
-            <p style={{ fontSize: 12, color: "rgba(0,0,0, .4)" }}>
+            <p style={{ fontSize: 12, color: 'rgba(0,0,0, .4)' }}>
               {cluster.diaChi}
             </p>
           </TableCell>
@@ -141,7 +142,7 @@ function LichChieu(props) {
                 to={`/booking/${movie.maLichChieu}`}
               >
                 Ngày chiếu - Giờ chiếu:
-                {format("MM/dd/yy - hh:mm", new Date(movie.ngayChieuGioChieu))}
+                {format('MM/dd/yy - hh:mm', new Date(movie.ngayChieuGioChieu))}
               </Link>
               <p>Thời Lượng: {movie.thoiLuong}</p>
               <p>{movie.thongTinRap.tenRap}</p>
