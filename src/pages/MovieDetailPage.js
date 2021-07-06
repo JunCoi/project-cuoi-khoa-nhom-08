@@ -8,6 +8,7 @@ import LichChieu from '../components/LichChieu';
 import ThongTin from '../components/ThongTin';
 import Grid from '@material-ui/core/Grid';
 
+
 const useStyles = makeStyles((theme) => ({
   movieDetailPage: {
     maxWidth: 940,
@@ -30,7 +31,7 @@ function MovieDetailPage() {
   const movieDetail = useSelector((state) => {
     return state.movieList.movieDetail;
   });
-  console.log(movieDetail);
+  // console.log(movieDetail);
 
   const [selectedTab, setSelectedTab] = useState(0);
 

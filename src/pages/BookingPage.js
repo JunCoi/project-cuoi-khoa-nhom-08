@@ -1,43 +1,43 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
-import Header from '../components/Header';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useParams } from "react-router-dom";
+import Header from "../components/Header";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   bookingTicketAction,
   choiceChairAction,
   getTicketListAction,
-} from '../store/actions/bookingAction';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import { Button, Container, Grid } from '@material-ui/core';
+} from "../store/actions/bookingAction";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import { Button, Container, Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   BookingPage: {
-    paddingTop: '100px',
+    paddingTop: "100px",
   },
   choiceChair: {
-    backgroundColor: '#6645fd !important',
-    color: 'white',
-    '&:hover': {
-      backgroundColor: '#6645fd',
+    backgroundColor: "#6645fd !important",
+    color: "white",
+    "&:hover": {
+      backgroundColor: "#6645fd",
     },
   },
   daDat: {
-    cursor: 'no-drop !important',
+    cursor: "no-drop !important",
   },
   bill: {
     maxHeight: 320,
-    overflowY: 'scroll',
+    overflowY: "scroll",
   },
   wrap: {
-    width: '100vw',
-    overflowY: 'scroll',
+    width: "100vw",
+    overflowY: "scroll",
   },
 }));
 
@@ -86,24 +86,24 @@ function BookingPage() {
           <button
             key={index}
             style={{
-              cursor: `${chair.daDat ? 'no-drop' : 'pointer'}`,
-              width: '4.5%',
+              cursor: `${chair.daDat ? "no-drop" : "pointer"}`,
+              width: "4.5%",
               minWidth: 30,
               height: 30,
-              margin: '5px',
-              borderRadius: '5px',
-              border: 'none',
-              color: `${chair.loaiGhe === 'Thuong' ? 'white' : 'red'}`,
-              backgroundColor: `${chair.daDat ? 'black' : 'rgb(116,112,112)'}`,
+              margin: "5px",
+              borderRadius: "5px",
+              border: "none",
+              color: `${chair.loaiGhe === "Thuong" ? "white" : "red"}`,
+              backgroundColor: `${chair.daDat ? "black" : "rgb(116,112,112)"}`,
             }}
-            className={chair.dangChon ? classes.choiceChair : ''}
+            className={chair.dangChon ? classes.choiceChair : ""}
             onClick={() => handleChoice(chair)}
             disabled={chair.daDat}
             variant="contained"
           >
-            {chair.daDat ? 'X' : chair.tenGhe}
+            {chair.daDat ? "X" : chair.tenGhe}
           </button>
-          {(index + 1) % 16 === 0 ? <br /> : ''}
+          {(index + 1) % 16 === 0 ? <br /> : ""}
         </>
       );
     });
@@ -130,19 +130,19 @@ function BookingPage() {
         <Container>
           <Grid container spacing={3}>
             <Grid item md={8} className={classes.wrap}>
-              <div style={{ width: '100%' }}>
+              <div style={{ width: "100%" }}>
                 <img
-                  style={{ width: '100%', minWidth: 700 }}
+                  style={{ width: "100%", minWidth: 700 }}
                   src="https://tix.vn/app/assets/img/icons/screen.png"
                 />
               </div>
               <div
-                style={{ textAlign: 'center', width: '100%', minWidth: 700 }}
+                style={{ textAlign: "center", width: "100%", minWidth: 700 }}
               >
                 {renderListChair()}
               </div>
             </Grid>
-            <Grid item md={4} style={{ margin: 'auto' }}>
+            <Grid item md={4} style={{ margin: "auto" }}>
               <img
                 src={thongTinPhim?.hinhAnh}
                 alt=""
@@ -151,11 +151,11 @@ function BookingPage() {
               />
               <p>Tên phim: {thongTinPhim?.tenPhim}</p>
               <p>
-                Rạp: {thongTinPhim?.tenCumRap} - Địa chỉ: {thongTinPhim?.diaChi}{' '}
+                Rạp: {thongTinPhim?.tenCumRap} - Địa chỉ: {thongTinPhim?.diaChi}{" "}
                 - {thongTinPhim?.tenRap}
               </p>
               <p>
-                Ngày chiếu: {thongTinPhim?.ngayChieu} - Giờ chiếu:{' '}
+                Ngày chiếu: {thongTinPhim?.ngayChieu} - Giờ chiếu:{" "}
                 {thongTinPhim?.gioChieu}
               </p>
               <br />
@@ -189,7 +189,7 @@ function BookingPage() {
                   </Table>
                 </TableContainer>
               </div>
-              <div style={{ textAlign: 'center', margin: '30px' }}>
+              <div style={{ textAlign: "center", margin: "30px" }}>
                 <Button
                   disabled={isValid}
                   onClick={handleBooking}

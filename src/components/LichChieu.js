@@ -8,20 +8,21 @@ import {
   getMovieDetailAction,
   getMovieDetailClusterAction,
   removeCurrentMovieDetailAction,
-} from '../store/actions/movieAction';
-import { makeStyles } from '@material-ui/core/styles';
-import { withRouter } from 'react-router';
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import { Button } from '@material-ui/core';
-import format from 'date-format';
-import { Link } from 'react-router-dom';
+} from "../store/actions/movieAction";
+import { makeStyles } from "@material-ui/core/styles";
+import { withRouter } from "react-router";
+
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import { Button } from "@material-ui/core";
+import format from "date-format";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   LichChieu: {
@@ -134,7 +135,12 @@ function LichChieu(props) {
             <TableCell>
               <p>Tên phim: {movie.tenPhim}</p>
               <p>Giá vé: {movie.giaVe}</p>
-              <Link to={`/booking/${movie.maLichChieu}`}>
+              <Link
+                onClick={() => {
+                  handleGetMaLichChieu(movie.maLichChieu);
+                }}
+                to={`/booking/${movie.maLichChieu}`}
+              >
                 Ngày chiếu - Giờ chiếu:
                 {format('MM/dd/yy - hh:mm', new Date(movie.ngayChieuGioChieu))}
               </Link>
@@ -146,6 +152,10 @@ function LichChieu(props) {
         );
       });
     }
+  };
+
+  const handleGetMaLichChieu = (maLichChieu) => {
+    localStorage.setItem("maLichChieu", JSON.stringify(maLichChieu));
   };
 
   return (
