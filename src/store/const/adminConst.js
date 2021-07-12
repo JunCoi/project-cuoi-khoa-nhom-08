@@ -1,0 +1,5 @@
+export const GET_LIST_USER_PAGE = "GET_LIST_USER_PAGE";
+export const DELETE_USER = "DELETE_USER";
+export const UPDATE_USER = "UPDATE_USER";
+export const GET_LIST_SEARCH_USER_PAGE = "GET_LIST_SEARCH_USER_PAGE";
+export const ADD_NEW_USER = "ADD_NEW_USER";

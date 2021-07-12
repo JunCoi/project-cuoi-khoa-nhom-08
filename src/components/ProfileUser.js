@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Paper from "@material-ui/core/Paper";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
@@ -8,8 +7,6 @@ import { makeStyles, withStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import { Button, Grid } from "@material-ui/core";
 import { FormLabel } from "@material-ui/core";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import { updateProfileUserAction } from "../store/actions/profileAction";
 
 const useStyles = makeStyles((theme) => ({
@@ -57,15 +54,7 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
-const WhiteCheckbox = withStyles({
-  root: {
-    color: "white",
-    "&$checked": {
-      color: "white",
-    },
-  },
-  checked: {},
-})((props) => <Checkbox color="default" {...props} />);
+
 
 const inputStyle = { margin: "10px 0", "&>input": { color: "white" } };
 
