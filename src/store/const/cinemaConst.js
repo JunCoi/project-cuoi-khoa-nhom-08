@@ -2,3 +2,6 @@ export const GET_CINEMA_LIST = "GET_CINEMA_LIST";
 export const GET_CINEMA_CLUSTER = "GET_CINEMA_CLUSTER";
 export const GET_CINEMA_MOVIE = "GET_CINEMA_MOVIE";
 export const GET_MOVIE = "GET_MOVIE";
+export const LAY_TEN_PHIM = "LAY_TEN_PHIM";
+export const LAY_NGAY_XEM = "LAY_NGAY_XEM";
+export const LAY_CHI_TIET_PHIM = "LAY_CHI_TIET_PHIM";

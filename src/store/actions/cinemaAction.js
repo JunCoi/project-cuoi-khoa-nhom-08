@@ -1,17 +1,20 @@
-import axios from 'axios';
+import axios from "axios";
 import {
   GET_CINEMA_CLUSTER,
   GET_CINEMA_LIST,
   GET_CINEMA_MOVIE,
   GET_MOVIE,
-} from '../const/cinemaConst';
+  LAY_CHI_TIET_PHIM,
+  LAY_NGAY_XEM,
+  LAY_TEN_PHIM,
+} from "../const/cinemaConst";
 
 export const getCinemaListAction = () => {
   return async (dispatch) => {
     try {
       const res = await axios({
-        url: 'http://movie0706.cybersoft.edu.vn/api/QuanLyRap/LayThongTinHeThongRap',
-        method: 'GET',
+        url: "http://movie0706.cybersoft.edu.vn/api/QuanLyRap/LayThongTinHeThongRap",
+        method: "GET",
       });
       //   console.log(res.data);
       dispatch({
@@ -29,7 +32,7 @@ export const getCinemaClusterAction = (maRap) => {
     try {
       const res = await axios({
         url: `https://movie0706.cybersoft.edu.vn/api/QuanLyRap/LayThongTinCumRapTheoHeThong?maHeThongRap=${maRap}`,
-        method: 'GET',
+        method: "GET",
       });
       dispatch({
         type: GET_CINEMA_CLUSTER,
@@ -47,7 +50,7 @@ export const getCinemaMovieAction = (maRap) => {
     try {
       const res = await axios({
         url: `https://movie0706.cybersoft.edu.vn/api/QuanLyRap/LayThongTinLichChieuHeThongRap?maHeThongRap=${maRap}&maNhom=GP01`,
-        method: 'GET',
+        method: "GET",
       });
       dispatch({
         type: GET_CINEMA_MOVIE,
@@ -64,5 +67,26 @@ export const getMovieAction = (rap) => {
   return {
     type: GET_MOVIE,
     payload: rap,
+  };
+};
+
+export const layTenPhimAction = (tenPhim) => {
+  return {
+    type: LAY_TEN_PHIM,
+    payload: tenPhim,
+  };
+};
+
+export const layNgayXemAction = (ngayXem) => {
+  return {
+    type: LAY_NGAY_XEM,
+    payload: ngayXem,
+  };
+};
+
+export const layChiTietAction = (gio, ngayXem) => {
+  return {
+    type: LAY_CHI_TIET_PHIM,
+    payload: [gio, ngayXem],
   };
 };
