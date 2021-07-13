@@ -35,6 +35,10 @@ export const cinemaReducer = (state = initialState, { type, payload }) => {
       return { ...state };
     }
     case GET_MOVIE: {
+      state.tenPhim = "";
+      state.ngayChieu = [];
+      state.gioChieu = [];
+      state.chiTietPhim = [];
       let myCinemaMovie = [...state.cinemaMovie];
       const index = myCinemaMovie[0].lstCumRap.findIndex(
         (rap) => rap.maCumRap === payload
@@ -112,6 +116,7 @@ export const cinemaReducer = (state = initialState, { type, payload }) => {
       return { ...state };
     }
     case LAY_CHI_TIET_PHIM: {
+      state.chiTietPhim = {};
       for (let i = 0; i < state.movie?.danhSachPhim.length; i++) {
         for (
           let j = 0;

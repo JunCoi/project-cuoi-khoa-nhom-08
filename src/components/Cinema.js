@@ -185,22 +185,24 @@ function Cinema() {
   const renderGioChieu = () => {
     return gioChieu.map((gio, index) => {
       return (
-        <div key={index}>
-          <Button
-            onClick={() => {
-              handleLayChiTiet(gio);
-            }}
-          >
-            {gio}
-          </Button>
-        </div>
+        <Button
+          key={index}
+          onClick={() => {
+            handleLayChiTiet(gio);
+          }}
+        >
+          {gio}
+        </Button>
       );
     });
   };
-  
 
   const handleLayChiTiet = (gio) => {
     dispatch(layChiTietAction(gio, ngayXem));
+    if (maLichChieu !== undefined) {
+      localStorage.setItem("maLichChieu", JSON.stringify(maLichChieu));
+      history.push(`/booking/${maLichChieu}`);
+    }
   };
 
   const maLichChieu = useSelector((state) => {
