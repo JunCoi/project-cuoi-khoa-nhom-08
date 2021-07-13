@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   deleteUserAction,
   getListUserPageAction,
   getListSearchUserPageAction,
-} from "../store/actions/adminAction";
+} from '../store/actions/adminAction';
 import {
   Button,
   Container,
@@ -15,46 +15,46 @@ import {
   TableContainer,
   TableHead,
   TextField,
-} from "@material-ui/core";
-import TableCell from "@material-ui/core/TableCell";
-import TableRow from "@material-ui/core/TableRow";
-import { makeStyles } from "@material-ui/core/styles";
-import ModalUserUpdate from "../components/ModalUserUpdate";
-import ModalAddUser from "./ModalAddUser";
+} from '@material-ui/core';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
+import { makeStyles } from '@material-ui/core/styles';
+import ModalUserUpdate from '../components/ModalUserUpdate';
+import ModalAddUser from './ModalAddUser';
 
 const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
   },
   modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
+    border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    width: "30%",
-    paddingTop: "30px",
+    width: '30%',
+    paddingTop: '30px',
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
   textField: {
-    width: "100%",
+    width: '100%',
   },
   active: {
-    background: "blue",
-    color: "#fff",
+    background: 'blue',
+    color: '#fff',
   },
 }));
 
 function AdminQuanLyUser() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [maNhom, setMaNhom] = useState("GP01");
+  const [maNhom, setMaNhom] = useState('GP01');
   const [soTrang, setSoTrang] = useState(1);
   const [soPhanTuTrenTrang, setSoPhanTuTrenTrang] = useState(5);
   const [choice, setChoice] = useState(true);
@@ -98,9 +98,9 @@ function AdminQuanLyUser() {
     return state.admin.listUser?.totalPages;
   });
   const handleVeTrangCuoiCung = () => {
-    if (tuKhoa.tuKhoa !== "") {
+    if (tuKhoa.tuKhoa !== '') {
       setSoTrang(totalPagesSearch);
-    } else if (tuKhoa.tuKhoa === "") {
+    } else if (tuKhoa.tuKhoa === '') {
       setSoTrang(totalPages);
     }
   };
@@ -130,6 +130,7 @@ function AdminQuanLyUser() {
           <TableCell>{user?.maLoaiNguoiDung}</TableCell>
           <TableCell>
             <Button
+              style={{ backgroundColor: 'red', color: 'white', marginRight: 5 }}
               onClick={() => {
                 handleDelete(user.taiKhoan);
               }}
@@ -137,6 +138,7 @@ function AdminQuanLyUser() {
               Xoá
             </Button>
             <Button
+              style={{ backgroundColor: 'blue', color: 'white' }}
               onClick={() => {
                 handleUpdate(user, index);
               }}
@@ -164,13 +166,13 @@ function AdminQuanLyUser() {
   const [index, setIndex] = useState();
 
   const [user, setUser] = useState({
-    taiKhoan: "",
-    matKhau: "",
-    email: "",
-    soDt: "",
-    maNhom: "GP01",
-    maLoaiNguoiDung: "",
-    hoTen: "",
+    taiKhoan: '',
+    matKhau: '',
+    email: '',
+    soDt: '',
+    maNhom: 'GP01',
+    maLoaiNguoiDung: '',
+    hoTen: '',
   });
 
   const handleUpdate = (user, index) => {
@@ -182,7 +184,7 @@ function AdminQuanLyUser() {
       soDt: user.soDt,
       maLoaiNguoiDung: user.maLoaiNguoiDung,
       hoTen: user.hoTen,
-      maNhom: "GP01",
+      maNhom: 'GP01',
     });
     setIndex(index);
   };
@@ -190,7 +192,7 @@ function AdminQuanLyUser() {
   // ------------------------- RENDER_LIST_SEARCH_USER ----------------
 
   const [tuKhoa, setTuKhoa] = useState({
-    tuKhoa: "",
+    tuKhoa: '',
   });
   const handleChangeTimKiem = (e) => {
     const { name, value } = e.target;
@@ -202,7 +204,7 @@ function AdminQuanLyUser() {
   };
 
   useEffect(() => {
-    if (tuKhoa.tuKhoa === "") {
+    if (tuKhoa.tuKhoa === '') {
       setChoice(true);
       dispatch(getListUserPageAction(maNhom, soTrang, soPhanTuTrenTrang));
     } else {
@@ -262,33 +264,33 @@ function AdminQuanLyUser() {
         item
         md={4}
         style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-around",
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-around',
         }}
       >
         <Grid item md={1}>
-          <Button className={currentPage === soTrang ? classes.active : ""}>
+          <Button className={currentPage === soTrang ? classes.active : ''}>
             {soTrang}
           </Button>
         </Grid>
         <Grid item md={1}>
           {soTrang >= totalPages ? (
-            ""
+            ''
           ) : (
             <Button onClick={handleChangePageCong1}>{soTrang + 1}</Button>
           )}
         </Grid>
         <Grid item md={1}>
           {soTrang + 1 >= totalPages ? (
-            ""
+            ''
           ) : (
             <Button onClick={handleChangePageCong2}>{soTrang + 2}</Button>
           )}
         </Grid>
         <Grid item md={1}>
           {soTrang + 2 >= totalPages ? (
-            ""
+            ''
           ) : (
             <Button onClick={handleChangePageCong3}>{soTrang + 3}</Button>
           )}
@@ -303,33 +305,33 @@ function AdminQuanLyUser() {
         item
         md={4}
         style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-around",
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-around',
         }}
       >
         <Grid item md={1}>
-          <Button className={currentPage === soTrang ? classes.active : ""}>
+          <Button className={currentPage === soTrang ? classes.active : ''}>
             {soTrang}
           </Button>
         </Grid>
         <Grid item md={1}>
           {soTrang >= totalPagesSearch ? (
-            ""
+            ''
           ) : (
             <Button onClick={handleChangePageCong1}>{soTrang + 1}</Button>
           )}
         </Grid>
         <Grid item md={1}>
           {soTrang + 1 >= totalPagesSearch ? (
-            ""
+            ''
           ) : (
             <Button onClick={handleChangePageCong2}>{soTrang + 2}</Button>
           )}
         </Grid>
         <Grid item md={1}>
           {soTrang + 2 >= totalPagesSearch ? (
-            ""
+            ''
           ) : (
             <Button onClick={handleChangePageCong3}>{soTrang + 3}</Button>
           )}
@@ -349,13 +351,13 @@ function AdminQuanLyUser() {
 
   return (
     <div>
-      <Container>
+      <Container style={{ maxWidth: 1440 }}>
         <Grid container>
           <Grid item md={12}>
             <Button
               onClick={handleAddUser}
               fullWidth
-              style={{ background: "green", color: "#fff" }}
+              style={{ background: 'green', color: '#fff' }}
             >
               Thêm
             </Button>
@@ -430,38 +432,42 @@ function AdminQuanLyUser() {
             </TableBody>
           </Table>
         </TableContainer>
-        <Grid container spacing={3}>
-          <Grid item md={2}>
+        <Grid
+          container
+          spacing={3}
+          style={{ justifyContent: 'flex-end', marginTop: 5 }}
+        >
+          <Grid item md={1}>
             {soTrang === 1 ? (
-              ""
+              ''
             ) : (
               <Button onClick={handleVeTrangDauTien}>
                 <i className="fas fa-backward"></i>
               </Button>
             )}
           </Grid>
-          <Grid item md={2}>
+          <Grid item md={1}>
             {soTrang === 1 ? (
-              ""
+              ''
             ) : (
               <Button onClick={handleTrangTruocDo}>
                 <i className="fas fa-caret-left"></i>
               </Button>
             )}
           </Grid>
-          {tuKhoa.tuKhoa === "" ? renderBtn() : renderBtnSearch()}
-          <Grid item md={2}>
+          {tuKhoa.tuKhoa === '' ? renderBtn() : renderBtnSearch()}
+          <Grid item md={1}>
             {soTrang === totalPages || soTrang === totalPagesSearch ? (
-              ""
+              ''
             ) : (
               <Button onClick={handleTrangTiepTheo}>
                 <i className="fas fa-caret-right"></i>
               </Button>
             )}
           </Grid>
-          <Grid item md={2}>
+          <Grid item md={1}>
             {soTrang === totalPages || soTrang === totalPagesSearch ? (
-              ""
+              ''
             ) : (
               <Button onClick={handleVeTrangCuoiCung}>
                 <i className="fas fa-forward"></i>
