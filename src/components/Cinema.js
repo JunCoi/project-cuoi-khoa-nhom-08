@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { useDispatch, useSelector } from "react-redux";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import { Button } from "@material-ui/core";
+import React, { useEffect, useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { useDispatch, useSelector } from 'react-redux';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import { Button } from '@material-ui/core';
 import {
   getCinemaClusterAction,
   getCinemaMovieAction,
@@ -16,17 +16,17 @@ import {
   layTenPhimAction,
   layNgayXemAction,
   layChiTietAction,
-} from "../store/actions/cinemaAction";
-import Grid from "@material-ui/core/Grid";
-import { useHistory } from "react-router-dom";
+} from '../store/actions/cinemaAction';
+import Grid from '@material-ui/core/Grid';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   cinemaList: {
     maxWidth: 940,
-    margin: "auto",
-    paddingTop: "100px",
-    [theme.breakpoints.down("xs")]: {
-      display: "none",
+    margin: 'auto',
+    paddingTop: '100px',
+    [theme.breakpoints.down('xs')]: {
+      display: 'none',
     },
   },
   table: {
@@ -34,24 +34,26 @@ const useStyles = makeStyles((theme) => ({
     height: 700,
   },
   fixoverflow: {
-    overflow: "auto",
-    height: "100%",
+    overflow: 'auto',
+    height: '100%',
   },
   col1: {
     width: 96.5,
     padding: 5,
-    borderRight: "1px solid rgba(224, 224, 224, 1)",
+    borderRight: '1px solid rgba(224, 224, 224, 1)',
   },
   col2: {
-    width: "30%",
+    width: '30%',
     padding: 5,
-    borderRight: "1px solid rgba(224, 224, 224, 1)",
+    borderRight: '1px solid rgba(224, 224, 224, 1)',
   },
   cumRap: {
-    cursor: "pointer",
+    cursor: 'pointer',
     fontWeight: 700,
   },
 }));
+
+const fadeAwayStyle = { opacity: 0.5 };
 
 function Cinema() {
   const classes = useStyles();
@@ -62,12 +64,19 @@ function Cinema() {
   });
 
   // ------------------------------------ COL-1 -----------------------------------------
+  const [selectedCol1Index, setSelectedCol1Index] = useState(null);
   const renderCol1 = () => {
     return cinemaList?.map((cinema, index) => {
+      const faded = selectedCol1Index != index;
       return (
-        <TableRow key={index}>
+        <TableRow key={index} style={faded ? fadeAwayStyle : null}>
           <TableCell style={{ padding: 10 }}>
-            <Button onClick={() => handleChoiceCinema(cinema.maHeThongRap)}>
+            <Button
+              onClick={() => {
+                handleChoiceCinema(cinema.maHeThongRap);
+                setSelectedCol1Index(index);
+              }}
+            >
               <img width="50px" src={cinema.logo} alt="" />
             </Button>
           </TableCell>
@@ -79,9 +88,11 @@ function Cinema() {
   const handleChoiceCinema = (cinema) => {
     dispatch(getCinemaClusterAction(cinema));
     dispatch(getCinemaMovieAction(cinema));
+    setSelectedCol2Index(null);
   };
 
   // ------------------------------------ COL-2 -----------------------------------------
+  const [selectedCol2Index, setSelectedCol2Index] = useState(null);
   const cinemaCluster = useSelector((state) => {
     return state.cinema.cinemaCluster;
   });
@@ -91,14 +102,18 @@ function Cinema() {
 
   const renderCol2 = () => {
     return cinemaCluster?.map((cluster, index) => {
+      const faded = selectedCol2Index != index;
       return (
-        <TableRow key={index}>
+        <TableRow key={index} style={faded ? fadeAwayStyle : null}>
           <TableCell
-            onClick={() => handleChoiceMovie(cluster.maCumRap)}
+            onClick={() => {
+              handleChoiceMovie(cluster.maCumRap);
+              setSelectedCol2Index(index);
+            }}
             className={classes.cumRap}
           >
             <p>{cluster.tenCumRap}</p>
-            <p style={{ fontSize: 12, color: "rgba(0,0,0, .4)" }}>
+            <p style={{ fontSize: 12, color: 'rgba(0,0,0, .4)' }}>
               {cluster.diaChi}
             </p>
           </TableCell>
@@ -132,23 +147,19 @@ function Cinema() {
                 item
                 xs={3}
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
               >
                 <img width="50px" src={movie.hinhAnh} alt="" />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={9}>
                 <Button onClick={() => handleLayTenPhim(movie.tenPhim)}>
-                  {movie.tenPhim}
+                  <h4>{movie.tenPhim}</h4>
                 </Button>
-                {tenPhim === movie.tenPhim ? renderNgayChieu() : ""}
-              </Grid>
-              <Grid item xs={3}>
-                <Button>
-                  {tenPhim === movie.tenPhim ? renderGioChieu() : ""}
-                </Button>
+                <div>{tenPhim === movie.tenPhim ? renderNgayChieu() : ''}</div>
+                <div>{tenPhim === movie.tenPhim ? renderGioChieu() : ''}</div>
               </Grid>
             </Grid>
           </TableCell>
@@ -156,26 +167,36 @@ function Cinema() {
       );
     });
   };
+
+  const [activeIndex, setActiveIndex] = useState(null);
+
   const handleLayTenPhim = (tenPhim) => {
     dispatch(layTenPhimAction(tenPhim));
+    setActiveIndex(null);
   };
 
   const renderNgayChieu = () => {
     return ngayChieu?.map((ngay, index) => {
+      const flag = activeIndex === index;
       return (
-        <div key={index}>
-          <Button
-            onClick={() => {
-              handleLayNgayXem(ngay);
-            }}
-          >
-            {ngay}
-          </Button>
-        </div>
+        <Button
+          key={index}
+          style={{
+            marginRight: 5,
+            backgroundColor: `${flag ? 'green' : ''}`,
+            fontSize: 12,
+          }}
+          onClick={() => {
+            handleLayNgayXem(ngay);
+            setActiveIndex(index);
+          }}
+        >
+          {ngay}
+        </Button>
       );
     });
   };
-  const [ngayXem, setNgayXem] = useState("");
+  const [ngayXem, setNgayXem] = useState('');
 
   const handleLayNgayXem = (ngayXem) => {
     dispatch(layNgayXemAction(ngayXem));
@@ -200,7 +221,7 @@ function Cinema() {
   const handleLayChiTiet = (gio) => {
     dispatch(layChiTietAction(gio, ngayXem));
     if (maLichChieu !== undefined) {
-      localStorage.setItem("maLichChieu", JSON.stringify(maLichChieu));
+      localStorage.setItem('maLichChieu', JSON.stringify(maLichChieu));
       history.push(`/booking/${maLichChieu}`);
     }
   };
@@ -208,6 +229,11 @@ function Cinema() {
   const maLichChieu = useSelector((state) => {
     return state.cinema?.chiTietPhim?.maLichChieu;
   });
+
+  useEffect(() => {
+    handleChoiceCinema('BHDStar');
+    setSelectedCol1Index(0);
+  }, []);
 
   return (
     <div className={classes.cinemaList}>
