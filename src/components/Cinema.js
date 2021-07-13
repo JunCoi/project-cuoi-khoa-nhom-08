@@ -208,7 +208,6 @@ function Cinema() {
   const maLichChieu = useSelector((state) => {
     return state.cinema?.chiTietPhim?.maLichChieu;
   });
-  console.log(maLichChieu);
 
   return (
     <div className={classes.cinemaList}>
