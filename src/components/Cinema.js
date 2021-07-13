@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,17 +16,17 @@ import {
   layTenPhimAction,
   layNgayXemAction,
   layChiTietAction,
-} from "../store/actions/cinemaAction";
-import Grid from "@material-ui/core/Grid";
-import { useHistory } from "react-router-dom";
+} from '../store/actions/cinemaAction';
+import Grid from '@material-ui/core/Grid';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   cinemaList: {
     maxWidth: 940,
-    margin: "auto",
-    paddingTop: "100px",
-    [theme.breakpoints.down("xs")]: {
-      display: "none",
+    margin: 'auto',
+    paddingTop: '100px',
+    [theme.breakpoints.down('xs')]: {
+      display: 'none',
     },
   },
   table: {
@@ -35,21 +34,21 @@ const useStyles = makeStyles((theme) => ({
     height: 700,
   },
   fixoverflow: {
-    overflow: "auto",
-    height: "100%",
+    overflow: 'auto',
+    height: '100%',
   },
   col1: {
     width: 96.5,
     padding: 5,
-    borderRight: "1px solid rgba(224, 224, 224, 1)",
+    borderRight: '1px solid rgba(224, 224, 224, 1)',
   },
   col2: {
-    width: "30%",
+    width: '30%',
     padding: 5,
-    borderRight: "1px solid rgba(224, 224, 224, 1)",
+    borderRight: '1px solid rgba(224, 224, 224, 1)',
   },
   cumRap: {
-    cursor: "pointer",
+    cursor: 'pointer',
     fontWeight: 700,
   },
 }));
@@ -114,7 +113,7 @@ function Cinema() {
             className={classes.cumRap}
           >
             <p>{cluster.tenCumRap}</p>
-            <p style={{ fontSize: 12, color: "rgba(0,0,0, .4)" }}>
+            <p style={{ fontSize: 12, color: 'rgba(0,0,0, .4)' }}>
               {cluster.diaChi}
             </p>
           </TableCell>
@@ -148,23 +147,19 @@ function Cinema() {
                 item
                 xs={3}
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
               >
                 <img width="50px" src={movie.hinhAnh} alt="" />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={9}>
                 <Button onClick={() => handleLayTenPhim(movie.tenPhim)}>
-                  {movie.tenPhim}
+                  <h4>{movie.tenPhim}</h4>
                 </Button>
-                {tenPhim === movie.tenPhim ? renderNgayChieu() : ""}
-              </Grid>
-              <Grid item xs={3}>
-                <Button>
-                  {tenPhim === movie.tenPhim ? renderGioChieu() : ""}
-                </Button>
+                <div>{tenPhim === movie.tenPhim ? renderNgayChieu() : ''}</div>
+                <div>{tenPhim === movie.tenPhim ? renderGioChieu() : ''}</div>
               </Grid>
             </Grid>
           </TableCell>
@@ -172,27 +167,36 @@ function Cinema() {
       );
     });
   };
+
+  const [activeIndex, setActiveIndex] = useState(null);
+
   const handleLayTenPhim = (tenPhim) => {
     dispatch(layTenPhimAction(tenPhim));
+    setActiveIndex(null);
   };
 
   const renderNgayChieu = () => {
     return ngayChieu?.map((ngay, index) => {
+      const flag = activeIndex === index;
       return (
-        <div key={index}>
-          <Button
-            onClick={() => {
-              handleLayNgayXem(ngay);
-            }}
-          >
-            {ngay}
-          </Button>
-        </div>
+        <Button
+          key={index}
+          style={{
+            marginRight: 5,
+            backgroundColor: `${flag ? 'green' : ''}`,
+            fontSize: 12,
+          }}
+          onClick={() => {
+            handleLayNgayXem(ngay);
+            setActiveIndex(index);
+          }}
+        >
+          {ngay}
+        </Button>
       );
     });
   };
-  const [ngayXem, setNgayXem] = useState("");
-
+  const [ngayXem, setNgayXem] = useState('');
 
   const handleLayNgayXem = (ngayXem) => {
     dispatch(layNgayXemAction(ngayXem));
@@ -217,7 +221,7 @@ function Cinema() {
   const handleLayChiTiet = (gio) => {
     dispatch(layChiTietAction(gio, ngayXem));
     if (maLichChieu !== undefined) {
-      localStorage.setItem("maLichChieu", JSON.stringify(maLichChieu));
+      localStorage.setItem('maLichChieu', JSON.stringify(maLichChieu));
       history.push(`/booking/${maLichChieu}`);
     }
   };
@@ -231,7 +235,6 @@ function Cinema() {
     handleChoiceCinema('BHDStar');
     setSelectedCol1Index(0);
   }, []);
-
 
   return (
     <div className={classes.cinemaList}>
