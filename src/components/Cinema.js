@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import Table from '@material-ui/core/Table';
@@ -49,6 +49,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const fadeAwayStyle = { opacity: 0.5 };
+
 function Cinema() {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -57,12 +59,19 @@ function Cinema() {
   });
 
   // ------------------------------------ COL-1 -----------------------------------------
+  const [selectedCol1Index, setSelectedCol1Index] = useState(null);
   const renderCol1 = () => {
     return cinemaList?.map((cinema, index) => {
+      const faded = selectedCol1Index != index;
       return (
-        <TableRow key={index}>
+        <TableRow key={index} style={faded ? fadeAwayStyle : null}>
           <TableCell style={{ padding: 10 }}>
-            <Button onClick={() => handleChoiceCinema(cinema.maHeThongRap)}>
+            <Button
+              onClick={() => {
+                handleChoiceCinema(cinema.maHeThongRap);
+                setSelectedCol1Index(index);
+              }}
+            >
               <img width="50px" src={cinema.logo} alt="" />
             </Button>
           </TableCell>
@@ -74,9 +83,11 @@ function Cinema() {
   const handleChoiceCinema = (cinema) => {
     dispatch(getCinemaClusterAction(cinema));
     dispatch(getCinemaMovieAction(cinema));
+    setSelectedCol2Index(null);
   };
 
   // ------------------------------------ COL-2 -----------------------------------------
+  const [selectedCol2Index, setSelectedCol2Index] = useState(null);
   const cinemaCluster = useSelector((state) => {
     return state.cinema.cinemaCluster;
   });
@@ -86,10 +97,14 @@ function Cinema() {
 
   const renderCol2 = () => {
     return cinemaCluster?.map((cluster, index) => {
+      const faded = selectedCol2Index != index;
       return (
-        <TableRow key={index}>
+        <TableRow key={index} style={faded ? fadeAwayStyle : null}>
           <TableCell
-            onClick={() => handleChoiceMovie(cluster.maCumRap)}
+            onClick={() => {
+              handleChoiceMovie(cluster.maCumRap);
+              setSelectedCol2Index(index);
+            }}
             className={classes.cumRap}
           >
             <p>{cluster.tenCumRap}</p>
@@ -142,6 +157,7 @@ function Cinema() {
 
   useEffect(() => {
     handleChoiceCinema('BHDStar');
+    setSelectedCol1Index(0);
   }, []);
 
   return (
