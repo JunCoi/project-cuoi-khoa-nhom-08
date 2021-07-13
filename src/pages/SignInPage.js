@@ -106,8 +106,8 @@ export default function Signin() {
       if (data === true) {
         setErrorText('* Sai tài khoản hoặc mật khẩu!');
       }
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
     }
     setIsLoading(false);
   };

@@ -7,6 +7,8 @@ import MovieDetailPage from "./pages/MovieDetailPage";
 import ProfilePage from "./pages/ProfilePage";
 import BookingPage from "./pages/BookingPage";
 import GuardBooking from "./components/HOC/GuardBooking";
+import GuardAdminPage from "./components/HOC/GuardAdminPage";
+import AdminPage from "./pages/AdminPage";
 
 function App() {
   return (
@@ -35,6 +37,11 @@ function App() {
           </Route>
           <Route path="/profile" exact={true}>
             <ProfilePage />
+          </Route>
+          <Route path="/admin" exact={true}>
+            <GuardAdminPage>
+              <AdminPage />
+            </GuardAdminPage>
           </Route>
           <Route path="/">
             <Redirect to="/" />
