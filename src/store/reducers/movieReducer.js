@@ -112,7 +112,7 @@ export const movieReducer = (state = initialState, { type, payload }) => {
         ) {
           locGioChieu.push(
             format(
-              "hh-mm",
+              "hh:mm",
               new Date(state.ngayXem?.lichChieuPhim[i].ngayChieuGioChieu)
             )
           );
@@ -130,7 +130,7 @@ export const movieReducer = (state = initialState, { type, payload }) => {
             "dd/MM/yyyy",
             new Date(state.layChiTiet[i]?.ngayChieuGioChieu)
           ) === payload[0] &&
-          format("hh-mm", new Date(state.layChiTiet[i]?.ngayChieuGioChieu)) ===
+          format("hh:mm", new Date(state.layChiTiet[i]?.ngayChieuGioChieu)) ===
             payload[1]
         ) {
           state.phimCanXem = state.layChiTiet[i];
