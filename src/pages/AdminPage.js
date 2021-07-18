@@ -20,6 +20,7 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import clsx from "clsx";
 import AdminQuanLyUser from "../components/AdminQuanLyUser";
 import AdminQuanLyMovie from "../components/AdminQuanLyMovie";
+import AdminTaoLichChieuPhim from "../components/AdminTaoLichChieuPhim";
 
 const drawerWidth = 240;
 
@@ -95,7 +96,7 @@ export default function AdminPage() {
 
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [option, setOption] = useState(true);
+  const [option, setOption] = useState(1);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -159,7 +160,7 @@ export default function AdminPage() {
             <ListItem
               button
               onClick={() => {
-                setOption(true);
+                setOption(1);
               }}
             >
               <ListItemIcon>
@@ -170,7 +171,7 @@ export default function AdminPage() {
             <ListItem
               button
               onClick={() => {
-                setOption(false);
+                setOption(2);
               }}
             >
               <ListItemIcon>
@@ -178,11 +179,24 @@ export default function AdminPage() {
               </ListItemIcon>
               <ListItemText primary="Quản lý phim" />
             </ListItem>
+            <ListItem
+              button
+              onClick={() => {
+                setOption(3);
+              }}
+            >
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary="Tạo lịch chiếu phim" />
+            </ListItem>
           </List>
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          {option ? <AdminQuanLyUser /> : <AdminQuanLyMovie />}
+          {option === 1 ? <AdminQuanLyUser /> : ""}
+          {option === 2 ? <AdminQuanLyMovie /> : ""}
+          {option === 3 ? <AdminTaoLichChieuPhim /> : ""}
         </main>
       </div>
     </div>
