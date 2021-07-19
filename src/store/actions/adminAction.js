@@ -333,7 +333,7 @@ export const taoLichChieuAction = (lichChieu, maPhim, maHeThongRap) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      Swal.fire("Thông báo", "Tạo lịch chiếu thành công", "success");
+      Swal.fire("Thông báo", res.response.data, "success");
       dispatch({
         type: TAO_LICH_CHIEU,
       });

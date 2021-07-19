@@ -1,20 +1,29 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Button } from '@material-ui/core';
+import React, { useEffect } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Accordion from "@material-ui/core/Accordion";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import Typography from "@material-ui/core/Typography";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { Button } from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getGioChieuAction,
+  getMovieListNowShowingAction,
+  getNgayXemAction,
+  getRapAction,
+  layChiTietAction,
+} from "../store/actions/movieAction";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
   root: {
-    width: '100%',
+    width: "100%",
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
-    flexBasis: '33.33%',
+    flexBasis: "33.33%",
     flexShrink: 0,
   },
   secondaryHeading: {
@@ -22,33 +31,168 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
   typo: {
-    height: '85px',
+    height: "85px",
   },
   detailBox: {
-    padding: '10px',
-    width: '100%',
+    padding: "10px",
+    width: "100%",
   },
   datVe: {
-    width: '50%',
-    margin: '30px auto 130px',
+    width: "50%",
+    margin: "30px auto 130px",
   },
   btnDatVe: {
-    width: '100%',
-    backgroundColor: '#4a4a4a',
-    color: 'white',
+    width: "100%",
+    backgroundColor: "#4a4a4a",
+    color: "white",
   },
 }));
 
 export default function ControlledAccordions() {
+  const history = useHistory();
+  const dispatch = useDispatch();
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const [tenPhim, setTenPhim] = React.useState('');
-  const [tenRap, setTenRap] = React.useState('');
-  const [ngayXem, setNgayXem] = React.useState('');
-  const [suatChieu, setSuatChieu] = React.useState('');
+  const [tenPhim, setTenPhim] = React.useState();
+  const [maPhim, setMaPhim] = React.useState();
+  const [tenRap, setTenRap] = React.useState();
+  const [ngayXem, setNgayXem] = React.useState();
+  const [suatChieu, setSuatChieu] = React.useState();
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
+  };
+
+  useEffect(() => {
+    dispatch(getMovieListNowShowingAction());
+  }, [dispatch]);
+
+  const movieList = useSelector((state) => {
+    return state.movieList?.movieListNowShowing;
+  });
+
+  const renderPhim = () => {
+    return movieList?.map((movie, index) => {
+      return (
+        <Button
+          onClick={() => {
+            setTenPhim(movie.tenPhim);
+            setExpanded(false);
+            setMaPhim(movie.maPhim);
+            setTenRap(undefined);
+            setNgayXem(undefined);
+            setSuatChieu(undefined);
+          }}
+          className={classes.detailBox}
+          key={index}
+        >
+          {movie.tenPhim}
+        </Button>
+      );
+    });
+  };
+  useEffect(() => {
+    if (maPhim !== undefined) {
+      dispatch(getRapAction(maPhim));
+    }
+  }, [dispatch, maPhim]);
+  const rapChieu = useSelector((state) => {
+    return state.movieList?.rapChieu;
+  });
+
+  const renderRapChieu = () => {
+    return rapChieu?.map((rapChieu, index) => {
+      return rapChieu.map((rap, index) => {
+        return (
+          <Button
+            key={index}
+            onClick={() => {
+              setTenRap(rap.maCumRap);
+              setExpanded(false);
+              setSuatChieu(undefined);
+              setNgayXem(undefined);
+            }}
+            className={classes.detailBox}
+          >
+            {rap.tenCumRap}
+          </Button>
+        );
+      });
+    });
+  };
+
+  useEffect(() => {
+    if (tenRap !== undefined) {
+      dispatch(getNgayXemAction(tenRap));
+    }
+  }, [dispatch, tenRap]);
+  const ngayXemPhim = useSelector((state) => {
+    return state.movieList?.ngayXemPhim;
+  });
+
+  const renderNgayXemPhim = () => {
+    return ngayXemPhim?.map((ngay, index) => {
+      return (
+        <Button
+          key={index}
+          onClick={() => {
+            setNgayXem(ngay);
+            setExpanded(false);
+            setSuatChieu(undefined);
+          }}
+          className={classes.detailBox}
+        >
+          {ngay}
+        </Button>
+      );
+    });
+  };
+  useEffect(() => {
+    if (ngayXem !== undefined) {
+      dispatch(getGioChieuAction(ngayXem));
+    }
+  }, [dispatch, ngayXem]);
+
+  const gioChieu = useSelector((state) => {
+    return state.movieList?.gioChieu;
+  });
+  const renderGioChieuTheoNgay = () => {
+    return gioChieu?.map((gio, index) => {
+      return (
+        <Button
+          key={index}
+          onClick={() => {
+            setSuatChieu(gio);
+            setExpanded(false);
+          }}
+          className={classes.detailBox}
+        >
+          {gio}
+        </Button>
+      );
+    });
+  };
+  useEffect(() => {
+    if (ngayXem !== undefined && suatChieu !== undefined) {
+      dispatch(layChiTietAction(ngayXem, suatChieu));
+    }
+  }, [dispatch, ngayXem, suatChieu]);
+
+  const maLichChieu = useSelector((state) => {
+    return state.movieList?.phimCanXem?.maLichChieu;
+  });
+
+  const handleMuaVe = () => {
+    if (
+      maPhim !== undefined &&
+      tenRap !== undefined &&
+      ngayXem !== undefined &&
+      suatChieu !== undefined &&
+      maLichChieu !== undefined
+    ) {
+      localStorage.setItem("maLichChieu", JSON.stringify(maLichChieu));
+      history.push(`/booking/${maLichChieu}`);
+    }
   };
 
   return (
@@ -56,8 +200,8 @@ export default function ControlledAccordions() {
       <div className={classes.toolbar}></div>
       <div className={classes.root}>
         <Accordion
-          expanded={expanded === 'panel1'}
-          onChange={handleChange('panel1')}
+          expanded={expanded === "panel1"}
+          onChange={handleChange("panel1")}
         >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -71,40 +215,12 @@ export default function ControlledAccordions() {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <div>
-              <Button
-                onClick={() => {
-                  setTenPhim('Vợ 3');
-                  setExpanded(false);
-                }}
-                className={classes.detailBox}
-              >
-                Vợ 3
-              </Button>
-              <Button
-                onClick={() => {
-                  setTenPhim('Diệp Vấn');
-                  setExpanded(false);
-                }}
-                className={classes.detailBox}
-              >
-                Diệp Vấn
-              </Button>
-              <Button
-                onClick={() => {
-                  setTenPhim('Iron Man');
-                  setExpanded(false);
-                }}
-                className={classes.detailBox}
-              >
-                Iron Man
-              </Button>
-            </div>
+            <div>{renderPhim()}</div>
           </AccordionDetails>
         </Accordion>
         <Accordion
-          expanded={expanded === 'panel2'}
-          onChange={handleChange('panel2')}
+          expanded={expanded === "panel2"}
+          onChange={handleChange("panel2")}
         >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -118,40 +234,12 @@ export default function ControlledAccordions() {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <div>
-              <Button
-                onClick={() => {
-                  setTenRap('BHD');
-                  setExpanded(false);
-                }}
-                className={classes.detailBox}
-              >
-                BHD
-              </Button>
-              <Button
-                onClick={() => {
-                  setTenRap('CGV');
-                  setExpanded(false);
-                }}
-                className={classes.detailBox}
-              >
-                CGV
-              </Button>
-              <Button
-                onClick={() => {
-                  setTenRap('Lotte Cinema');
-                  setExpanded(false);
-                }}
-                className={classes.detailBox}
-              >
-                Lotte Cinema
-              </Button>
-            </div>
+            <div>{renderRapChieu()}</div>
           </AccordionDetails>
         </Accordion>
         <Accordion
-          expanded={expanded === 'panel3'}
-          onChange={handleChange('panel3')}
+          expanded={expanded === "panel3"}
+          onChange={handleChange("panel3")}
         >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -165,40 +253,12 @@ export default function ControlledAccordions() {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <div>
-              <Button
-                onClick={() => {
-                  setNgayXem('19/7/2021');
-                  setExpanded(false);
-                }}
-                className={classes.detailBox}
-              >
-                19/7/2021
-              </Button>
-              <Button
-                onClick={() => {
-                  setNgayXem('20/7/2021');
-                  setExpanded(false);
-                }}
-                className={classes.detailBox}
-              >
-                20/7/2021
-              </Button>
-              <Button
-                onClick={() => {
-                  setNgayXem('21/7/2021');
-                  setExpanded(false);
-                }}
-                className={classes.detailBox}
-              >
-                21/7/2021
-              </Button>
-            </div>
+            <div>{renderNgayXemPhim()}</div>
           </AccordionDetails>
         </Accordion>
         <Accordion
-          expanded={expanded === 'panel4'}
-          onChange={handleChange('panel4')}
+          expanded={expanded === "panel4"}
+          onChange={handleChange("panel4")}
         >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -212,39 +272,25 @@ export default function ControlledAccordions() {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <div>
-              <Button
-                onClick={() => {
-                  setSuatChieu('08:00');
-                  setExpanded(false);
-                }}
-                className={classes.detailBox}
-              >
-                08:00
-              </Button>
-              <Button
-                onClick={() => {
-                  setSuatChieu('14:30');
-                  setExpanded(false);
-                }}
-                className={classes.detailBox}
-              >
-                14:30
-              </Button>
-              <Button
-                onClick={() => {
-                  setSuatChieu('21:15');
-                  setExpanded(false);
-                }}
-                className={classes.detailBox}
-              >
-                21:15
-              </Button>
-            </div>
+            <div>{renderGioChieuTheoNgay()}</div>
           </AccordionDetails>
         </Accordion>
         <div className={classes.datVe}>
-          <Button className={classes.btnDatVe}>ĐẶT VÉ</Button>
+          <Button
+            disabled={
+              maPhim !== undefined &&
+              tenRap !== undefined &&
+              ngayXem !== undefined &&
+              suatChieu !== undefined &&
+              maLichChieu !== undefined
+                ? false
+                : true
+            }
+            onClick={handleMuaVe}
+            className={classes.btnDatVe}
+          >
+            ĐẶT VÉ
+          </Button>
         </div>
       </div>
     </>

@@ -101,7 +101,7 @@ export default function BookingTool() {
 
   // ------------------- GET_RAP -----------
   const rapChieu = useSelector((state) => {
-    return state.movieList.rapChieu;
+    return state.movieList?.rapChieu;
   });
   const renderRapChieu = () => {
     return rapChieu?.map((rapChieu, index) => {
