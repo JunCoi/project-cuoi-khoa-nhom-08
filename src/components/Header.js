@@ -56,16 +56,24 @@ const useStyles = makeStyles((theme) => ({
 
 const menuItems = [
   {
-    title: 'Đang chiếu',
-    path: '/#dang-chieu',
-  },
-  {
-    title: 'Sắp chiếu',
-    path: '/#sap-chieu',
+    title: 'Lịch chiếu',
+    path: '#lich-chieu',
+    mobilePath: '#lich-chieu',
   },
   {
     title: 'Cụm rạp',
-    path: '/cum-rap',
+    path: '#cum-rap',
+    mobilePath: '/rap-chieu-mobile',
+  },
+  {
+    title: 'Tin tức',
+    path: '#tin-tuc',
+    mobilePath: '#tin-tuc',
+  },
+  {
+    title: 'Ứng dụng',
+    path: '#ung-dung',
+    mobilePath: '#ung-dung',
   },
 ];
 
@@ -163,7 +171,7 @@ export default function Header() {
                     component="button"
                     underline="none"
                     className={classes.menuItem}
-                    onClick={() => history.push(item.path)}
+                    onClick={() => history.push(item.mobilePath)}
                   >
                     {item.title}
                   </MenuItem>
