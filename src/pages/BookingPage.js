@@ -93,7 +93,7 @@ function BookingPage() {
               margin: '5px',
               borderRadius: '5px',
               border: 'none',
-              color: `${chair.loaiGhe === 'Thuong' ? 'white' : 'red'}`,
+              color: `${chair.loaiGhe === 'Thuong' ? 'white' : 'yellow'}`,
               backgroundColor: `${chair.daDat ? 'black' : 'rgb(116,112,112)'}`,
             }}
             className={chair.dangChon ? classes.choiceChair : ''}
