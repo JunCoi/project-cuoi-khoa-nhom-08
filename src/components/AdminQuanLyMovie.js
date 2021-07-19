@@ -8,52 +8,52 @@ import {
   TableHead,
   TableRow,
   Paper,
-} from "@material-ui/core";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+} from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   deleteMovieAction,
   getListMoviePageAction,
-} from "../store/actions/adminAction";
-import TableCell from "@material-ui/core/TableCell";
-import { makeStyles } from "@material-ui/core/styles";
-import format from "date-format";
-import ModalAddMovie from "../components/ModalAddMovie";
-import ModalMovieUpdate from "../components/ModalMovieUpdate";
+} from '../store/actions/adminAction';
+import TableCell from '@material-ui/core/TableCell';
+import { makeStyles } from '@material-ui/core/styles';
+import format from 'date-format';
+import ModalAddMovie from '../components/ModalAddMovie';
+import ModalMovieUpdate from '../components/ModalMovieUpdate';
 
 const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
   },
   modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
+    border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    width: "30%",
-    paddingTop: "30px",
+    width: '30%',
+    paddingTop: '30px',
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
   textField: {
-    width: "100%",
+    width: '100%',
   },
   active: {
-    background: "blue",
-    color: "#fff",
+    background: 'blue',
+    color: '#fff',
   },
 }));
 
 function AdminQuanLyMovie() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [maNhom, setMaNhom] = useState("GP01");
+  const [maNhom, setMaNhom] = useState('GP01');
   const [soTrang, setSoTrang] = useState(1);
   const [soPhanTuTrenTrang, setSoPhanTuTrenTrang] = useState(5);
 
@@ -116,33 +116,33 @@ function AdminQuanLyMovie() {
         item
         md={4}
         style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-around",
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-around',
         }}
       >
         <Grid item md={1}>
-          <Button className={currentPage === soTrang ? classes.active : ""}>
+          <Button className={currentPage === soTrang ? classes.active : ''}>
             {soTrang}
           </Button>
         </Grid>
         <Grid item md={1}>
           {soTrang >= totalPages ? (
-            ""
+            ''
           ) : (
             <Button onClick={handleChangePageCong1}>{soTrang + 1}</Button>
           )}
         </Grid>
         <Grid item md={1}>
           {soTrang + 1 >= totalPages ? (
-            ""
+            ''
           ) : (
             <Button onClick={handleChangePageCong2}>{soTrang + 2}</Button>
           )}
         </Grid>
         <Grid item md={1}>
           {soTrang + 2 >= totalPages ? (
-            ""
+            ''
           ) : (
             <Button onClick={handleChangePageCong3}>{soTrang + 3}</Button>
           )}
@@ -167,11 +167,12 @@ function AdminQuanLyMovie() {
           </TableCell>
           <TableCell>{movie.moTa}</TableCell>
           <TableCell>
-            {format("dd/MM/yyyy - hh:mm", new Date(movie.ngayKhoiChieu))}
+            {format('dd/MM/yyyy - hh:mm', new Date(movie.ngayKhoiChieu))}
           </TableCell>
           <TableCell>{movie.danhGia}</TableCell>
           <TableCell>
             <Button
+              style={{ background: 'red', color: 'white', marginBottom: 5 }}
               onClick={() => {
                 handleDelete(movie.maPhim);
               }}
@@ -179,6 +180,7 @@ function AdminQuanLyMovie() {
               Xoá
             </Button>
             <Button
+              style={{ background: 'blue', color: 'white' }}
               onClick={() => {
                 handleUpdate(movie, index);
               }}
@@ -201,15 +203,15 @@ function AdminQuanLyMovie() {
   };
   const [index, setIndex] = useState();
   const [movie, setMovie] = useState({
-    maPhim: "",
-    tenPhim: "",
-    biDanh: "",
-    trailer: "",
+    maPhim: '',
+    tenPhim: '',
+    biDanh: '',
+    trailer: '',
     hinhAnh: {},
-    moTa: "",
+    moTa: '',
     maNhom: maNhom,
-    ngayKhoiChieu: "",
-    danhGia: "",
+    ngayKhoiChieu: '',
+    danhGia: '',
   });
 
   const handleUpdate = (movie, index) => {
@@ -245,7 +247,7 @@ function AdminQuanLyMovie() {
             <Button
               onClick={() => handleAddMovie()}
               fullWidth
-              style={{ background: "green", color: "#fff" }}
+              style={{ background: 'green', color: '#fff' }}
             >
               Thêm
             </Button>
@@ -312,11 +314,11 @@ function AdminQuanLyMovie() {
         <Grid
           container
           spacing={3}
-          style={{ justifyContent: "flex-end", marginTop: 5 }}
+          style={{ justifyContent: 'flex-end', marginTop: 5 }}
         >
           <Grid item md={1}>
             {soTrang === 1 ? (
-              ""
+              ''
             ) : (
               <Button onClick={handleVeTrangDauTien}>
                 <i className="fas fa-backward"></i>
@@ -325,7 +327,7 @@ function AdminQuanLyMovie() {
           </Grid>
           <Grid item md={1}>
             {soTrang === 1 ? (
-              ""
+              ''
             ) : (
               <Button onClick={handleTrangTruocDo}>
                 <i className="fas fa-caret-left"></i>
@@ -335,7 +337,7 @@ function AdminQuanLyMovie() {
           {renderBtn()}
           <Grid item md={1}>
             {soTrang === totalPages ? (
-              ""
+              ''
             ) : (
               <Button onClick={handleTrangTiepTheo}>
                 <i className="fas fa-caret-right"></i>
@@ -344,7 +346,7 @@ function AdminQuanLyMovie() {
           </Grid>
           <Grid item md={1}>
             {soTrang === totalPages ? (
-              ""
+              ''
             ) : (
               <Button onClick={handleVeTrangCuoiCung}>
                 <i className="fas fa-forward"></i>

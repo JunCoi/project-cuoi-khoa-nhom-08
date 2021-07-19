@@ -9,7 +9,7 @@ import BookingPage from './pages/BookingPage';
 import GuardBooking from './components/HOC/GuardBooking';
 import GuardAdminPage from './components/HOC/GuardAdminPage';
 import AdminPage from './pages/AdminPage';
-import CinemaMobile from './components/CinemaMobile';
+import CinemaMobilePage from './pages/CinemaMobilePage';
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
             <HomePage />
           </Route>
           <Route path="/rap-chieu-mobile" exact={true}>
-            <CinemaMobile />
+            <CinemaMobilePage />
           </Route>
           <Route path="/movie-detail/:movieCode" exact={true}>
             <MovieDetailPage />

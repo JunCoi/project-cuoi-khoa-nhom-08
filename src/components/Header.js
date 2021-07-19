@@ -136,7 +136,7 @@ export default function Header() {
                 onClose={handleClose}
               >
                 {userName ? (
-                  <Accordion style={{ color: '#b4b4b4' }}>
+                  <Accordion style={{ color: 'black' }}>
                     <AccordionSummary
                       expandIcon={<ExpandMoreIcon />}
                       aria-controls="panel1a-content"
@@ -156,6 +156,7 @@ export default function Header() {
                   </Accordion>
                 ) : (
                   <MenuItem
+                    style={{ color: 'black' }}
                     component="button"
                     underline="none"
                     className={classes.menuItem}
@@ -167,6 +168,7 @@ export default function Header() {
                 )}
                 {menuItems.map((item, index) => (
                   <MenuItem
+                    style={{ color: 'black' }}
                     key={index}
                     component="button"
                     underline="none"
@@ -183,6 +185,7 @@ export default function Header() {
               <div>
                 {menuItems.map((item, index) => (
                   <Link
+                    style={{ color: 'black' }}
                     key={index}
                     component="button"
                     underline="none"
