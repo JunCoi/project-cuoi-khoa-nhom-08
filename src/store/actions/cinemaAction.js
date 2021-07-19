@@ -1,4 +1,5 @@
 import axios from "axios";
+import { GET_DANH_SACH_RAP } from "../const/adminConst";
 import {
   GET_CINEMA_CLUSTER,
   GET_CINEMA_LIST,
@@ -88,5 +89,22 @@ export const layChiTietAction = (gio, ngayXem) => {
   return {
     type: LAY_CHI_TIET_PHIM,
     payload: [gio, ngayXem],
+  };
+};
+
+export const getDanhSachRapAction = (maHeThongRap, maCumRap) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios({
+        url: `https://movie0706.cybersoft.edu.vn/api/QuanLyRap/LayThongTinCumRapTheoHeThong?maHeThongRap=${maHeThongRap}`,
+        method: "GET",
+      });
+      dispatch({
+        type: GET_DANH_SACH_RAP,
+        payload: [res.data, maCumRap],
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 };

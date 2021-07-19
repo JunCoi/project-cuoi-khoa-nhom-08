@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import { Button, Grid, TextField } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import {
-  addNewUserAction,
-  updateUserAction,
-} from "../store/actions/adminAction";
+import { Button, Grid, TextField } from "@material-ui/core";
+import { updateMovieAction } from "../store/actions/adminAction";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -25,38 +22,41 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ModalAddUser(props) {
+export default function ModalMovieUpdate(props) {
   const classes = useStyles();
   const open = props?.open;
   const handleClose = props?.handleClose;
+  const movie = props?.movie;
+  const setMovie = props?.setMovie;
+  const index = props?.index;
   const maNhom = props?.maNhom;
   const soTrang = props?.soTrang;
   const soPhanTuTrenTrang = props?.soPhanTuTrenTrang;
-  const tuKhoa = props?.tuKhoa;
   const dispatch = useDispatch();
 
-  const [user, setUser] = useState({
-    taiKhoan: "",
-    matKhau: "",
-    email: "",
-    soDt: "",
-    maNhom: "GP01",
-    maLoaiNguoiDung: "KhachHang",
-    hoTen: "",
-  });
-
-  const handleChange = (e) => {
+  const handlechange = (e) => {
     const { name, value } = e.target;
-    setUser({
-      ...user,
+    setMovie({
+      ...movie,
       [name]: value,
+    });
+  };
+
+  const handlechangeHinhAnh = (e) => {
+    setMovie({
+      ...movie,
+      hinhAnh: e.target.files[0],
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    var form_data = new FormData();
+    for (var key in movie) {
+      form_data.append(key, movie[key]);
+    }
     dispatch(
-      addNewUserAction(user, maNhom, soTrang, soPhanTuTrenTrang, tuKhoa)
+      updateMovieAction(form_data, index, maNhom, soTrang, soPhanTuTrenTrang)
     );
   };
 
@@ -80,60 +80,93 @@ export default function ModalAddUser(props) {
               <Grid item xs={12}>
                 <TextField
                   className={classes.textField}
-                  autoComplete="taiKhoan"
-                  name="taiKhoan"
+                  autoComplete="maPhim"
+                  name="maPhim"
                   variant="outlined"
                   required
-                  label="Tài Khoản"
+                  label="Mã phim"
                   autoFocus
                   fullWidth
-                  onChange={handleChange}
+                  value={movie.maPhim}
+                  onChange={handlechange}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   className={classes.textField}
-                  autoComplete="matKhau"
-                  name="matKhau"
+                  autoComplete="tenPhim"
+                  name="tenPhim"
                   variant="outlined"
                   required
-                  label="Mật Khẩu"
+                  label="Tên phim"
                   autoFocus
                   fullWidth
-                  onChange={handleChange}
+                  value={movie.tenPhim}
+                  onChange={handlechange}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   className={classes.textField}
-                  autoComplete="email"
-                  name="email"
+                  autoComplete="biDanh"
+                  name="biDanh"
                   variant="outlined"
                   required
-                  label="Email"
+                  label="Bí danh"
                   autoFocus
                   fullWidth
-                  onChange={handleChange}
+                  value={movie.biDanh}
+                  onChange={handlechange}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   className={classes.textField}
-                  autoComplete="soDt"
-                  name="soDt"
+                  autoComplete="trailer"
+                  name="trailer"
                   variant="outlined"
                   required
-                  label="Số Điện Thoại"
+                  label="Trailer"
                   autoFocus
                   fullWidth
-                  onChange={handleChange}
+                  value={movie.trailer}
+                  onChange={handlechange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  className={classes.textField}
+                  autoComplete="hinhAnh"
+                  name="hinhAnh"
+                  variant="outlined"
+                  required
+                  label="Hình ảnh"
+                  autoFocus
+                  fullWidth
+                  // value={movie.hinhAnh}
+                  onChange={handlechangeHinhAnh}
+                  type="file"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  className={classes.textField}
+                  autoComplete="moTa"
+                  name="moTa"
+                  variant="outlined"
+                  required
+                  label="Mô tả"
+                  autoFocus
+                  fullWidth
+                  value={movie.moTa}
+                  onChange={handlechange}
                 />
               </Grid>
               <Grid item xs={12}>
                 <select
                   name="maNhom"
-                  onChange={handleChange}
-                  style={{ width: "100%" }}
+                  onChange={handlechange}
+                  value={movie.maNhom}
                 >
                   <option>GP01</option>
                   <option>GP02</option>
@@ -148,31 +181,36 @@ export default function ModalAddUser(props) {
                 </select>
               </Grid>
               <Grid item xs={12}>
-                <select
-                  name="maLoaiNguoiDung"
-                  onChange={handleChange}
-                  style={{ width: "100%" }}
-                >
-                  <option>KhachHang</option>
-                  <option>QuanTri</option>
-                </select>
+                <TextField
+                  className={classes.textField}
+                  autoComplete="ngayKhoiChieu"
+                  name="ngayKhoiChieu"
+                  variant="outlined"
+                  required
+                  label="Ngày khởi chiếu"
+                  autoFocus
+                  fullWidth
+                  value={movie.ngayKhoiChieu}
+                  onChange={handlechange}
+                />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   className={classes.textField}
-                  autoComplete="hoTen"
-                  name="hoTen"
+                  autoComplete="danhGia"
+                  name="danhGia"
                   variant="outlined"
                   required
-                  label="Họ Tên"
+                  label="Đánh giá"
                   autoFocus
                   fullWidth
-                  onChange={handleChange}
+                  value={movie.danhGia}
+                  onChange={handlechange}
                 />
               </Grid>
             </Grid>
             <Button type="submit" fullWidth>
-              Thêm
+              Update
             </Button>
           </form>
         </Fade>

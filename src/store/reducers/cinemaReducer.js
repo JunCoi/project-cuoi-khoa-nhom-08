@@ -8,6 +8,7 @@ import {
   LAY_TEN_PHIM,
 } from "../const/cinemaConst";
 import format from "date-format";
+import { CHANGE_MOVIE, GET_DANH_SACH_RAP } from "../const/adminConst";
 const initialState = {
   cinemaList: [],
   cinemaCluster: [],
@@ -17,6 +18,7 @@ const initialState = {
   ngayChieu: [],
   gioChieu: [],
   chiTietPhim: {},
+  danhSachRap: [],
 };
 
 export const cinemaReducer = (state = initialState, { type, payload }) => {
@@ -28,6 +30,7 @@ export const cinemaReducer = (state = initialState, { type, payload }) => {
     case GET_CINEMA_CLUSTER: {
       state.cinemaCluster = payload;
       state.movie = [];
+      state.danhSachRap = [];
       return { ...state };
     }
     case GET_CINEMA_MOVIE: {
@@ -146,6 +149,19 @@ export const cinemaReducer = (state = initialState, { type, payload }) => {
           }
         }
       }
+      return { ...state };
+    }
+    case GET_DANH_SACH_RAP: {
+      for (let i = 0; i < payload[0].length; i++) {
+        if (payload[0][i].maCumRap === payload[1]) {
+          state.danhSachRap = payload[0][i];
+        }
+      }
+      return { ...state };
+    }
+    case CHANGE_MOVIE: {
+      state.cinemaCluster = [];
+      state.danhSachRap = [];
       return { ...state };
     }
     default:
