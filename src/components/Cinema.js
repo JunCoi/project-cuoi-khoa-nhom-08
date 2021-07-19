@@ -183,7 +183,7 @@ function Cinema() {
           key={index}
           style={{
             marginRight: 5,
-            backgroundColor: `${flag ? 'green' : ''}`,
+            backgroundColor: `${flag ? '#2a85f5' : ''}`,
             fontSize: 12,
           }}
           onClick={() => {

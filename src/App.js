@@ -1,14 +1,15 @@
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import SignInPage from "./pages/SignInPage";
-import SignUpPage from "./pages/SignUpPage";
-import ForgotPassword from "./pages/ForgotPassword";
-import MovieDetailPage from "./pages/MovieDetailPage";
-import ProfilePage from "./pages/ProfilePage";
-import BookingPage from "./pages/BookingPage";
-import GuardBooking from "./components/HOC/GuardBooking";
-import GuardAdminPage from "./components/HOC/GuardAdminPage";
-import AdminPage from "./pages/AdminPage";
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import SignInPage from './pages/SignInPage';
+import SignUpPage from './pages/SignUpPage';
+import ForgotPassword from './pages/ForgotPassword';
+import MovieDetailPage from './pages/MovieDetailPage';
+import ProfilePage from './pages/ProfilePage';
+import BookingPage from './pages/BookingPage';
+import GuardBooking from './components/HOC/GuardBooking';
+import GuardAdminPage from './components/HOC/GuardAdminPage';
+import AdminPage from './pages/AdminPage';
+import CinemaMobile from './components/CinemaMobile';
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
         <Switch>
           <Route path="/" exact={true}>
             <HomePage />
+          </Route>
+          <Route path="/rap-chieu-mobile" exact={true}>
+            <CinemaMobile />
           </Route>
           <Route path="/movie-detail/:movieCode" exact={true}>
             <MovieDetailPage />
