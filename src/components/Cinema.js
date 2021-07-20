@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { useDispatch, useSelector } from 'react-redux';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import { Button } from '@material-ui/core';
+import React, { useEffect, useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import { useDispatch, useSelector } from "react-redux";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import { Button } from "@material-ui/core";
 import {
   getCinemaClusterAction,
   getCinemaMovieAction,
@@ -16,17 +16,17 @@ import {
   layTenPhimAction,
   layNgayXemAction,
   layChiTietAction,
-} from '../store/actions/cinemaAction';
-import Grid from '@material-ui/core/Grid';
-import { useHistory } from 'react-router-dom';
+} from "../store/actions/cinemaAction";
+import Grid from "@material-ui/core/Grid";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   cinemaList: {
     maxWidth: 940,
-    margin: 'auto',
-    paddingTop: '100px',
-    [theme.breakpoints.down('xs')]: {
-      display: 'none',
+    margin: "auto",
+    paddingTop: "100px",
+    [theme.breakpoints.down("xs")]: {
+      display: "none",
     },
   },
   table: {
@@ -34,21 +34,21 @@ const useStyles = makeStyles((theme) => ({
     height: 700,
   },
   fixoverflow: {
-    overflow: 'auto',
-    height: '100%',
+    overflow: "auto",
+    height: "100%",
   },
   col1: {
     width: 96.5,
     padding: 5,
-    borderRight: '1px solid rgba(224, 224, 224, 1)',
+    borderRight: "1px solid rgba(224, 224, 224, 1)",
   },
   col2: {
-    width: '30%',
+    width: "30%",
     padding: 5,
-    borderRight: '1px solid rgba(224, 224, 224, 1)',
+    borderRight: "1px solid rgba(224, 224, 224, 1)",
   },
   cumRap: {
-    cursor: 'pointer',
+    cursor: "pointer",
     fontWeight: 700,
   },
 }));
@@ -113,7 +113,7 @@ function Cinema() {
             className={classes.cumRap}
           >
             <p>{cluster.tenCumRap}</p>
-            <p style={{ fontSize: 12, color: 'rgba(0,0,0, .4)' }}>
+            <p style={{ fontSize: 12, color: "rgba(0,0,0, .4)" }}>
               {cluster.diaChi}
             </p>
           </TableCell>
@@ -147,9 +147,9 @@ function Cinema() {
                 item
                 xs={3}
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
                 <img width="50px" src={movie.hinhAnh} alt="" />
@@ -158,8 +158,12 @@ function Cinema() {
                 <Button onClick={() => handleLayTenPhim(movie.tenPhim)}>
                   <h4>{movie.tenPhim}</h4>
                 </Button>
-                <div>{tenPhim === movie.tenPhim ? renderNgayChieu() : ''}</div>
-                <div>{tenPhim === movie.tenPhim ? renderGioChieu() : ''}</div>
+                <div>{tenPhim === movie.tenPhim ? renderNgayChieu() : ""}</div>
+                <div>
+                  {tenPhim === movie.tenPhim && ngayXem !== undefined
+                    ? renderGioChieu()
+                    : ""}
+                </div>
               </Grid>
             </Grid>
           </TableCell>
@@ -173,6 +177,8 @@ function Cinema() {
   const handleLayTenPhim = (tenPhim) => {
     dispatch(layTenPhimAction(tenPhim));
     setActiveIndex(null);
+    setSuatChieu();
+    setNgayXem();
   };
 
   const renderNgayChieu = () => {
@@ -183,7 +189,7 @@ function Cinema() {
           key={index}
           style={{
             marginRight: 5,
-            backgroundColor: `${flag ? '#2a85f5' : ''}`,
+            backgroundColor: `${flag ? "#2a85f5" : ""}`,
             fontSize: 12,
           }}
           onClick={() => {
@@ -196,11 +202,13 @@ function Cinema() {
       );
     });
   };
-  const [ngayXem, setNgayXem] = useState('');
+  const [ngayXem, setNgayXem] = useState();
+  const [suatChieu, setSuatChieu] = useState();
 
   const handleLayNgayXem = (ngayXem) => {
     dispatch(layNgayXemAction(ngayXem));
     setNgayXem(ngayXem);
+    setSuatChieu();
   };
 
   const renderGioChieu = () => {
@@ -209,7 +217,7 @@ function Cinema() {
         <Button
           key={index}
           onClick={() => {
-            handleLayChiTiet(gio);
+            setSuatChieu(gio);
           }}
         >
           {gio}
@@ -217,23 +225,24 @@ function Cinema() {
       );
     });
   };
-
-  const handleLayChiTiet = (gio) => {
-    dispatch(layChiTietAction(gio, ngayXem));
-    if (maLichChieu !== undefined) {
-      localStorage.setItem('maLichChieu', JSON.stringify(maLichChieu));
-      history.push(`/booking/${maLichChieu}`);
+  useEffect(() => {
+    if (ngayXem !== undefined && suatChieu !== undefined) {
+      dispatch(layChiTietAction(suatChieu, ngayXem));
     }
-  };
+  }, [dispatch, ngayXem, suatChieu]);
 
   const maLichChieu = useSelector((state) => {
     return state.cinema?.chiTietPhim?.maLichChieu;
   });
 
-  useEffect(() => {
-    handleChoiceCinema('BHDStar');
-    setSelectedCol1Index(0);
-  }, []);
+  if (
+    maLichChieu !== undefined &&
+    ngayXem !== undefined &&
+    suatChieu !== undefined
+  ) {
+    localStorage.setItem("maLichChieu", JSON.stringify(maLichChieu));
+    history.push(`/booking/${maLichChieu}`);
+  }
 
   return (
     <div id="cum-rap" className={classes.cinemaList}>
