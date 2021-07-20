@@ -23,7 +23,7 @@ export default function MoviesList() {
   };
 
   return (
-    <div className={classes.moviesList}>
+    <div id="lich-chieu" className={classes.moviesList}>
       <Tabs value={selectedTab} onChange={handleChange} centered>
         <Tab className={classes.label} label="Đang chiếu" />
         <Tab className={classes.label} label="Sắp chiếu" />

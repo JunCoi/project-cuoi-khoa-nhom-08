@@ -236,7 +236,7 @@ function Cinema() {
   }, []);
 
   return (
-    <div className={classes.cinemaList}>
+    <div id="cum-rap" className={classes.cinemaList}>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead></TableHead>

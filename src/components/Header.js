@@ -19,6 +19,8 @@ import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { Link as LinkS } from 'react-scroll';
+import { animateScroll as scroll } from 'react-scroll';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,29 +56,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const menuItems = [
-  {
-    title: 'Lịch chiếu',
-    path: '#lich-chieu',
-    mobilePath: '#lich-chieu',
-  },
-  {
-    title: 'Cụm rạp',
-    path: '#cum-rap',
-    mobilePath: '/rap-chieu-mobile',
-  },
-  {
-    title: 'Tin tức',
-    path: '#tin-tuc',
-    mobilePath: '#tin-tuc',
-  },
-  {
-    title: 'Ứng dụng',
-    path: '#ung-dung',
-    mobilePath: '#ung-dung',
-  },
-];
-
 export default function Header() {
   const classes = useStyles();
   const history = useHistory();
@@ -86,6 +65,25 @@ export default function Header() {
   const userName = JSON.parse(localStorage.getItem('taiKhoan'));
 
   const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const menuItems = [
+    {
+      title: 'Lịch chiếu',
+      path: 'lich-chieu',
+    },
+    {
+      title: 'Cụm rạp',
+      path: 'cum-rap',
+    },
+    {
+      title: 'Tin tức',
+      path: 'tin-tuc',
+    },
+    {
+      title: 'Ứng dụng',
+      path: 'ung-dung',
+    },
+  ];
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -112,7 +110,10 @@ export default function Header() {
           <Typography
             variant="h6"
             className={classes.title}
-            onClick={() => history.push('/')}
+            onClick={() => {
+              history.push('/');
+              scroll.scrollToTop();
+            }}
           >
             HD08
           </Typography>
@@ -166,18 +167,68 @@ export default function Header() {
                     <ArrowForwardIosIcon className={classes.arrowIcon} />
                   </MenuItem>
                 )}
-                {menuItems.map((item, index) => (
-                  <MenuItem
-                    style={{ color: 'black' }}
-                    key={index}
-                    component="button"
-                    underline="none"
-                    className={classes.menuItem}
-                    onClick={() => history.push(item.mobilePath)}
+                <MenuItem
+                  style={{ color: 'black' }}
+                  component="button"
+                  underline="none"
+                  className={classes.menuItem}
+                >
+                  <LinkS
+                    onClick={() => {
+                      history.push('/');
+                      handleClose();
+                    }}
+                    to="lich-chieu"
+                    smooth={true}
+                    offset={-60}
                   >
-                    {item.title}
-                  </MenuItem>
-                ))}
+                    Lịch Chiếu
+                  </LinkS>
+                </MenuItem>
+                <MenuItem
+                  style={{ color: 'black' }}
+                  component="button"
+                  underline="none"
+                  className={classes.menuItem}
+                  onClick={() => history.push('/rap-chieu-mobile')}
+                >
+                  Cụm Rạp
+                </MenuItem>
+                <MenuItem
+                  style={{ color: 'black' }}
+                  component="button"
+                  underline="none"
+                  className={classes.menuItem}
+                >
+                  <LinkS
+                    to="tin-tuc"
+                    smooth={true}
+                    offset={-60}
+                    onClick={() => {
+                      history.push('/');
+                      handleClose();
+                    }}
+                  >
+                    Tin Tức
+                  </LinkS>
+                </MenuItem>
+                <MenuItem
+                  style={{ color: 'black' }}
+                  component="button"
+                  underline="none"
+                  className={classes.menuItem}
+                >
+                  <LinkS
+                    to="ung-dung"
+                    smooth={true}
+                    onClick={() => {
+                      history.push('/');
+                      handleClose();
+                    }}
+                  >
+                    Ứng Dụng
+                  </LinkS>
+                </MenuItem>
               </Menu>
             </>
           ) : (
@@ -190,9 +241,10 @@ export default function Header() {
                     component="button"
                     underline="none"
                     className={classes.menuItem}
-                    onClick={() => history.push(item.path)}
                   >
-                    {item.title}
+                    <LinkS to={item.path} smooth={true} offset={-80}>
+                      {item.title}
+                    </LinkS>
                   </Link>
                 ))}
               </div>

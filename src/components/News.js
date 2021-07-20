@@ -585,7 +585,7 @@ export default function News() {
   };
 
   return (
-    <div className="news" className={classes.News}>
+    <div id="tin-tuc" className="news" className={classes.News}>
       <Tabs
         value={render}
         onChange={handleChange}
