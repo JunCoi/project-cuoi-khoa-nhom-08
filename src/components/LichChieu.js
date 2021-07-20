@@ -8,21 +8,20 @@ import {
   getMovieDetailAction,
   getMovieDetailClusterAction,
   removeCurrentMovieDetailAction,
+} from '../store/actions/movieAction';
+import { makeStyles } from '@material-ui/core/styles';
+import { withRouter } from 'react-router';
 
-} from "../store/actions/movieAction";
-import { makeStyles } from "@material-ui/core/styles";
-import { withRouter } from "react-router";
-
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import { Button } from "@material-ui/core";
-import format from "date-format";
-import { Link } from "react-router-dom";
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import { Button } from '@material-ui/core';
+import format from 'date-format';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   LichChieu: {
@@ -155,11 +154,11 @@ function LichChieu(props) {
   };
 
   const handleGetMaLichChieu = (maLichChieu) => {
-    localStorage.setItem("maLichChieu", JSON.stringify(maLichChieu));
+    localStorage.setItem('maLichChieu', JSON.stringify(maLichChieu));
   };
 
   return (
-    <div className={classes.LichChieu}>
+    <div id="cum-rap" className={classes.LichChieu}>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead></TableHead>

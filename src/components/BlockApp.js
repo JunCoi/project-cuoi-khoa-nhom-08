@@ -1,8 +1,8 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import "./BlockApp.css";
-import Slider from "react-slick";
-import { Button, Container, Grid } from "@material-ui/core";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import './BlockApp.css';
+import Slider from 'react-slick';
+import { Button, Container, Grid } from '@material-ui/core';
 import slide1 from './BlockAppImg/img/slide1.jpg';
 import slide2 from './BlockAppImg/img/slide2.jpg';
 import slide3 from './BlockAppImg/img/slide3.jpg';
@@ -23,8 +23,8 @@ import slide16 from './BlockAppImg/img/slide16.jpg';
 const useStyles = makeStyles((theme) => ({
   BlockApp: {
     maxWidth: 940,
-    margin: "auto",
-    paddingTop: "100px",
+    margin: 'auto',
+    paddingTop: '100px',
   },
 }));
 
@@ -39,13 +39,13 @@ function BlockApp() {
     autoplaySpeed: 2000,
   };
   return (
-    <div className="blockApp" style={{ marginTop: "100px" }}>
+    <div id="ung-dung" className="blockApp" style={{ marginTop: '100px' }}>
       <Container maxWidth="lg">
         <Grid className="blockAppGrid" container>
           <Grid item md={8} xs={12}>
             <div className="text">
               <p>Ứng dụng tiện lợi dành cho người yêu điện ảnh</p>
-              <p style={{ fontSize: "medium" }}>
+              <p style={{ fontSize: 'medium' }}>
                 Không chỉ đặt vé, bạn còn có thể bình luận phim, chấm điểm rạp
                 và đổi quà hấp dẫn.
               </p>
