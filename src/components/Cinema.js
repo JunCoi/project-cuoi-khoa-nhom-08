@@ -234,7 +234,7 @@ function Cinema() {
   const maLichChieu = useSelector((state) => {
     return state.cinema?.chiTietPhim?.maLichChieu;
   });
-
+  
   if (
     maLichChieu !== undefined &&
     ngayXem !== undefined &&

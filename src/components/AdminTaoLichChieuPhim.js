@@ -301,7 +301,13 @@ function AdminTaoLichChieuPhim() {
   });
 
   const handleTaoLichChieu = () => {
-    dispatch(taoLichChieuAction(lichChieu, lichChieu.maPhim, maHeThongRap));
+    if (
+      lichChieu.maPhim !== "" &&
+      lichChieu.ngayChieuGioChieu !== "" &&
+      lichChieu.maRap !== "" &&
+      lichChieu.giaVe !== ""
+    )
+      dispatch(taoLichChieuAction(lichChieu, lichChieu.maPhim, maHeThongRap));
   };
 
   return (
