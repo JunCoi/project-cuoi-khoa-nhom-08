@@ -18,7 +18,7 @@ function ThongTin() {
   const classes = useStyles();
   return (
     <div className={classes.movieDetailPage}>
-      <p>{movieDetail.moTa}</p>
+      <p style={{fontSize: "18px", margin: "40px 0"}}>{movieDetail.moTa}</p>
     </div>
   );
 }

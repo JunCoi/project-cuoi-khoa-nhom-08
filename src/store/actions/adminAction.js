@@ -334,6 +334,7 @@ export const taoLichChieuAction = (lichChieu, maPhim, maHeThongRap) => {
         },
       });
       Swal.fire("Thông báo", "Tạo lịch chiếu thành công", "success");
+      console.log(res.data);
       dispatch({
         type: TAO_LICH_CHIEU,
       });

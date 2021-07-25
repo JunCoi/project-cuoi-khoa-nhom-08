@@ -43,10 +43,10 @@ export const cinemaReducer = (state = initialState, { type, payload }) => {
       state.gioChieu = [];
       state.chiTietPhim = [];
       let myCinemaMovie = [...state.cinemaMovie];
-      const index = myCinemaMovie[0].lstCumRap.findIndex(
+      const index = myCinemaMovie[0]?.lstCumRap?.findIndex(
         (rap) => rap.maCumRap === payload
       );
-      state.movie = myCinemaMovie[0].lstCumRap[index];
+      state.movie = myCinemaMovie[0]?.lstCumRap[index];
       return { ...state };
     }
     case LAY_TEN_PHIM: {
@@ -92,13 +92,13 @@ export const cinemaReducer = (state = initialState, { type, payload }) => {
           j++
         ) {
           if (
-            state.movie?.danhSachPhim[i].tenPhim === state.tenPhim &&
+            state.movie?.danhSachPhim[i]?.tenPhim === state.tenPhim &&
             format(
               "dd/MM/yyyy",
               new Date(
-                state.movie?.danhSachPhim[i].lstLichChieuTheoPhim[
+                state.movie?.danhSachPhim[i]?.lstLichChieuTheoPhim[
                   j
-                ].ngayChieuGioChieu
+                ]?.ngayChieuGioChieu
               )
             ) === payload
           ) {
@@ -106,9 +106,9 @@ export const cinemaReducer = (state = initialState, { type, payload }) => {
               format(
                 "hh:mm",
                 new Date(
-                  state.movie?.danhSachPhim[i].lstLichChieuTheoPhim[
+                  state.movie?.danhSachPhim[i]?.lstLichChieuTheoPhim[
                     j
-                  ].ngayChieuGioChieu
+                  ]?.ngayChieuGioChieu
                 )
               )
             );
@@ -130,7 +130,7 @@ export const cinemaReducer = (state = initialState, { type, payload }) => {
             format(
               "dd/MM/yyyy",
               new Date(
-                state.movie?.danhSachPhim[i].lstLichChieuTheoPhim[
+                state.movie?.danhSachPhim[i]?.lstLichChieuTheoPhim[
                   j
                 ].ngayChieuGioChieu
               )
@@ -140,12 +140,12 @@ export const cinemaReducer = (state = initialState, { type, payload }) => {
               new Date(
                 state.movie?.danhSachPhim[i].lstLichChieuTheoPhim[
                   j
-                ].ngayChieuGioChieu
+                ]?.ngayChieuGioChieu
               )
             ) === payload[0]
           ) {
             state.chiTietPhim =
-              state.movie?.danhSachPhim[i].lstLichChieuTheoPhim[j];
+              state.movie?.danhSachPhim[i]?.lstLichChieuTheoPhim[j];
           }
         }
       }
