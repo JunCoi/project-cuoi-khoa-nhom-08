@@ -1,43 +1,48 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
-import Header from '../components/Header';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useParams } from "react-router-dom";
+import Header from "../components/Header";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   bookingTicketAction,
   choiceChairAction,
   getTicketListAction,
-} from '../store/actions/bookingAction';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import { Button, Container, Grid } from '@material-ui/core';
+} from "../store/actions/bookingAction";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import { Button, Container, Grid } from "@material-ui/core";
+import Swal from "sweetalert2";
 
 const useStyles = makeStyles((theme) => ({
   BookingPage: {
-    paddingTop: '100px',
+    paddingTop: "100px",
   },
   choiceChair: {
-    backgroundColor: '#6645fd !important',
-    color: 'white',
-    '&:hover': {
-      backgroundColor: '#6645fd',
+    backgroundColor: "#6645fd !important",
+    color: "white",
+    "&:hover": {
+      backgroundColor: "#6645fd",
     },
   },
   daDat: {
-    cursor: 'no-drop !important',
+    cursor: "no-drop !important",
   },
   bill: {
     maxHeight: 320,
-    overflowY: 'scroll',
+    overflowY: "scroll",
   },
   wrap: {
-    width: '100vw',
-    overflowY: 'scroll',
+    width: "100vw",
+    overflowY: "scroll",
+  },
+  fixoverflow: {
+    overflow: "auto",
+    height: "100%",
   },
 }));
 
@@ -62,6 +67,7 @@ function BookingPage() {
 
   const [isValid, setIsValid] = useState(true);
   const chairDangChon = listChair.filter((chair) => chair.dangChon);
+
   useEffect(() => {
     if (chairDangChon.length > 0) {
       setIsValid(false);
@@ -73,38 +79,289 @@ function BookingPage() {
   const handleChoice = (chair) => {
     dispatch(choiceChairAction(chair));
   };
+  let dayGhe = [[], [], [], [], [], [], [], [], [], []];
 
-  const handleBooking = () => {
-    const listChairChoice = listChair.filter((chair) => chair.dangChon);
-    dispatch(bookingTicketAction(showTimeCode, listChairChoice, history));
-  };
+  for (let i = 0; i < listChair.length; i++) {
+    if (i <= 15) {
+      dayGhe[0].push(listChair[i]);
+      listChair[i]["day"] = 0;
+    } else if (i <= 31) {
+      dayGhe[1].push(listChair[i]);
+      listChair[i]["day"] = 1;
+    } else if (i <= 47) {
+      dayGhe[2].push(listChair[i]);
+      listChair[i]["day"] = 2;
+    } else if (i <= 63) {
+      dayGhe[3].push(listChair[i]);
+      listChair[i]["day"] = 3;
+    } else if (i <= 79) {
+      dayGhe[4].push(listChair[i]);
+      listChair[i]["day"] = 4;
+    } else if (i <= 95) {
+      dayGhe[5].push(listChair[i]);
+      listChair[i]["day"] = 5;
+    } else if (i <= 111) {
+      dayGhe[6].push(listChair[i]);
+      listChair[i]["day"] = 6;
+    } else if (i <= 127) {
+      dayGhe[7].push(listChair[i]);
+      listChair[i]["day"] = 7;
+    } else if (i <= 143) {
+      dayGhe[8].push(listChair[i]);
+      listChair[i]["day"] = 8;
+    } else if (i <= 159) {
+      dayGhe[9].push(listChair[i]);
+      listChair[i]["day"] = 9;
+    }
+  }
 
-  const renderListChair = () => {
-    return listChair?.map((chair, index) => {
+  const renderListChairA = () => {
+    return dayGhe[0]?.map((chair, index) => {
       return (
-        <>
-          <button
-            key={index}
-            style={{
-              cursor: `${chair.daDat ? 'no-drop' : 'pointer'}`,
-              width: '4.5%',
-              minWidth: 30,
-              height: 30,
-              margin: '5px',
-              borderRadius: '5px',
-              border: 'none',
-              color: `${chair.loaiGhe === 'Thuong' ? 'white' : 'yellow'}`,
-              backgroundColor: `${chair.daDat ? 'black' : 'rgb(116,112,112)'}`,
-            }}
-            className={chair.dangChon ? classes.choiceChair : ''}
-            onClick={() => handleChoice(chair)}
-            disabled={chair.daDat}
-            variant="contained"
-          >
-            {chair.daDat ? 'X' : chair.tenGhe}
-          </button>
-          {(index + 1) % 16 === 0 ? <br /> : ''}
-        </>
+        <button
+          style={{
+            cursor: `${chair.daDat ? "no-drop" : "pointer"}`,
+            width: "4.5%",
+            minWidth: 30,
+            height: 30,
+            margin: "5px",
+            borderRadius: "5px",
+            border: "none",
+            color: `${chair.loaiGhe === "Thuong" ? "white" : "yellow"}`,
+            backgroundColor: `${chair.daDat ? "black" : "rgb(116,112,112)"}`,
+          }}
+          className={chair.dangChon ? classes.choiceChair : ""}
+          onClick={() => handleChoice(chair)}
+          disabled={chair.daDat}
+          variant="contained"
+        >
+          {chair.daDat ? "X" : chair.tenGhe}
+        </button>
+      );
+    });
+  };
+  const renderListChairB = () => {
+    return dayGhe[1]?.map((chair, index) => {
+      return (
+        <button
+          style={{
+            cursor: `${chair.daDat ? "no-drop" : "pointer"}`,
+            width: "4.5%",
+            minWidth: 30,
+            height: 30,
+            margin: "5px",
+            borderRadius: "5px",
+            border: "none",
+            color: `${chair.loaiGhe === "Thuong" ? "white" : "yellow"}`,
+            backgroundColor: `${chair.daDat ? "black" : "rgb(116,112,112)"}`,
+          }}
+          className={chair.dangChon ? classes.choiceChair : ""}
+          onClick={() => handleChoice(chair)}
+          disabled={chair.daDat}
+          variant="contained"
+        >
+          {chair.daDat ? "X" : chair.tenGhe}
+        </button>
+      );
+    });
+  };
+  const renderListChairC = () => {
+    return dayGhe[2]?.map((chair, index) => {
+      return (
+        <button
+          style={{
+            cursor: `${chair.daDat ? "no-drop" : "pointer"}`,
+            width: "4.5%",
+            minWidth: 30,
+            height: 30,
+            margin: "5px",
+            borderRadius: "5px",
+            border: "none",
+            color: `${chair.loaiGhe === "Thuong" ? "white" : "yellow"}`,
+            backgroundColor: `${chair.daDat ? "black" : "rgb(116,112,112)"}`,
+          }}
+          className={chair.dangChon ? classes.choiceChair : ""}
+          onClick={() => handleChoice(chair)}
+          disabled={chair.daDat}
+          variant="contained"
+        >
+          {chair.daDat ? "X" : chair.tenGhe}
+        </button>
+      );
+    });
+  };
+  const renderListChairD = () => {
+    return dayGhe[3]?.map((chair, index) => {
+      return (
+        <button
+          style={{
+            cursor: `${chair.daDat ? "no-drop" : "pointer"}`,
+            width: "4.5%",
+            minWidth: 30,
+            height: 30,
+            margin: "5px",
+            borderRadius: "5px",
+            border: "none",
+            color: `${chair.loaiGhe === "Thuong" ? "white" : "yellow"}`,
+            backgroundColor: `${chair.daDat ? "black" : "rgb(116,112,112)"}`,
+          }}
+          className={chair.dangChon ? classes.choiceChair : ""}
+          onClick={() => handleChoice(chair)}
+          disabled={chair.daDat}
+          variant="contained"
+        >
+          {chair.daDat ? "X" : chair.tenGhe}
+        </button>
+      );
+    });
+  };
+  const renderListChairE = () => {
+    return dayGhe[4]?.map((chair, index) => {
+      return (
+        <button
+          style={{
+            cursor: `${chair.daDat ? "no-drop" : "pointer"}`,
+            width: "4.5%",
+            minWidth: 30,
+            height: 30,
+            margin: "5px",
+            borderRadius: "5px",
+            border: "none",
+            color: `${chair.loaiGhe === "Thuong" ? "white" : "yellow"}`,
+            backgroundColor: `${chair.daDat ? "black" : "rgb(116,112,112)"}`,
+          }}
+          className={chair.dangChon ? classes.choiceChair : ""}
+          onClick={() => handleChoice(chair)}
+          disabled={chair.daDat}
+          variant="contained"
+        >
+          {chair.daDat ? "X" : chair.tenGhe}
+        </button>
+      );
+    });
+  };
+  const renderListChairF = () => {
+    return dayGhe[5]?.map((chair, index) => {
+      return (
+        <button
+          style={{
+            cursor: `${chair.daDat ? "no-drop" : "pointer"}`,
+            width: "4.5%",
+            minWidth: 30,
+            height: 30,
+            margin: "5px",
+            borderRadius: "5px",
+            border: "none",
+            color: `${chair.loaiGhe === "Thuong" ? "white" : "yellow"}`,
+            backgroundColor: `${chair.daDat ? "black" : "rgb(116,112,112)"}`,
+          }}
+          className={chair.dangChon ? classes.choiceChair : ""}
+          onClick={() => handleChoice(chair)}
+          disabled={chair.daDat}
+          variant="contained"
+        >
+          {chair.daDat ? "X" : chair.tenGhe}
+        </button>
+      );
+    });
+  };
+  const renderListChairG = () => {
+    return dayGhe[6]?.map((chair, index) => {
+      return (
+        <button
+          style={{
+            cursor: `${chair.daDat ? "no-drop" : "pointer"}`,
+            width: "4.5%",
+            minWidth: 30,
+            height: 30,
+            margin: "5px",
+            borderRadius: "5px",
+            border: "none",
+            color: `${chair.loaiGhe === "Thuong" ? "white" : "yellow"}`,
+            backgroundColor: `${chair.daDat ? "black" : "rgb(116,112,112)"}`,
+          }}
+          className={chair.dangChon ? classes.choiceChair : ""}
+          onClick={() => handleChoice(chair)}
+          disabled={chair.daDat}
+          variant="contained"
+        >
+          {chair.daDat ? "X" : chair.tenGhe}
+        </button>
+      );
+    });
+  };
+  const renderListChairH = () => {
+    return dayGhe[7]?.map((chair, index) => {
+      return (
+        <button
+          style={{
+            cursor: `${chair.daDat ? "no-drop" : "pointer"}`,
+            width: "4.5%",
+            minWidth: 30,
+            height: 30,
+            margin: "5px",
+            borderRadius: "5px",
+            border: "none",
+            color: `${chair.loaiGhe === "Thuong" ? "white" : "yellow"}`,
+            backgroundColor: `${chair.daDat ? "black" : "rgb(116,112,112)"}`,
+          }}
+          className={chair.dangChon ? classes.choiceChair : ""}
+          onClick={() => handleChoice(chair)}
+          disabled={chair.daDat}
+          variant="contained"
+        >
+          {chair.daDat ? "X" : chair.tenGhe}
+        </button>
+      );
+    });
+  };
+  const renderListChairI = () => {
+    return dayGhe[8]?.map((chair, index) => {
+      return (
+        <button
+          style={{
+            cursor: `${chair.daDat ? "no-drop" : "pointer"}`,
+            width: "4.5%",
+            minWidth: 30,
+            height: 30,
+            margin: "5px",
+            borderRadius: "5px",
+            border: "none",
+            color: `${chair.loaiGhe === "Thuong" ? "white" : "yellow"}`,
+            backgroundColor: `${chair.daDat ? "black" : "rgb(116,112,112)"}`,
+          }}
+          className={chair.dangChon ? classes.choiceChair : ""}
+          onClick={() => handleChoice(chair)}
+          disabled={chair.daDat}
+          variant="contained"
+        >
+          {chair.daDat ? "X" : chair.tenGhe}
+        </button>
+      );
+    });
+  };
+  const renderListChairJ = () => {
+    return dayGhe[9]?.map((chair, index) => {
+      return (
+        <button
+          style={{
+            cursor: `${chair.daDat ? "no-drop" : "pointer"}`,
+            width: "4.5%",
+            minWidth: 30,
+            height: 30,
+            margin: "5px",
+            borderRadius: "5px",
+            border: "none",
+            color: `${chair.loaiGhe === "Thuong" ? "white" : "yellow"}`,
+            backgroundColor: `${chair.daDat ? "black" : "rgb(116,112,112)"}`,
+          }}
+          className={chair.dangChon ? classes.choiceChair : ""}
+          onClick={() => handleChoice(chair)}
+          disabled={chair.daDat}
+          variant="contained"
+        >
+          {chair.daDat ? "X" : chair.tenGhe}
+        </button>
       );
     });
   };
@@ -123,6 +380,27 @@ function BookingPage() {
     });
   };
 
+  let flag = true;
+
+  const handleBooking = () => {
+    const listChairChoice = listChair.filter((chair) => chair.dangChon);
+    // console.log(listChairChoice);
+    // console.log(dayGhe);
+    if (listChairChoice.length === 1) {
+      const day = listChairChoice[0]["day"];
+      if(dayGhe[day].findIndex((e) => listChairChoice[0]["stt"] === e["stt"]) === 1 && dayGhe[day][0]["daDat"] === false){
+        console.log("Khong duoc dat chua ghe dau day");
+      }
+      else if (dayGhe[day].findIndex((e) => listChairChoice[0]["stt"] === e["stt"]) === 14 && dayGhe[day][15]["daDat"] === false){
+        console.log("Khong duoc dat chua ghe cuoi day");
+      } 
+      else if (1<= dayGhe[day].findIndex((e) => listChairChoice[0]["stt"] === e["stt"]) <= 14 && dayGhe[day][dayGhe[day].findIndex((e) => listChairChoice[0]["stt"] === e["stt"]) + 1]["daDat"] === false) {
+        console.log("Khong duoc chua ghe o giua");
+      }
+    }
+    // dispatch(bookingTicketAction(showTimeCode, listChairChoice, history));
+  };
+
   return (
     <div>
       <Header />
@@ -130,19 +408,35 @@ function BookingPage() {
         <Container>
           <Grid container spacing={3}>
             <Grid item md={8} className={classes.wrap}>
-              <div style={{ width: '100%' }}>
+              <div style={{ width: "100%" }}>
                 <img
-                  style={{ width: '100%', minWidth: 700 }}
+                  style={{ width: "100%", minWidth: 700 }}
                   src="https://tix.vn/app/assets/img/icons/screen.png"
                 />
               </div>
               <div
-                style={{ textAlign: 'center', width: '100%', minWidth: 700 }}
+                style={{ textAlign: "center", width: "100%", minWidth: 700 }}
               >
-                {renderListChair()}
+                <TableContainer component={Paper}>
+                  <Table className={classes.table} aria-label="simple table">
+                    <TableHead></TableHead>
+                    <TableBody>
+                      <TableRow>{renderListChairA()}</TableRow>
+                      <TableRow>{renderListChairB()}</TableRow>
+                      <TableRow>{renderListChairC()}</TableRow>
+                      <TableRow>{renderListChairD()}</TableRow>
+                      <TableRow>{renderListChairE()}</TableRow>
+                      <TableRow>{renderListChairF()}</TableRow>
+                      <TableRow>{renderListChairG()}</TableRow>
+                      <TableRow>{renderListChairH()}</TableRow>
+                      <TableRow>{renderListChairI()}</TableRow>
+                      <TableRow>{renderListChairJ()}</TableRow>
+                    </TableBody>
+                  </Table>
+                </TableContainer>
               </div>
             </Grid>
-            <Grid item md={4} style={{ margin: 'auto' }}>
+            <Grid item md={4} style={{ margin: "auto" }}>
               <img
                 src={thongTinPhim?.hinhAnh}
                 alt=""
@@ -154,7 +448,7 @@ function BookingPage() {
               <p>Địa chỉ: {thongTinPhim?.diaChi}</p>
               <p>{thongTinPhim?.tenRap}</p>
               <p>
-                Ngày chiếu: {thongTinPhim?.ngayChieu} - Giờ chiếu:{' '}
+                Ngày chiếu: {thongTinPhim?.ngayChieu} - Giờ chiếu:{" "}
                 {thongTinPhim?.gioChieu}
               </p>
               <br />
@@ -188,7 +482,7 @@ function BookingPage() {
                   </Table>
                 </TableContainer>
               </div>
-              <div style={{ textAlign: 'center', margin: '30px' }}>
+              <div style={{ textAlign: "center", margin: "30px" }}>
                 <Button
                   disabled={isValid}
                   onClick={handleBooking}

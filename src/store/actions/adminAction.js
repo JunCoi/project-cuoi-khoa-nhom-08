@@ -333,14 +333,15 @@ export const taoLichChieuAction = (lichChieu, maPhim, maHeThongRap) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      Swal.fire("Thông báo", res.response.data, "success");
+      Swal.fire("Thông báo", "Tạo lịch chiếu thành công", "success");
+      console.log(res.data);
       dispatch({
         type: TAO_LICH_CHIEU,
       });
       dispatch(await getRapChieuAdminAction(maPhim));
     } catch (error) {
       Swal.fire("Thông báo", error.response.data, "error");
-      console.log(error.response.data);
+      console.log(error);
     }
   };
 };

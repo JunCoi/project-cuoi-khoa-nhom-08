@@ -37,6 +37,7 @@ export const bookingTicketAction = (maLichChieu, danhSachVe) => {
       const token = JSON.parse(localStorage.getItem("token"));
       const taiKhoan = JSON.parse(localStorage.getItem("taiKhoan"));
 
+
       const res = await axios({
         url: "https://movie0706.cybersoft.edu.vn/api/QuanLyDatVe/DatVe",
         method: "POST",
