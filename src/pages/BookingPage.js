@@ -79,6 +79,7 @@ function BookingPage() {
   const handleChoice = (chair) => {
     dispatch(choiceChairAction(chair));
   };
+  let dayDat = [[], [], [], [], [], [], [], [], [], []];
   let dayGhe = [[], [], [], [], [], [], [], [], [], []];
 
   for (let i = 0; i < listChair.length; i++) {
@@ -113,6 +114,7 @@ function BookingPage() {
       dayGhe[9].push(listChair[i]);
       listChair[i]["day"] = 9;
     }
+    listChair[i]["vitri"] = i % 16;
   }
 
   const renderListChairA = () => {
@@ -382,23 +384,43 @@ function BookingPage() {
 
   let flag = true;
 
+  const handleOneRow = (bookedRow) => {
+    const day = bookedRow[0]["day"];
+
+    let binDemo = "";
+    for (let i = 0; i < 16; i++) {
+      if (dayGhe[day][i]["daDat"] === true) binDemo += "1";
+      else if (bookedRow.findIndex((e) => e["vitri"] === i) >= 0)
+        binDemo += "1";
+      else binDemo += "0";
+    }
+
+    if (binDemo.split("1").findIndex((e) => e === "0") >= 0) {
+      Swal.fire(
+        "Thông Báo",
+        "Không được chừa trống ghế ở giữa hoặc ở hai hàng ngoài cùng ",
+        "error"
+      );
+      flag = false;
+    }
+  };
+
   const handleBooking = () => {
     const listChairChoice = listChair.filter((chair) => chair.dangChon);
-    // console.log(listChairChoice);
-    // console.log(dayGhe);
-    if (listChairChoice.length === 1) {
-      const day = listChairChoice[0]["day"];
-      if(dayGhe[day].findIndex((e) => listChairChoice[0]["stt"] === e["stt"]) === 1 && dayGhe[day][0]["daDat"] === false){
-        console.log("Khong duoc dat chua ghe dau day");
-      }
-      else if (dayGhe[day].findIndex((e) => listChairChoice[0]["stt"] === e["stt"]) === 14 && dayGhe[day][15]["daDat"] === false){
-        console.log("Khong duoc dat chua ghe cuoi day");
-      } 
-      else if (1<= dayGhe[day].findIndex((e) => listChairChoice[0]["stt"] === e["stt"]) <= 14 && dayGhe[day][dayGhe[day].findIndex((e) => listChairChoice[0]["stt"] === e["stt"]) + 1]["daDat"] === false) {
-        console.log("Khong duoc chua ghe o giua");
+    for (let i = 0; i < listChairChoice.length; i++) {
+      dayDat[listChairChoice[i]["day"]].push({
+        vitri: listChairChoice[i]["vitri"],
+        day: listChairChoice[i]["day"],
+      });
+    }
+    for (let i = 0; i < 10; i++) {
+      if (dayDat[i].length > 0) {
+        handleOneRow(dayDat[i]);
       }
     }
-    // dispatch(bookingTicketAction(showTimeCode, listChairChoice, history));
+    if (flag) {
+      dispatch(bookingTicketAction(showTimeCode, listChairChoice, history));
+    }
   };
 
   return (
