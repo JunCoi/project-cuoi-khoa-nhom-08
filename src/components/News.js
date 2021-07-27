@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function News() {
   const classes = useStyles();
-  const [render, setRender] = useState(1);
+  const [render, setRender] = useState(0);
 
   const [visibleDienAnh, setVisibleDienAnh] = useState(1);
   const [visibleKhuyenMai, setVisibleKhuyenMai] = useState(1);
