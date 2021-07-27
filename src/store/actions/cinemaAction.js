@@ -6,8 +6,13 @@ import {
   GET_CINEMA_MOVIE,
   GET_MOVIE,
   LAY_CHI_TIET_PHIM,
+  LAY_GIO_CHIEU_PHIM,
+  LAY_HE_THONG_RAP_CHIEU,
+  LAY_LICH_CHIEU,
+  LAY_MA_LICH_CHIEU,
   LAY_NGAY_XEM,
   LAY_TEN_PHIM,
+  LAY_THONG_TIN_LICH_CHIEU_PHIM,
 } from "../const/cinemaConst";
 
 export const getCinemaListAction = () => {
@@ -106,5 +111,50 @@ export const getDanhSachRapAction = (maHeThongRap, maCumRap) => {
     } catch (error) {
       console.log(error);
     }
+  };
+};
+
+export const layThongTinLichChieuPhimAction = (maPhim) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios({
+        url: `https://movie0706.cybersoft.edu.vn/api/QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${maPhim}`,
+        method: "GET",
+      });
+      dispatch({
+        type: LAY_THONG_TIN_LICH_CHIEU_PHIM,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const layCumRapChieuAction = (maHeThongRap) => {
+  return {
+    type: LAY_HE_THONG_RAP_CHIEU,
+    payload: maHeThongRap,
+  };
+};
+
+export const layLichChieuAction = (maCumRap) => {
+  return {
+    type: LAY_LICH_CHIEU,
+    payload: maCumRap,
+  };
+};
+
+export const layGioChieuPhimAction = (ngay) => {
+  return {
+    type: LAY_GIO_CHIEU_PHIM,
+    payload: ngay,
+  };
+};
+
+export const layMaLichChieuPhimAction = (ngay, gio) => {
+  return {
+    type: LAY_MA_LICH_CHIEU,
+    payload: [ngay, gio],
   };
 };
