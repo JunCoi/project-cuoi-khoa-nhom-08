@@ -11,6 +11,8 @@ import Grid from '@material-ui/core/Grid';
 import format from 'date-format';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import DanhGia from "../components/DanhGia";
+
 
 const useStyles = makeStyles((theme) => ({
   movieDetailPage: {
@@ -119,9 +121,11 @@ function MovieDetailPage() {
                     <Tabs value={selectedTab} onChange={handleChange} centered>
                       <Tab className={classes.label} label="Lịch Chiếu" />
                       <Tab className={classes.label} label="Thông Tin" />
+                      <Tab className={classes.label} label="Đánh Giá" />
                     </Tabs>
                     {selectedTab === 0 && <LichChieu />}
                     {selectedTab === 1 && <ThongTin />}
+                    {selectedTab === 2 && <DanhGia />}
                   </div>
                   <Footer />
                 </div>
