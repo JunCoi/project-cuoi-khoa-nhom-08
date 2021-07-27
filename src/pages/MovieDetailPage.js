@@ -3,7 +3,6 @@ import { Tabs, Tab } from '@material-ui/core';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { makeStyles } from '@material-ui/core/styles';
-import { useDispatch } from 'react-redux';
 import LichChieu from '../components/LichChieu';
 import ThongTin from '../components/ThongTin';
 import Loading from '../components/Loading';
@@ -11,8 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import format from 'date-format';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import DanhGia from "../components/DanhGia";
-
+import DanhGia from '../components/DanhGia';
 
 const useStyles = makeStyles((theme) => ({
   movieDetailPage: {
@@ -56,21 +54,13 @@ function MovieDetailPage() {
     getMovieDetail();
   }, []);
 
-  // const movieDetail = useSelector((state) => {
-  //   return state.movieList?.movieDetail;
-  // });
-
   const [selectedTab, setSelectedTab] = useState(0);
+  console.log(selectedTab);
 
-  const handleChange = (newValue) => {
+  const handleChange = (event, newValue) => {
     setSelectedTab(newValue);
   };
 
-  // const bgDetail = {
-  //   backgroundImage: `url(${movieDetail.hinhAnh})`,
-  //   backgroundSize: 'cover',
-  //   backgroundPosition: 'top',
-  // };
   const bgBlur = {
     background: 'rgba(10, 32, 41, 0.5)',
     backdropFilter: 'blur(20px)',
