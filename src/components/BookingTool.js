@@ -1,69 +1,70 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import Button from "@material-ui/core/Button";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Button from '@material-ui/core/Button';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   getGioChieuAction,
   getNgayXemAction,
   getRapAction,
   layChiTietAction,
-} from "../store/actions/movieAction";
-import { useHistory } from "react-router-dom";
+} from '../store/actions/movieAction';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   formWrap: {
-    width: "100%",
+    width: '100%',
     height: 80,
-    position: "relative",
+    position: 'relative',
     zIndex: 4,
-    "@media (max-width: 960px)": {
-      display: "none",
+    '@media (max-width: 960px)': {
+      display: 'none',
     },
   },
   formBlock: {
-    display: "block",
-    position: "absolute",
-    boxShadow: "0 0 10px rgb(0 0 0 / 30%)",
+    display: 'block',
+    position: 'absolute',
+    boxShadow: '0 0 10px rgb(0 0 0 / 30%)',
     borderRadius: 4,
-    width: "90%",
+    width: '90%',
     maxWidth: 940,
-    height: "100%",
-    left: "50%",
-    transform: "translate(-50%, -55%)",
-    backgroundColor: "white",
+    height: '100%',
+    left: '50%',
+    transform: 'translate(-50%, -55%)',
+    backgroundColor: 'white',
   },
   formPhim: {
-    width: "30%",
+    width: '30%',
     marginTop: 6,
-    padding: "0 10px",
+    padding: '0 10px',
   },
   formOther: {
-    width: "calc(70% / 4)",
+    width: 'calc(70% / 4)',
     marginTop: 6,
-    padding: "0 10px",
+    padding: '0 10px',
   },
   buttonWrap: {
-    width: "calc(70% / 4)",
+    width: 'calc(70% / 4)',
     margin: 0,
-    float: "right",
-    height: "100%",
-    position: "relative",
+    float: 'right',
+    height: '100%',
+    position: 'relative',
   },
   button: {
-    position: "absolute",
-    top: "calc(50% - 3px)",
-    left: "50%",
-    transform: "translate(-50% , -50%)",
-    backgroundColor: "#4a4a4a",
-    color: "white",
-    padding: "10px 20px",
+    position: 'absolute',
+    top: 'calc(50% - 3px)',
+    left: '50%',
+    transform: 'translate(-50% , -50%)',
+    backgroundColor: '#4a4a4a',
+    color: 'white',
+    padding: '10px 20px',
+    width: '90%',
 
-    "&:hover": {
-      backgroundColor: "#4a4a4a",
+    '&:hover': {
+      backgroundColor: '#4a4a4a',
     },
   },
 }));
@@ -172,15 +173,15 @@ export default function BookingTool() {
       suatChieu !== undefined &&
       maLichChieu !== undefined
     ) {
-      localStorage.setItem("maLichChieu", JSON.stringify(maLichChieu));
+      localStorage.setItem('maLichChieu', JSON.stringify(maLichChieu));
       history.push(`/booking/${maLichChieu}`);
-    } 
+    }
   };
   return (
     <div className={classes.formWrap}>
       <div className={classes.formBlock}>
         <FormControl className={classes.formPhim}>
-          <InputLabel style={{ left: 20, color: "rgba(0, 0, 0, 0.54)" }}>
+          <InputLabel style={{ left: 20, color: 'rgba(0, 0, 0, 0.54)' }}>
             Phim
           </InputLabel>
           <Select
@@ -194,7 +195,7 @@ export default function BookingTool() {
           </Select>
         </FormControl>
         <FormControl className={classes.formOther}>
-          <InputLabel style={{ left: 10, color: "rgba(0, 0, 0, 0.54)" }}>
+          <InputLabel style={{ left: 10, color: 'rgba(0, 0, 0, 0.54)' }}>
             Rạp
           </InputLabel>
           <Select
@@ -208,7 +209,7 @@ export default function BookingTool() {
           </Select>
         </FormControl>
         <FormControl className={classes.formOther}>
-          <InputLabel style={{ left: 10, color: "rgba(0, 0, 0, 0.54)" }}>
+          <InputLabel style={{ left: 10, color: 'rgba(0, 0, 0, 0.54)' }}>
             Ngày xem
           </InputLabel>
           <Select
@@ -222,7 +223,7 @@ export default function BookingTool() {
           </Select>
         </FormControl>
         <FormControl className={classes.formOther}>
-          <InputLabel style={{ left: 10, color: "rgba(0, 0, 0, 0.54)" }}>
+          <InputLabel style={{ left: 10, color: 'rgba(0, 0, 0, 0.54)' }}>
             Suất chiếu
           </InputLabel>
           <Select
