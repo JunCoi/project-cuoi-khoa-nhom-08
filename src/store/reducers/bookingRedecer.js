@@ -2,11 +2,15 @@ import {
   CHOICE_CHAIR,
   DAT_VE_THANH_CONG,
   GET_CHAIR_LIST,
-} from "../const/bookingConst";
+  SET_LOADING,
+  SET_BTN_LOADING,
+} from '../const/bookingConst';
 
 const initialState = {
   thongTinPhim: [],
   listChair: [],
+  isLoading: false,
+  isBtnLoading: false,
 };
 
 export const bookingReducer = (state = initialState, action) => {
@@ -35,6 +39,10 @@ export const bookingReducer = (state = initialState, action) => {
       state.listChair = [];
       return { ...state };
     }
+    case SET_LOADING:
+      return { ...state, isLoading: payload };
+    case SET_BTN_LOADING:
+      return { ...state, isBtnLoading: payload };
     default:
       return { ...state };
   }
