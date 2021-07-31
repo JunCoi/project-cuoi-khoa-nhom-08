@@ -1,54 +1,53 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  getCinemaClusterAction,
-  getCinemaListAction,
-} from '../store/actions/cinemaAction';
-import {
-  getMovieDetailAction,
-  getMovieDetailClusterAction,
-  removeCurrentMovieDetailAction,
-} from '../store/actions/movieAction';
-import { makeStyles } from '@material-ui/core/styles';
-import { withRouter } from 'react-router';
+  layCumRapChieuAction,
+  layGioChieuPhimAction,
+  layLichChieuAction,
+  layThongTinLichChieuPhimAction,
+  layMaLichChieuPhimAction,
+} from "../store/actions/cinemaAction";
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import { Button } from '@material-ui/core';
-import format from 'date-format';
-import { Link } from 'react-router-dom';
+import { makeStyles } from "@material-ui/core/styles";
+import { withRouter } from "react-router";
+
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import { Button, Grid } from "@material-ui/core";
+
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   LichChieu: {
     maxWidth: 940,
-    margin: 'auto',
-    padding: '20px 0',
+    margin: "auto",
+    padding: "20px 0",
   },
   table: {
     minWidth: 650,
     height: 700,
   },
   fixoverflow: {
-    overflow: 'auto',
-    height: '100%',
+    overflow: "auto",
+    height: "100%",
   },
   col1: {
     width: 96.5,
     padding: 5,
-    borderRight: '1px solid rgba(224, 224, 224, 1)',
+    borderRight: "1px solid rgba(224, 224, 224, 1)",
   },
   col2: {
-    width: '30%',
+    width: "30%",
     padding: 5,
-    borderRight: '1px solid rgba(224, 224, 224, 1)',
+    borderRight: "1px solid rgba(224, 224, 224, 1)",
   },
   cumRap: {
-    cursor: 'pointer',
+    cursor: "pointer",
     fontWeight: 700,
   },
   label: {
@@ -59,103 +58,135 @@ const useStyles = makeStyles((theme) => ({
 function LichChieu(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { movieCode } = props.match.params;
+  const maPhim = props?.maPhim;
+  const history = useHistory();
 
   useEffect(() => {
-    dispatch(getMovieDetailAction(movieCode));
-  }, []);
-  useEffect(() => {
-    dispatch(getCinemaListAction());
-  }, []);
+    dispatch(layThongTinLichChieuPhimAction(maPhim));
+  }, [maPhim, dispatch]);
 
-  const cinemaList = useSelector((state) => {
-    return state.cinema.cinemaList;
+  const heThongRapChieu = useSelector((state) => {
+    return state.cinema?.phim?.heThongRapChieu;
   });
 
-  // ------------------------------------ COL-1 -----------------------------------------
   const renderCol1 = () => {
-    return cinemaList?.map((cinema, index) => {
+    return heThongRapChieu?.map((rap, index) => {
       return (
         <TableRow key={index}>
           <TableCell style={{ padding: 10 }}>
-            <Button onClick={() => handleChoiceCinema(cinema.maHeThongRap)}>
-              <img width="50px" src={cinema.logo} alt="" />
+            <Button onClick={() => handleLayCumRapChieu(rap.maHeThongRap)}>
+              <img width="50px" src={rap.logo} alt="" />
             </Button>
           </TableCell>
         </TableRow>
       );
     });
   };
-  const handleChoiceCinema = (cinema) => {
-    dispatch(getCinemaClusterAction(cinema));
-    dispatch(removeCurrentMovieDetailAction());
+
+  const handleLayCumRapChieu = (maHeThongRap) => {
+    setNgayXem();
+    setSuatChieu();
+    dispatch(layCumRapChieuAction(maHeThongRap));
   };
 
-  // ------------------------------------ COL-2 -----------------------------------------
-  const cinemaCluster = useSelector((state) => {
-    return state.cinema.cinemaCluster;
+  const cumRapChieu = useSelector((state) => {
+    return state?.cinema?.cumRapChieu;
   });
-  const handleChoiceMovie = (cluster) => {
-    dispatch(getMovieDetailClusterAction(cluster));
-  };
 
   const renderCol2 = () => {
-    return cinemaCluster?.map((cluster, index) => {
+    return cumRapChieu?.map((cumRap, index) => {
       return (
         <TableRow key={index}>
           <TableCell
-            onClick={() => handleChoiceMovie(cluster.maCumRap)}
+            onClick={() => {
+              layLichChieu(cumRap.maCumRap);
+            }}
             className={classes.cumRap}
           >
-            <p>{cluster.tenCumRap}</p>
-            <p style={{ fontSize: 12, color: 'rgba(0,0,0, .4)' }}>
-              {cluster.diaChi}
-            </p>
+            <p>{cumRap.tenCumRap}</p>
           </TableCell>
         </TableRow>
       );
     });
   };
 
-  // ------------------------------------ COL-3 -----------------------------------------
+  const layLichChieu = (maCumRap) => {
+    setNgayXem();
+    setSuatChieu();
+    dispatch(layLichChieuAction(maCumRap));
+  };
 
-  const movieDetailCluster = useSelector((state) => {
-    return state.movieList.movieDetailCluster;
+  const [ngayXem, setNgayXem] = useState();
+  const [suatChieu, setSuatChieu] = useState();
+
+  const ngayChieuPhim = useSelector((state) => {
+    return state?.cinema?.ngayChieuPhim;
   });
-  // console.log(movieDetailCluster);
 
   const renderCol3 = () => {
-    if (movieDetailCluster?.length < 1) {
-      return <p>rạp không có lịch chiếu phim</p>;
-    } else {
-      return movieDetailCluster?.map((movie, index) => {
-        return (
-          <TableRow key={index}>
-            <TableCell>
-              <p>Tên phim: {movie.tenPhim}</p>
-              <p>Giá vé: {movie.giaVe}</p>
-              <Link
-                onClick={() => {
-                  handleGetMaLichChieu(movie.maLichChieu);
-                }}
-                to={`/booking/${movie.maLichChieu}`}
-              >
-                Ngày chiếu - Giờ chiếu:
-                {format('MM/dd/yy - hh:mm', new Date(movie.ngayChieuGioChieu))}
-              </Link>
-              <p>Thời Lượng: {movie.thoiLuong}</p>
-              <p>{movie.thongTinRap.tenRap}</p>
-              <p>Tên cụm rạp: {movie.thongTinRap.tenCumRap}</p>
-            </TableCell>
-          </TableRow>
-        );
-      });
-    }
+    return (
+      <TableRow>
+        <TableCell style={{ height: 110, minHeight: 110, padding: 5 }}>
+          <Grid container spacing={3}>
+            <Grid item md={12}>
+              {renderNgayChieu()}
+            </Grid>
+            <Grid item md={12}>
+              {renderGioChieu()}
+            </Grid>
+          </Grid>
+        </TableCell>
+      </TableRow>
+    );
   };
 
-  const handleGetMaLichChieu = (maLichChieu) => {
-    localStorage.setItem('maLichChieu', JSON.stringify(maLichChieu));
+  const renderNgayChieu = () => {
+    return ngayChieuPhim?.map((ngay, index) => {
+      return (
+        <Button onClick={() => handleLayGioChieu(ngay)} key={index}>
+          {ngay}
+        </Button>
+      );
+    });
   };
+
+  const handleLayGioChieu = (ngay) => {
+    setNgayXem(ngay);
+    setSuatChieu();
+    dispatch(layGioChieuPhimAction(ngay));
+  };
+
+  const gioChieuPhim = useSelector((state) => {
+    return state?.cinema?.gioChieuPhim;
+  });
+
+  const renderGioChieu = () => {
+    return gioChieuPhim.map((gio, index) => {
+      return (
+        <Button onClick={() => handleLayMaLichChieu(gio)} key={index}>
+          {gio}
+        </Button>
+      );
+    });
+  };
+
+  const handleLayMaLichChieu = (gio) => {
+    setSuatChieu(gio);
+    dispatch(layMaLichChieuPhimAction(ngayXem, gio));
+  };
+
+  const maLichChieu = useSelector((state) => {
+    return state?.cinema?.maLichChieu?.maLichChieu;
+  });
+
+  if (
+    maLichChieu !== undefined &&
+    ngayXem !== undefined &&
+    suatChieu !== undefined
+  ) {
+    localStorage.setItem("maLichChieu", JSON.stringify(maLichChieu));
+    history.push(`/booking/${maLichChieu}`);
+  }
 
   return (
     <div id="cum-rap" className={classes.LichChieu}>
@@ -169,11 +200,11 @@ function LichChieu(props) {
               </TableCell>
 
               <TableCell className={classes.col2}>
-                <div className={classes.fixoverflow}> {renderCol2()}</div>
+                <div className={classes.fixoverflow}>{renderCol2()}</div>
               </TableCell>
 
               <TableCell className={classes.col3}>
-                <div className={classes.fixoverflow}> {renderCol3()}</div>
+                <div className={classes.fixoverflow}>{renderCol3()}</div>
               </TableCell>
             </TableRow>
           </TableBody>

@@ -4,8 +4,13 @@ import {
   GET_CINEMA_MOVIE,
   GET_MOVIE,
   LAY_CHI_TIET_PHIM,
+  LAY_GIO_CHIEU_PHIM,
+  LAY_HE_THONG_RAP_CHIEU,
+  LAY_LICH_CHIEU,
+  LAY_MA_LICH_CHIEU,
   LAY_NGAY_XEM,
   LAY_TEN_PHIM,
+  LAY_THONG_TIN_LICH_CHIEU_PHIM,
 } from "../const/cinemaConst";
 import format from "date-format";
 import { CHANGE_MOVIE, GET_DANH_SACH_RAP } from "../const/adminConst";
@@ -19,6 +24,12 @@ const initialState = {
   gioChieu: [],
   chiTietPhim: {},
   danhSachRap: [],
+  lichChieu: [],
+  cumRapChieu: [],
+  lichChieuPhim: [],
+  ngayChieuPhim: [],
+  gioChieuPhim: [],
+  maLichChieu: {},
 };
 
 export const cinemaReducer = (state = initialState, { type, payload }) => {
@@ -162,6 +173,88 @@ export const cinemaReducer = (state = initialState, { type, payload }) => {
     case CHANGE_MOVIE: {
       state.cinemaCluster = [];
       state.danhSachRap = [];
+      return { ...state };
+    }
+    case LAY_THONG_TIN_LICH_CHIEU_PHIM: {
+      state.phim = payload;
+      return { ...state };
+    }
+    case LAY_HE_THONG_RAP_CHIEU: {
+      state.lichChieuPhim = [];
+      state.ngayChieuPhim = [];
+      state.gioChieuPhim = [];
+      state.maLichChieu = [];
+      const newHeThong = [...state.phim?.heThongRapChieu];
+      for (let i = 0; i < newHeThong?.length; i++) {
+        if (newHeThong[i].maHeThongRap === payload) {
+          state.cumRapChieu = newHeThong[i]?.cumRapChieu;
+        }
+      }
+      return { ...state };
+    }
+    case LAY_LICH_CHIEU: {
+      state.gioChieuPhim = [];
+      state.maLichChieu = [];
+      for (let i = 0; i < state?.cumRapChieu.length; i++) {
+        if (state.cumRapChieu[i].maCumRap === payload) {
+          state.lichChieuPhim = state.cumRapChieu[i].lichChieuPhim;
+        }
+      }
+      let locNgayXem = [];
+      for (let i = 0; i < state?.lichChieuPhim.length; i++) {
+        if (
+          locNgayXem.indexOf(
+            format(
+              "dd/MM/yyyy",
+              new Date(state?.lichChieuPhim[i].ngayChieuGioChieu)
+            )
+          ) === -1
+        ) {
+          locNgayXem.push(
+            format(
+              "dd/MM/yyyy",
+              new Date(state?.lichChieuPhim[i].ngayChieuGioChieu)
+            )
+          );
+        }
+      }
+      state.ngayChieuPhim = locNgayXem;
+      return { ...state };
+    }
+    case LAY_GIO_CHIEU_PHIM: {
+      state.maLichChieu = [];
+      let locGioChieu = [];
+      for (let i = 0; i < state?.lichChieuPhim.length; i++) {
+        if (
+          format(
+            "dd/MM/yyyy",
+            new Date(state?.lichChieuPhim[i].ngayChieuGioChieu)
+          ) === payload
+        ) {
+          locGioChieu.push(
+            format("hh:mm", new Date(state?.lichChieuPhim[i].ngayChieuGioChieu))
+          );
+        }
+      }
+      state.gioChieuPhim = locGioChieu;
+      return { ...state };
+    }
+    case LAY_MA_LICH_CHIEU: {
+      for (let i = 0; i < state?.lichChieuPhim.length; i++) {
+        if (
+          format(
+            "dd/MM/yyyy",
+            new Date(state?.lichChieuPhim[i]?.ngayChieuGioChieu)
+          ) === payload[0] &&
+          format(
+            "hh:mm",
+            new Date(state?.lichChieuPhim[i]?.ngayChieuGioChieu)
+          ) === payload[1]
+        ) {
+          state.maLichChieu = state?.lichChieuPhim[i];
+        }
+      }
+
       return { ...state };
     }
     default:

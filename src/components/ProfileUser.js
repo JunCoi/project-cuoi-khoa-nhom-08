@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import { makeStyles, withStyles } from "@material-ui/core";
+import { Container, makeStyles, withStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import { Button, Grid } from "@material-ui/core";
 import { FormLabel } from "@material-ui/core";
 import { updateProfileUserAction } from "../store/actions/profileAction";
+import Avatar from "@material-ui/core/Avatar";
+import { deepOrange } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -32,6 +34,16 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     width: "100%",
   },
+  root: {
+    display: "flex",
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+  orange: {
+    color: theme.palette.getContrastText(deepOrange[500]),
+    backgroundColor: deepOrange[500],
+  },
 }));
 
 const CssTextField = withStyles({
@@ -54,8 +66,6 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
-
-
 const inputStyle = { margin: "10px 0", "&>input": { color: "white" } };
 
 function ProfileUser() {
@@ -68,26 +78,35 @@ function ProfileUser() {
   const renderThongTinTaiKhoan = () => {
     return (
       <div>
-        <h1>Tên tài khoản: {profileUser.taiKhoan}</h1>
-        <h1>Mật khẩu: {profileUser.matKhau}</h1>
-        <h1>Họ và tên: {profileUser.hoTen}</h1>
-        <h1>Email: {profileUser.email}</h1>
-        <h1>Số điện thoại: {profileUser.soDT}</h1>
-        <h1>Mã nhóm: {profileUser.maNhom}</h1>
-        <button
-          onClick={() => {
-            changeUserDetail(
-              profileUser.taiKhoan,
-              profileUser.matKhau,
-              profileUser.hoTen,
-              profileUser.email,
-              profileUser.soDT,
-              profileUser.maNhom
-            );
-          }}
-        >
-          Thay đổi thông tin tài khoản
-        </button>
+        <Container>
+          <Grid container>
+            <Grid item md={3} style={{textAlign: "center"}}>
+              <Avatar src="/broken-image.jpg" />
+              <button
+                onClick={() => {
+                  changeUserDetail(
+                    profileUser.taiKhoan,
+                    profileUser.matKhau,
+                    profileUser.hoTen,
+                    profileUser.email,
+                    profileUser.soDT,
+                    profileUser.maNhom
+                  );
+                }}
+              >
+                Thay đổi thông tin tài khoản
+              </button>
+            </Grid>
+            <Grid item md={9}>
+              <h1>Tên tài khoản: {profileUser.taiKhoan}</h1>
+              <h1>Mật khẩu: {profileUser.matKhau}</h1>
+              <h1>Họ và tên: {profileUser.hoTen}</h1>
+              <h1>Email: {profileUser.email}</h1>
+              <h1>Số điện thoại: {profileUser.soDT}</h1>
+              <h1>Mã nhóm: {profileUser.maNhom}</h1>
+            </Grid>
+          </Grid>
+        </Container>
       </div>
     );
   };
