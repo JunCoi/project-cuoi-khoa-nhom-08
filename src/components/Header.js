@@ -19,8 +19,8 @@ import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Link as LinkS } from 'react-scroll';
 import { animateScroll as scroll } from 'react-scroll';
+import { HashLink as LinkH } from 'react-router-hash-link';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
     color: '#b4b4b4',
     margin: '0 10px',
     fontSize: 15,
+    textDecoration: 'none',
   },
   arrowIcon: {
     marginLeft: theme.spacing(1),
@@ -69,19 +70,19 @@ export default function Header() {
   const menuItems = [
     {
       title: 'Lịch chiếu',
-      path: 'lich-chieu',
+      path: '/#lich-chieu',
     },
     {
       title: 'Cụm rạp',
-      path: 'cum-rap',
+      path: '/#cum-rap',
     },
     {
       title: 'Tin tức',
-      path: 'tin-tuc',
+      path: '/#tin-tuc',
     },
     {
       title: 'Ứng dụng',
-      path: 'ung-dung',
+      path: '/#ung-dung',
     },
   ];
 
@@ -101,6 +102,13 @@ export default function Header() {
   const handleProfile = () => {
     setAnchorEl(null);
     history.push('/profile');
+  };
+
+  const scrollWithOffset = (el) => {
+    const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
+    let yOffset;
+    isMobile ? (yOffset = -60) : (yOffset = -80);
+    window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' });
   };
 
   return (
@@ -171,22 +179,20 @@ export default function Header() {
                   style={{ color: 'black' }}
                   component="button"
                   underline="none"
-                  className={classes.menuItem}
                 >
-                  <LinkS
+                  <LinkH
                     onClick={() => {
                       history.push('/');
                       handleClose();
                     }}
-                    to="lich-chieu"
-                    smooth={true}
-                    offset={-60}
+                    className={classes.menuItem}
+                    to="/#lich-chieu"
+                    scroll={(el) => scrollWithOffset(el)}
                   >
                     Lịch Chiếu
-                  </LinkS>
+                  </LinkH>
                 </MenuItem>
                 <MenuItem
-                  style={{ color: 'black' }}
                   component="button"
                   underline="none"
                   className={classes.menuItem}
@@ -198,36 +204,38 @@ export default function Header() {
                   style={{ color: 'black' }}
                   component="button"
                   underline="none"
-                  className={classes.menuItem}
                 >
-                  <LinkS
-                    to="tin-tuc"
+                  <LinkH
+                    to="/#tin-tuc"
                     smooth={true}
                     offset={-60}
                     onClick={() => {
                       history.push('/');
                       handleClose();
                     }}
+                    className={classes.menuItem}
+                    scroll={(el) => scrollWithOffset(el)}
                   >
                     Tin Tức
-                  </LinkS>
+                  </LinkH>
                 </MenuItem>
                 <MenuItem
                   style={{ color: 'black' }}
                   component="button"
                   underline="none"
-                  className={classes.menuItem}
                 >
-                  <LinkS
-                    to="ung-dung"
+                  <LinkH
+                    to="/#ung-dung"
                     smooth={true}
                     onClick={() => {
                       history.push('/');
                       handleClose();
                     }}
+                    className={classes.menuItem}
+                    scroll={(el) => scrollWithOffset(el)}
                   >
                     Ứng Dụng
-                  </LinkS>
+                  </LinkH>
                 </MenuItem>
               </Menu>
             </>
@@ -240,11 +248,14 @@ export default function Header() {
                     key={index}
                     component="button"
                     underline="none"
-                    className={classes.menuItem}
                   >
-                    <LinkS to={item.path} smooth={true} offset={-80}>
+                    <LinkH
+                      className={classes.menuItem}
+                      to={item.path}
+                      scroll={(el) => scrollWithOffset(el)}
+                    >
                       {item.title}
-                    </LinkS>
+                    </LinkH>
                   </Link>
                 ))}
               </div>
