@@ -55,6 +55,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const fadeAwayStyle = { opacity: 0.5 };
+
 function LichChieu(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -68,13 +70,19 @@ function LichChieu(props) {
   const heThongRapChieu = useSelector((state) => {
     return state.cinema?.phim?.heThongRapChieu;
   });
-
+  const [selectedCol1Index, setSelectedCol1Index] = useState(null);
   const renderCol1 = () => {
     return heThongRapChieu?.map((rap, index) => {
+      const faded = selectedCol1Index != index;
       return (
-        <TableRow key={index}>
+        <TableRow key={index} style={faded ? fadeAwayStyle : null}>
           <TableCell style={{ padding: 10 }}>
-            <Button onClick={() => handleLayCumRapChieu(rap.maHeThongRap)}>
+            <Button
+              onClick={() => {
+                handleLayCumRapChieu(rap.maHeThongRap);
+                setSelectedCol1Index(index);
+              }}
+            >
               <img width="50px" src={rap.logo} alt="" />
             </Button>
           </TableCell>
@@ -93,13 +101,16 @@ function LichChieu(props) {
     return state?.cinema?.cumRapChieu;
   });
 
+  const [selectedCol2Index, setSelectedCol2Index] = useState(null);
   const renderCol2 = () => {
-    return cumRapChieu?.map((cumRap, index) => {
+    return cumRapChieu?.map((cumRap, index1) => {
+      const faded = selectedCol2Index != index1;
       return (
-        <TableRow key={index}>
+        <TableRow  key={index1} style={faded ? fadeAwayStyle : null}>
           <TableCell
             onClick={() => {
               layLichChieu(cumRap.maCumRap);
+              setSelectedCol2Index(index1);
             }}
             className={classes.cumRap}
           >
