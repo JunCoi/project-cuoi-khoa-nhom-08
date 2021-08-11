@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   layCumRapChieuAction,
   layGioChieuPhimAction,
@@ -55,6 +55,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const fadeAwayStyle = { opacity: 0.5 };
+
 function LichChieu(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -69,13 +71,22 @@ function LichChieu(props) {
     return state.cinema?.phim?.heThongRapChieu;
   });
 
+  // ------------------------------------ COL-1 -----------------------------------------
+  const [selectedCol1Index, setSelectedCol1Index] = useState(null);
   const renderCol1 = () => {
     return heThongRapChieu?.map((rap, index) => {
+      const faded = selectedCol1Index != index;
       return (
-        <TableRow key={index}>
+        <TableRow key={index} style={faded ? fadeAwayStyle : null}>
           <TableCell style={{ padding: 10 }}>
-            <Button onClick={() => handleLayCumRapChieu(rap.maHeThongRap)}>
-              <img width="50px" src={rap.logo} alt="" />
+            <Button
+              onClick={() => {
+                handleLayCumRapChieu(rap.maHeThongRap);
+                setSelectedCol1Index(index);
+                setSelectedCol2Index(null);
+              }}
+            >
+              <img width="50px" src={cinema.logo} alt="" />
             </Button>
           </TableCell>
         </TableRow>
@@ -89,17 +100,21 @@ function LichChieu(props) {
     dispatch(layCumRapChieuAction(maHeThongRap));
   };
 
+  // ------------------------------------ COL-2 -----------------------------------------
+  const [selectedCol2Index, setSelectedCol2Index] = useState(null);
   const cumRapChieu = useSelector((state) => {
     return state?.cinema?.cumRapChieu;
   });
 
   const renderCol2 = () => {
     return cumRapChieu?.map((cumRap, index) => {
+      const faded = selectedCol2Index != index;
       return (
-        <TableRow key={index}>
+        <TableRow key={index} style={faded ? fadeAwayStyle : null}>
           <TableCell
             onClick={() => {
               layLichChieu(cumRap.maCumRap);
+              setSelectedCol2Index(index);
             }}
             className={classes.cumRap}
           >

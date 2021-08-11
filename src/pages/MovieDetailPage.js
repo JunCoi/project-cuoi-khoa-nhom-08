@@ -94,15 +94,15 @@ function MovieDetailPage() {
                       </Grid>
                       <Grid item xs={12} sm={7}>
                         <div className={classes.detail}>
-                          {/* <h1>{movieDetail.tenPhim}</h1> */}
-                          <p>
-                            Ngày khởi chiếu:{" "}
+                          <h2>{movieDetail.tenPhim}</h2>
+                          <h6>
+                            Ngày khởi chiếu:{' '}
                             {format(
                               "MM/dd/yyyy",
                               new Date(movieDetail.ngayKhoiChieu)
                             )}
-                          </p>
-                          <p>Đánh giá: {movieDetail.danhGia}/10</p>
+                          </h6>
+                          <h6>Đánh giá: {movieDetail.danhGia}/10</h6>
                         </div>
                       </Grid>
                     </Grid>

@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   movieImg: {
     height: 318,
     backgroundPosition: 'center',
-    backGroundSize: 'contain',
+    backgroundSize: 'cover',
     borderRadius: 4,
     position: 'relative',
     cursor: 'pointer',
