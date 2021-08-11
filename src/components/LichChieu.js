@@ -6,48 +6,48 @@ import {
   layLichChieuAction,
   layThongTinLichChieuPhimAction,
   layMaLichChieuPhimAction,
-} from "../store/actions/cinemaAction";
+} from '../store/actions/cinemaAction';
 
-import { makeStyles } from "@material-ui/core/styles";
-import { withRouter } from "react-router";
+import { makeStyles } from '@material-ui/core/styles';
+import { withRouter } from 'react-router';
 
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import { Button, Grid } from "@material-ui/core";
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import { Button, Grid } from '@material-ui/core';
 
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   LichChieu: {
     maxWidth: 940,
-    margin: "auto",
-    padding: "20px 0",
+    margin: 'auto',
+    padding: '20px 0',
   },
   table: {
     minWidth: 650,
     height: 700,
   },
   fixoverflow: {
-    overflow: "auto",
-    height: "100%",
+    overflow: 'auto',
+    height: '100%',
   },
   col1: {
     width: 96.5,
     padding: 5,
-    borderRight: "1px solid rgba(224, 224, 224, 1)",
+    borderRight: '1px solid rgba(224, 224, 224, 1)',
   },
   col2: {
-    width: "30%",
+    width: '30%',
     padding: 5,
-    borderRight: "1px solid rgba(224, 224, 224, 1)",
+    borderRight: '1px solid rgba(224, 224, 224, 1)',
   },
   cumRap: {
-    cursor: "pointer",
+    cursor: 'pointer',
     fontWeight: 700,
   },
   label: {
@@ -86,7 +86,7 @@ function LichChieu(props) {
                 setSelectedCol2Index(null);
               }}
             >
-              <img width="50px" src={cinema.logo} alt="" />
+              <img width="50px" src={rap.logo} alt="" />
             </Button>
           </TableCell>
         </TableRow>
@@ -199,7 +199,7 @@ function LichChieu(props) {
     ngayXem !== undefined &&
     suatChieu !== undefined
   ) {
-    localStorage.setItem("maLichChieu", JSON.stringify(maLichChieu));
+    localStorage.setItem('maLichChieu', JSON.stringify(maLichChieu));
     history.push(`/booking/${maLichChieu}`);
   }
 

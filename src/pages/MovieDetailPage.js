@@ -1,37 +1,37 @@
-import React, { useEffect, useState } from "react";
-import { Tabs, Tab } from "@material-ui/core";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import { makeStyles } from "@material-ui/core/styles";
-import LichChieu from "../components/LichChieu";
-import ThongTin from "../components/ThongTin";
-import Loading from "../components/Loading";
-import Grid from "@material-ui/core/Grid";
-import format from "date-format";
-import { useParams } from "react-router-dom";
-import axios from "axios";
-import DanhGia from "../components/DanhGia";
+import React, { useEffect, useState } from 'react';
+import { Tabs, Tab } from '@material-ui/core';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import { makeStyles } from '@material-ui/core/styles';
+import LichChieu from '../components/LichChieu';
+import ThongTin from '../components/ThongTin';
+import Loading from '../components/Loading';
+import Grid from '@material-ui/core/Grid';
+import format from 'date-format';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import DanhGia from '../components/DanhGia';
 
 const useStyles = makeStyles((theme) => ({
   movieDetailPage: {
     maxWidth: 940,
-    margin: "auto",
-    paddingTop: "100px",
-    color: "white",
+    margin: 'auto',
+    paddingTop: '100px',
+    color: 'white',
   },
   img: {
-    width: "100%",
+    width: '100%',
     borderRadius: 8,
-    padding: "0 10px",
+    padding: '0 10px',
   },
   detail: {
-    padding: "0px 10px",
+    padding: '0px 10px',
   },
 }));
 
 function MovieDetailPage() {
   const classes = useStyles();
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [movieDetail, setMovieDetail] = useState(null);
 
   const { movieCode } = useParams();
@@ -40,28 +40,30 @@ function MovieDetailPage() {
     try {
       const res = await axios({
         url: `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayThongTinPhim?MaPhim=${movieCode}`,
-        method: "GET",
+        method: 'GET',
       });
       setMovieDetail(res.data);
     } catch (error) {
       console.log(error);
-      setError("404 page not found");
+      setError('404 page not found');
     }
   };
+  console.log(movieDetail);
 
   useEffect(() => {
     getMovieDetail();
   }, []);
 
   const [selectedTab, setSelectedTab] = useState(0);
+  console.log(selectedTab);
 
   const handleChange = (event, newValue) => {
     setSelectedTab(newValue);
   };
 
   const bgBlur = {
-    background: "rgba(10, 32, 41, 0.5)",
-    backdropFilter: "blur(20px)",
+    background: 'rgba(10, 32, 41, 0.5)',
+    backdropFilter: 'blur(20px)',
   };
 
   return (
@@ -77,8 +79,8 @@ function MovieDetailPage() {
               <div
                 style={{
                   backgroundImage: `url(${movieDetail.hinhAnh})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "top",
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'top',
                 }}
               >
                 <Header />
@@ -98,7 +100,7 @@ function MovieDetailPage() {
                           <h6>
                             Ngày khởi chiếu:{' '}
                             {format(
-                              "MM/dd/yyyy",
+                              'MM/dd/yyyy',
                               new Date(movieDetail.ngayKhoiChieu)
                             )}
                           </h6>
@@ -111,12 +113,8 @@ function MovieDetailPage() {
                       <Tab className={classes.label} label="Thông Tin" />
                       <Tab className={classes.label} label="Đánh Giá" />
                     </Tabs>
-                    {selectedTab === 0 && (
-                      <LichChieu maPhim={movieDetail?.maPhim} />
-                    )}
-                    {selectedTab === 1 && (
-                      <ThongTin movieDetail={movieDetail} />
-                    )}
+                    {selectedTab === 0 && <LichChieu />}
+                    {selectedTab === 1 && <ThongTin />}
                     {selectedTab === 2 && <DanhGia />}
                   </div>
                   <Footer />
