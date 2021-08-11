@@ -106,7 +106,8 @@ function LichChieu(props) {
     return state?.cinema?.cumRapChieu;
   });
 
-  const [selectedCol2Index, setSelectedCol2Index] = useState(null);
+  console.log(cumRapChieu);
+
   const renderCol2 = () => {
     return cumRapChieu?.map((cumRap, index) => {
       const faded = selectedCol2Index != index;
@@ -142,12 +143,15 @@ function LichChieu(props) {
   const renderCol3 = () => {
     return (
       <TableRow>
-        <TableCell style={{ height: 110, minHeight: 110, padding: 5 }}>
+        <TableCell
+          style={{ height: 110, minHeight: 110, padding: 5 }}
+          style={{ width: '100%' }}
+        >
           <Grid container spacing={3}>
-            <Grid item md={12}>
+            <Grid item xs={12}>
               {renderNgayChieu()}
             </Grid>
-            <Grid item md={12}>
+            <Grid item xs={12}>
               {renderGioChieu()}
             </Grid>
           </Grid>
