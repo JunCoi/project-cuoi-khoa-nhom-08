@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   layCumRapChieuAction,
   layGioChieuPhimAction,
@@ -70,6 +70,8 @@ function LichChieu(props) {
   const heThongRapChieu = useSelector((state) => {
     return state.cinema?.phim?.heThongRapChieu;
   });
+
+  // ------------------------------------ COL-1 -----------------------------------------
   const [selectedCol1Index, setSelectedCol1Index] = useState(null);
   const renderCol1 = () => {
     return heThongRapChieu?.map((rap, index) => {
@@ -81,6 +83,7 @@ function LichChieu(props) {
               onClick={() => {
                 handleLayCumRapChieu(rap.maHeThongRap);
                 setSelectedCol1Index(index);
+                setSelectedCol2Index(null);
               }}
             >
               <img width="50px" src={rap.logo} alt="" />
@@ -97,20 +100,22 @@ function LichChieu(props) {
     dispatch(layCumRapChieuAction(maHeThongRap));
   };
 
+  // ------------------------------------ COL-2 -----------------------------------------
+  const [selectedCol2Index, setSelectedCol2Index] = useState(null);
   const cumRapChieu = useSelector((state) => {
     return state?.cinema?.cumRapChieu;
   });
 
   const [selectedCol2Index, setSelectedCol2Index] = useState(null);
   const renderCol2 = () => {
-    return cumRapChieu?.map((cumRap, index1) => {
-      const faded = selectedCol2Index != index1;
+    return cumRapChieu?.map((cumRap, index) => {
+      const faded = selectedCol2Index != index;
       return (
-        <TableRow  key={index1} style={faded ? fadeAwayStyle : null}>
+        <TableRow key={index} style={faded ? fadeAwayStyle : null}>
           <TableCell
             onClick={() => {
               layLichChieu(cumRap.maCumRap);
-              setSelectedCol2Index(index1);
+              setSelectedCol2Index(index);
             }}
             className={classes.cumRap}
           >

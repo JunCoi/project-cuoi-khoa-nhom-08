@@ -73,23 +73,38 @@ function MovieDetailPage() {
           {!movieDetail ? (
             <Loading />
           ) : (
-            <div
-              style={{
-                backgroundImage: `url(${movieDetail.hinhAnh})`,
-                backgroundSize: "cover",
-                backgroundPosition: "top",
-              }}
-            >
-              <Header />
-              <div style={bgBlur}>
-                <div className={classes.movieDetailPage}>
-                  <Grid container spacing={2} alignItems="center">
-                    <Grid item xs={12} sm={5}>
-                      <img
-                        className={classes.img}
-                        src={movieDetail.hinhAnh}
-                        alt=""
-                      />
+            <h1>
+              <div
+                style={{
+                  backgroundImage: `url(${movieDetail.hinhAnh})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "top",
+                }}
+              >
+                <Header />
+                <div style={bgBlur}>
+                  <div className={classes.movieDetailPage}>
+                    <Grid container spacing={2} alignItems="center">
+                      <Grid item xs={12} sm={5}>
+                        <img
+                          className={classes.img}
+                          src={movieDetail.hinhAnh}
+                          alt=""
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={7}>
+                        <div className={classes.detail}>
+                          <h2>{movieDetail.tenPhim}</h2>
+                          <h6>
+                            Ngày khởi chiếu:{' '}
+                            {format(
+                              "MM/dd/yyyy",
+                              new Date(movieDetail.ngayKhoiChieu)
+                            )}
+                          </h6>
+                          <h6>Đánh giá: {movieDetail.danhGia}/10</h6>
+                        </div>
+                      </Grid
                     </Grid>
                     <Grid item xs={12} sm={7}>
                       <div className={classes.detail}>
