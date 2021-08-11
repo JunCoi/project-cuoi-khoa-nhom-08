@@ -5,6 +5,7 @@ import {
   GET_CINEMA_LIST,
   GET_CINEMA_MOVIE,
   GET_MOVIE,
+  LAM_MOI_TRANG,
   LAY_CHI_TIET_PHIM,
   LAY_GIO_CHIEU_PHIM,
   LAY_HE_THONG_RAP_CHIEU,
@@ -156,5 +157,11 @@ export const layMaLichChieuPhimAction = (ngay, gio) => {
   return {
     type: LAY_MA_LICH_CHIEU,
     payload: [ngay, gio],
+  };
+};
+
+export const lamMoiTrangAction = () => {
+  return {
+    type: LAM_MOI_TRANG,
   };
 };

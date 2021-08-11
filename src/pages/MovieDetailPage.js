@@ -73,56 +73,52 @@ function MovieDetailPage() {
           {!movieDetail ? (
             <Loading />
           ) : (
-            <h1>
-              <div
-                style={{
-                  backgroundImage: `url(${movieDetail.hinhAnh})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "top",
-                }}
-              >
-                <Header />
-                <div style={bgBlur}>
-                  <div className={classes.movieDetailPage}>
-                    <Grid container spacing={2} alignItems="center">
-                      <Grid item xs={12} sm={5}>
-                        <img
-                          className={classes.img}
-                          src={movieDetail.hinhAnh}
-                          alt=""
-                        />
-                      </Grid>
-                      <Grid item xs={12} sm={7}>
-                        <div className={classes.detail}>
-                          {/* <h1>{movieDetail.tenPhim}</h1> */}
-                          <p>
-                            Ngày khởi chiếu:{" "}
-                            {format(
-                              "MM/dd/yyyy",
-                              new Date(movieDetail.ngayKhoiChieu)
-                            )}
-                          </p>
-                          <p>Đánh giá: {movieDetail.danhGia}/10</p>
-                        </div>
-                      </Grid>
+            <div
+              style={{
+                backgroundImage: `url(${movieDetail.hinhAnh})`,
+                backgroundSize: "cover",
+                backgroundPosition: "top",
+              }}
+            >
+              <Header />
+              <div style={bgBlur}>
+                <div className={classes.movieDetailPage}>
+                  <Grid container spacing={2} alignItems="center">
+                    <Grid item xs={12} sm={5}>
+                      <img
+                        className={classes.img}
+                        src={movieDetail.hinhAnh}
+                        alt=""
+                      />
                     </Grid>
-                    <Tabs value={selectedTab} onChange={handleChange} centered>
-                      <Tab className={classes.label} label="Lịch Chiếu" />
-                      <Tab className={classes.label} label="Thông Tin" />
-                      <Tab className={classes.label} label="Đánh Giá" />
-                    </Tabs>
-                    {selectedTab === 0 && (
-                      <LichChieu maPhim={movieDetail?.maPhim} />
-                    )}
-                    {selectedTab === 1 && (
-                      <ThongTin movieDetail={movieDetail} />
-                    )}
-                    {selectedTab === 2 && <DanhGia />}
-                  </div>
-                  <Footer />
+                    <Grid item xs={12} sm={7}>
+                      <div className={classes.detail}>
+                        {/* <h1>{movieDetail.tenPhim}</h1> */}
+                        <p>
+                          Ngày khởi chiếu:{" "}
+                          {format(
+                            "MM/dd/yyyy",
+                            new Date(movieDetail.ngayKhoiChieu)
+                          )}
+                        </p>
+                        <p>Đánh giá: {movieDetail.danhGia}/10</p>
+                      </div>
+                    </Grid>
+                  </Grid>
+                  <Tabs value={selectedTab} onChange={handleChange} centered>
+                    <Tab className={classes.label} label="Lịch Chiếu" />
+                    <Tab className={classes.label} label="Thông Tin" />
+                    <Tab className={classes.label} label="Đánh Giá" />
+                  </Tabs>
+                  {selectedTab === 0 && (
+                    <LichChieu maPhim={movieDetail?.maPhim} />
+                  )}
+                  {selectedTab === 1 && <ThongTin movieDetail={movieDetail} />}
+                  {selectedTab === 2 && <DanhGia />}
                 </div>
+                <Footer />
               </div>
-            </h1>
+            </div>
           )}
         </>
       )}
