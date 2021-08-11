@@ -113,8 +113,12 @@ function MovieDetailPage() {
                       <Tab className={classes.label} label="Thông Tin" />
                       <Tab className={classes.label} label="Đánh Giá" />
                     </Tabs>
-                    {selectedTab === 0 && <LichChieu />}
-                    {selectedTab === 1 && <ThongTin />}
+                    {selectedTab === 0 && (
+                      <LichChieu maPhim={movieDetail?.maPhim} />
+                    )}
+                    {selectedTab === 1 && (
+                      <ThongTin movieDetail={movieDetail} />
+                    )}
                     {selectedTab === 2 && <DanhGia />}
                   </div>
                   <Footer />

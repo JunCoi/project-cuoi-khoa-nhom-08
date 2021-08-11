@@ -106,6 +106,7 @@ function LichChieu(props) {
     return state?.cinema?.cumRapChieu;
   });
 
+  const [selectedCol2Index, setSelectedCol2Index] = useState(null);
   const renderCol2 = () => {
     return cumRapChieu?.map((cumRap, index) => {
       const faded = selectedCol2Index != index;

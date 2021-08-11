@@ -3,6 +3,7 @@ import {
   GET_CINEMA_LIST,
   GET_CINEMA_MOVIE,
   GET_MOVIE,
+  LAM_MOI_TRANG,
   LAY_CHI_TIET_PHIM,
   LAY_GIO_CHIEU_PHIM,
   LAY_HE_THONG_RAP_CHIEU,
@@ -255,6 +256,13 @@ export const cinemaReducer = (state = initialState, { type, payload }) => {
         }
       }
 
+      return { ...state };
+    }
+    case LAM_MOI_TRANG: {
+      state.cumRapChieu = [];
+      state.ngayChieuPhim = [];
+      state.gioChieuPhim = [];
+      state.maLichChieu = [];
       return { ...state };
     }
     default:
