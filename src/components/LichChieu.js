@@ -86,7 +86,7 @@ function LichChieu(props) {
                 setSelectedCol2Index(null);
               }}
             >
-              <img width="50px" src={cinema.logo} alt="" />
+              <img width="50px" src={rap.logo} alt="" />
             </Button>
           </TableCell>
         </TableRow>
@@ -106,6 +106,7 @@ function LichChieu(props) {
     return state?.cinema?.cumRapChieu;
   });
 
+  const [selectedCol2Index, setSelectedCol2Index] = useState(null);
   const renderCol2 = () => {
     return cumRapChieu?.map((cumRap, index) => {
       const faded = selectedCol2Index != index;
