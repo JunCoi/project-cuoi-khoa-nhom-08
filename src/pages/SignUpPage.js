@@ -84,7 +84,7 @@ export default function Signin() {
     matKhau: "",
     email: "",
     soDt: "",
-    maNhom: "",
+    maNhom: "GP01",
     maLoaiNguoiDung: "KhachHang",
     hoTen: "",
   });
