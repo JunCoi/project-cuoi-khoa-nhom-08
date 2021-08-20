@@ -22,7 +22,7 @@ function ProfileBookTickets() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const profileUser = useSelector((state) => {
-    return state.profile.profileUser;
+    return state?.profile?.profileUser;
   });
 
   // ------------------------------   COL-1   --------------------

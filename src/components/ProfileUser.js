@@ -72,7 +72,7 @@ function ProfileUser() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const profileUser = useSelector((state) => {
-    return state.profile.profileUser;
+    return state?.profile?.profileUser;
   });
   // console.log(profileUser);
   const renderThongTinTaiKhoan = () => {
@@ -80,7 +80,7 @@ function ProfileUser() {
       <div>
         <Container>
           <Grid container>
-            <Grid item md={3} style={{textAlign: "center"}}>
+            <Grid item md={3} style={{ textAlign: "center" }}>
               <Avatar src="/broken-image.jpg" />
               <button
                 onClick={() => {
@@ -243,7 +243,6 @@ function ProfileUser() {
   return (
     <div>
       {renderThongTinTaiKhoan()}
-
       {renderModal()}
     </div>
   );

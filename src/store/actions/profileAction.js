@@ -16,6 +16,7 @@ export const getProfileAction = (taiKhoan) => {
         type: GET_PROFILE,
         payload: res.data,
       });
+      console.log(res.data);
     } catch (error) {
       console.log(error);
     }
